@@ -1,6 +1,6 @@
 # ETT_App
 
-A Flutter/Dart Application with several tables to inspect the bus fleet, record accidents with the option of taking pictures or drawing accidents.
+A Flutter/Dart Application with several tables to inspect the bus fleet, record accidents by taking pictures or drawing the accident (using some draggable vehicle icons and draw whatever they want to) and sign their forms.
 
 ## Some screens of the project
 
