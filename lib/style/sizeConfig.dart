@@ -10,6 +10,11 @@ class SizeConfig {
   static double _safeAreaVertical;
   static double safeBlockHorizontal;
   static double safeBlockVertical;
+//  double a_width = MediaQuery.of(context).size.width*0.4;
+//  double b_width = MediaQuery.of(context).size.width*0.3;
+//  double title_width = MediaQuery.of(context).size.width*0.7;
+//  double title_height = MediaQuery.of(context).size.height*0.2;
+//  double width = MediaQuery.of(context).size.width;
 
   void init(BuildContext context){
     _mediaQueryData = MediaQuery.of(context);

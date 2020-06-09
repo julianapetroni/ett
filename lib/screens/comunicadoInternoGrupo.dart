@@ -1,9 +1,7 @@
 import 'package:ett_app/screens/appBar.dart';
 import 'package:flutter/material.dart';
-import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
-import 'package:ett_app/screens/status.dart';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter/services.dart';
 import 'package:json_table/json_table.dart';
 import 'dart:convert';
@@ -64,12 +62,11 @@ class ComunicadoInternoGrupoState extends State<ComunicadoInternoGrupo> {
 
   @override
   Widget build(BuildContext context) {
+    String title = 'Comunicado Interno Enviados para o Grupo TI';
 
     SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBarETT(
-
-      ),
+      appBar: AppBarETT(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
@@ -77,7 +74,7 @@ class ComunicadoInternoGrupoState extends State<ComunicadoInternoGrupo> {
                 Padding(
                   padding: const EdgeInsets.only(left: 30.0, top: 30.0),
                   child: Container(
-                    child: Text("Comunicado Interno Enviados para o Grupo TI",
+                    child: Text(title,
                         style: TextStyle(
                             fontSize: 19.0,
                             color: Colors.grey[700],

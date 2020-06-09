@@ -4,7 +4,7 @@ import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/utils/validators.dart';
 
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/usuario.dart';
 
 class NovaSenha extends StatefulWidget {
 

@@ -1,5 +1,5 @@
 import 'package:ett_app/domains/solicitacao.dart';
-import 'HoraAgendamento.dart';
+import 'horaAgendamento.dart';
 class Agendamento {
   int id;
   Solicitacao solicitacao;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/screens/status.dart';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:json_table/json_table.dart';
@@ -186,22 +186,6 @@ class ControleDeFrequenciaDeLinhaState
           backgroundColor: LightColors.kDarkYellow,
           elevation: 0.0,
         ),
-//      AppBar(
-//        iconTheme: new IconThemeData(color: Colors.grey[600]),
-//        title: Center(
-//            child: Text(
-//              ' ',
-//              style: TextStyle(color: Colors.grey[400]),
-//            )),
-//        backgroundColor: Colors.yellow[800],
-//        actions: <Widget>[
-//          Padding(
-//              padding: const EdgeInsets.only(right: 10.0),
-//              child: Row(
-//                children: <Widget>[],
-//              ))
-//        ],
-//      ),
         backgroundColor: Colors.white,
         body: SafeArea(
           child: ListView(

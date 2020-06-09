@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:ett_app/domains/Cidade.dart';
-import 'package:ett_app/domains/Estado.dart';
-import 'package:ett_app/domains/Perfil.dart';
+import 'package:ett_app/domains/cidade.dart';
+import 'package:ett_app/domains/estado.dart';
+import 'package:ett_app/domains/perfil.dart';
 
 class Usuario {
   int id;
@@ -21,9 +21,10 @@ class Usuario {
   String status;// = "ATIVO";
   String senha;
   String resetSenha;//= "N";
+  String prefixo;
 
 
-  Usuario({this.id, this.nome, this.cpf, this.endereco, this.complemento, this.bairro, this.cidade, this.estado, this.cep, this.contato, this.email ,this.observacao, this.perfil, this.status, this.senha, this.resetSenha});
+  Usuario({this.id, this.nome, this.cpf, this.endereco, this.complemento, this.bairro, this.cidade, this.estado, this.cep, this.contato, this.email ,this.observacao, this.perfil, this.status, this.senha, this.resetSenha, this.prefixo});
 
   factory Usuario.fromJson(Map<String, dynamic> json) {
     return Usuario(
@@ -43,6 +44,7 @@ class Usuario {
       status: json['status'],
       senha: json['senha'],
       resetSenha: json['resetSenha'],
+      prefixo: json['prefixo'],
 
     );
   }
@@ -64,6 +66,7 @@ class Usuario {
     'status': status,
     'senha': senha,
     'resetSenha': resetSenha,
+    'prefixo': prefixo,
   };
 
   Usuario.vazio(){}

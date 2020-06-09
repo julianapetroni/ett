@@ -2,10 +2,10 @@
 //import 'dart:convert';
 //import 'dart:async';
 //import 'package:http/http.dart' as http;
-//import 'package:pec_login/domains/Agendamento.dart';
-//import 'package:pec_login/domains/DataAgendamento.dart';
-//import 'package:pec_login/domains/HoraAgendamento.dart';
-//import 'package:pec_login/domains/Usuario.dart';
+//import 'package:pec_login/domains/agendamento.dart';
+//import 'package:pec_login/domains/dataAgendamento.dart';
+//import 'package:pec_login/domains/horaAgendamento.dart';
+//import 'package:pec_login/domains/usuario.dart';
 //import 'package:pec_login/domains/solicitacao.dart';
 //import 'package:pec_login/screens/status.dart';
 //import 'appBarPEC.dart';

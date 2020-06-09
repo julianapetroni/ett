@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:ett_app/domains/Cidade.dart';
-import 'package:ett_app/domains/Instituicao.dart';
-import 'package:ett_app/domains/TipoSolicitacao.dart';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/cidade.dart';
+import 'package:ett_app/domains/instituicao.dart';
+import 'package:ett_app/domains/tipoSolicitacao.dart';
+import 'package:ett_app/domains/usuario.dart';
 
 class Solicitacao {
   int id;

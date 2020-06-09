@@ -1,34 +1,46 @@
+import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/screens/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/utils/validators.dart';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/usuario.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
+import 'login.dart';
+
 class EnviarAlteracaoEscala extends StatefulWidget {
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
   EnviarAlteracaoEscala(
       {Key key,
       // this.value,
-      this.user})
+      this.user,
+      this.token,
+      this.sol})
       : super(key: key);
 
   @override
   EnviarAlteracaoEscalaState createState() {
-    return EnviarAlteracaoEscalaState(user: user);
+    return EnviarAlteracaoEscalaState(user: user, token: token, sol: sol);
   }
 }
 
 class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
-  EnviarAlteracaoEscalaState({this.user});
+
+  EnviarAlteracaoEscalaState({this.user, this.token,
+    this.sol});
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -49,6 +61,9 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
   final _veiculoController = TextEditingController();
   final _motivoController = TextEditingController();
   final _descricaoController = TextEditingController();
+
+  //mask
+  var dataController = new MaskedTextController(mask: '00/00/0000');
 
   @override
   initState() {
@@ -72,6 +87,22 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
       form.save();
     } else {
       setState(() => _autovalidate = true);
+    }
+  }
+
+  //Motivo
+  String _dropdownError;
+
+  _validateForm() {
+    bool _isValid = _formKey.currentState.validate();
+
+    if (_mySelection == null ) {
+      setState(() => _dropdownError = "Selecione uma opção");
+      _isValid = false;
+    }
+
+    if (_isValid) {
+      //form is valid
     }
   }
 
@@ -149,7 +180,7 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
                         padding: const EdgeInsets.all(25.0),
                         child: Container(
                           width: double.infinity,
-                          height: 670,
+                          height: 800,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8.0),
@@ -214,7 +245,7 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
                                       left: 20.0, right: 20.0),
                                   child: TextFormField(
                                     key: _foraDeServicoKey,
-                                    controller: _foraDeServicoController,
+                                    controller: dataController,
                                     validator: composeValidators('a data',
                                         [requiredValidator, minLegthValidator]),
                                     onSaved: (value) =>
@@ -297,11 +328,21 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
                                     onChanged: (newVal) {
                                       setState(() {
                                         _mySelection = newVal;
+                                        _dropdownError = null;
                                       });
                                     },
                                     value: _mySelection,
                                     isExpanded: true,
                                     hint: Text('Selecione o motivo'),
+                                  ),
+                                ),
+                                _dropdownError == null
+                                    ? SizedBox.shrink()
+                                    : Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    _dropdownError ?? "",
+                                    style: TextStyle(color: Colors.red[800], fontSize: 12),
                                   ),
                                 ),
                                 SizedBox(
@@ -341,80 +382,102 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
                                   ),
                                 ),
                                 SizedBox(height: 50.0),
-                                FlatButton(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 30.0),
-                                    child: FlatButton(
-                                      onPressed: () {
-                                        // Validate returns true if the form is valid, or false
-                                        // otherwise.
-//                          if (_formKey.currentState.validate()) {
-//                            _makePostRequest(_emailController.text,
-//                                _passwordController.text);
-//
-//                            // If the form is valid, display a Snackbar.
-////                      Scaffold.of(context).showSnackBar(
-////                          SnackBar(content: Text('Processing Data')));
-////                      bool flag = false;
-////                      for (int c = 0; c < _docs.length; c++) {
-////                        print(c);
-////                        if (_docs[c]['email'] == _emailController.text) {
-////                          flag = true;
-////                          if (_docs[c]['senha'] == _passwordController.text) {
-////                            Navigator.push(
-////                              context,
-////                              MaterialPageRoute(builder: (context) => Status()),
-////                            );
-////                            Navigator.of(context).pushAndRemoveUntil(
-////                                MaterialPageRoute(
-////                                    builder: (context) => Status()),
-////                                (Route<dynamic> route) => false);
-////                          } else {
-////                            final snackBar = new SnackBar(
-////                                content:
-////                                    new Text('E-mail ou senha incorretos'));
-////                            _scaffoldKey.currentState.showSnackBar(snackBar);
-////                            //print(_passwordController.text.toString());
-////                          }
-////                        }
-////                      }
-////                      if (flag == false) {
-////                        final semCadastro = new SnackBar(
-////                            content: new Text('Usuário não cadastrado!'));
-////                        _scaffoldKey.currentState.showSnackBar(semCadastro);
-////                      }
-//
-//                            print(_emailController.text.toString());
-//                            print(_passwordController.text.toString());
-//                            //}
-//                            // _submit();
-//                          }
-                                      },
-                                      textColor: Colors.white,
-                                      color: Colors.white,
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 45.0,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          gradient: LinearGradient(
-                                            colors: <Color>[
-                                              Colors.yellow[800],
-                                              Colors.yellow[700],
-                                              Colors.yellow[600],
-                                            ],
-                                          ),
+                                FlatButton(child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 20.0),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      _validateForm();
+                                      if(_formKey.currentState.validate()
+                                      && _mySelection != null
+                                      ) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            // return object of type Dialog
+                                            return AlertDialog(
+                                              title: Center(
+                                                  child: new Icon(
+                                                    Icons.check_circle, size: 50.0, color: Colors.green,)),
+                                              content: Row(
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    child: new Text(
+                                                      'Formulário registrado com sucesso!', style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        color: Colors.grey[600],
+                                                        fontFamily: "Poppins-Bold",
+                                                        letterSpacing: .6),
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),
+
+                                              actions: <Widget>[
+                                                // usually buttons at the bottom of the dialog
+                                                new FlatButton(
+                                                  child: new Text(
+                                                    "Ok",
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                        Future.delayed(const Duration(milliseconds: 3000), () {
+                                          //setState(() {
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) =>
+                                                Status(
+                                                    sol: sol,
+                                                    user: user,
+                                                    token: token
+                                                  //textSucesso: textSucesso,
+                                                  //alertSucessoVisible: alertSucessoVisible,
+
+                                                ),
+                                            ),
+                                          );
+                                          //});
+                                        });
+                                      }else {
+                                        final semCadastro =
+                                        new SnackBar(content: new Text('Preencha todos os campos para prosseguir!'));
+                                        _scaffoldKey.currentState.showSnackBar(semCadastro);
+                                      }
+
+
+                                    },
+                                    textColor: Colors.white,
+                                    color: Colors.white,
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 45.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                        gradient: LinearGradient(
+                                          colors: <Color>[
+                                            Colors.yellow[800],
+                                            Colors.yellow[700],
+                                            Colors.yellow[600],
+                                          ],
                                         ),
-                                        child: Center(
-                                          child: const Text('ENVIAR',
-                                              style: TextStyle(fontSize: 20)),
-                                        ),
+                                      ),
+                                      child: Center(
+                                        child: const Text('ENVIAR',
+                                            style: TextStyle(fontSize: 20)),
                                       ),
                                     ),
                                   ),
-                                ),
+                                ),),
                                 SizedBox(height: 10.0),
                               ],
                             ),
@@ -429,76 +492,6 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
           ],
         ),
       ),
-//      floatingActionButton: Padding(
-//        padding: const EdgeInsets.only(left: 30.0, bottom: 30.0),
-//        child: FlatButton(
-//          onPressed: () {
-//            // Validate returns true if the form is valid, or false
-//            // otherwise.
-////                          if (_formKey.currentState.validate()) {
-////                            _makePostRequest(_emailController.text,
-////                                _passwordController.text);
-////
-////                            // If the form is valid, display a Snackbar.
-//////                      Scaffold.of(context).showSnackBar(
-//////                          SnackBar(content: Text('Processing Data')));
-//////                      bool flag = false;
-//////                      for (int c = 0; c < _docs.length; c++) {
-//////                        print(c);
-//////                        if (_docs[c]['email'] == _emailController.text) {
-//////                          flag = true;
-//////                          if (_docs[c]['senha'] == _passwordController.text) {
-//////                            Navigator.push(
-//////                              context,
-//////                              MaterialPageRoute(builder: (context) => Status()),
-//////                            );
-//////                            Navigator.of(context).pushAndRemoveUntil(
-//////                                MaterialPageRoute(
-//////                                    builder: (context) => Status()),
-//////                                (Route<dynamic> route) => false);
-//////                          } else {
-//////                            final snackBar = new SnackBar(
-//////                                content:
-//////                                    new Text('E-mail ou senha incorretos'));
-//////                            _scaffoldKey.currentState.showSnackBar(snackBar);
-//////                            //print(_passwordController.text.toString());
-//////                          }
-//////                        }
-//////                      }
-//////                      if (flag == false) {
-//////                        final semCadastro = new SnackBar(
-//////                            content: new Text('Usuário não cadastrado!'));
-//////                        _scaffoldKey.currentState.showSnackBar(semCadastro);
-//////                      }
-////
-////                            print(_emailController.text.toString());
-////                            print(_passwordController.text.toString());
-////                            //}
-////                            // _submit();
-////                          }
-//          },
-//          textColor: Colors.white,
-//          color: Colors.white,
-//          child: Container(
-//            width: double.infinity,
-//            height: 45.0,
-//            decoration: BoxDecoration(
-//              borderRadius: BorderRadius.circular(15.0),
-//              gradient: LinearGradient(
-//                colors: <Color>[
-//                  Colors.yellow[800],
-//                  Colors.yellow[700],
-//                  Colors.yellow[600],
-//                ],
-//              ),
-//            ),
-//            child: Center(
-//              child: const Text('ENVIAR',
-//                  style: TextStyle(fontSize: 20)),
-//            ),
-//          ),
-//        ),
-//      ),
     );
   }
 }

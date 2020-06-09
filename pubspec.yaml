@@ -76,6 +76,10 @@ flutter:
   - images/carroAvariaComLinhas.jpg
   - images/carroAvaria.png
   - images/car.jpg
+  - images/carro.png
+  - images/truckFrontIcon.png
+  - images/busFront.png
+  - images/pickUP.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/screens/status.dart';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter/services.dart';
 import 'package:json_table/json_table.dart';
 import 'dart:convert';

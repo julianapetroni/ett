@@ -2,7 +2,7 @@ import 'package:ett_app/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/usuario.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'dart:async';

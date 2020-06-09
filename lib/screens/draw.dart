@@ -2,9 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/screens/appBar.dart';
+import 'package:ett_app/screens/avariasOnibus.dart';
 import 'package:ett_app/style/lightColors.dart';
 import 'package:ett_app/screens/login.dart';
 import 'package:ett_app/screens/relatorioOcorrenciaTransito.dart';
@@ -36,18 +37,21 @@ class _DrawState extends State<Draw> {
   _DrawState({this.sol, this.user, this.token});
 
   //legenda
-  double busTop = 0;
+  double busTop = 10;
   double left = 0;
-  double carTop = 15;
-  double carLeft = 50;
-  double bikeTop = 17;
-  double bikeLeft = 90;
-  double personTop = 15;
-  double personLeft = 130;
-  double truckTop = 13;
+  double carTop = 25;
+  double carLeft = 57;
+  double bikeTop = 25;
+  double bikeLeft = 100;
+  double personTop = 22;
+  double personLeft = 136;
+  double truckTop = 12;
   double truckLeft = 170;
-  double pickUpTop = 12;
-  double pickUpLeft = 215;
+  double pickUpTop = 3;
+  double pickUpLeft = 205;
+
+  //Alerta
+  bool alerta = true;
 
   //Capture image png
   GlobalKey _captureImageKey = new GlobalKey();
@@ -134,27 +138,27 @@ class _DrawState extends State<Draw> {
       appBar: AppBar(
         backgroundColor: LightColors.kDarkYellow,
         elevation: 0.0,
-        leading: GestureDetector(
-          onTap: () {
-            //captura a imagem quando volta para a tela anterior
-            _capturePng();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RelatorioOcorrenciaTransito(user: user, token: token, sol: sol,)),
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Icon(
-                Icons.arrow_back_ios,
-                size: 25,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
+//        leading: GestureDetector(
+//          onTap: () {
+//            //captura a imagem quando volta para a tela anterior
+//            _capturePng();
+//            Navigator.push(
+//              context,
+//              MaterialPageRoute(builder: (context) => AvariasOnibus(user: user, token: token, sol: sol,)),
+//            );
+//          },
+//          child: Padding(
+//            padding: const EdgeInsets.only(left: 10),
+//            child: Align(
+//              alignment: Alignment.centerLeft,
+//              child: Icon(
+//                Icons.arrow_back_ios,
+//                size: 25,
+//                color: Colors.white,
+//              ),
+//            ),
+//          ),
+//        ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -210,7 +214,7 @@ class _DrawState extends State<Draw> {
                             }),
                         //Acessar ícones da legenda
                         new IconButton(
-                          icon: Icon(Icons.directions_bike),
+                          icon: Icon(Icons.touch_app),
                           //child: Text('SALVAR IMAGEM'),
                           onPressed: (){
                             //_capturePng();
@@ -219,6 +223,28 @@ class _DrawState extends State<Draw> {
                             tapped = false;
                             print(tapped);
                           }
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            //captura a imagem quando volta para a tela anterior
+                            _capturePng();
+//                            Navigator.push(
+//                              context,
+//                              MaterialPageRoute(builder: (context) => AvariasOnibus(user: user, token: token, sol: sol,)),
+//                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.photo_camera,
+                                size: 25,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
                         ),
 
                         IconButton(
@@ -282,79 +308,49 @@ class _DrawState extends State<Draw> {
                         child: Stack(
                             children: <Widget>[
 
-                              Draggable(
-                                      child: Container(
-                                        padding: EdgeInsets.only(top: busTop, left: left),
-                                        child: IconButton(
-                                          icon: Icon(
-                                            Icons.directions_bus,
-                                            size: 47,
-                                          ),
-                                          onPressed: (){
-                                            setState(() {
-                                              //_toggle();
-                                              tapped = true;
-                                            });
-                                            print(tapped);
-                                          },
-                                        ),
-                                      ),
-                                      feedback: Container(
-                                        padding: EdgeInsets.only(top: busTop, left: left),
-                                        child: FlatButton(
-                                          child: Icon(
-                                            Icons.directions_bus,
-                                            //IconData(57744, fontFamily: 'MaterialIcons'),
-                                            size: 47,
-                                          ),
-                                          onPressed: (){
-                                            setState(() {
-                                              //_toggle();
-                                              tapped = true;
-                                            });
-                                            print(tapped);
-                                          },
-                                        ),
+                              GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    _toggle();
+                                    tapped = true;
+                                  });
+                                  print(tapped);
+                                },
+                                child: Draggable(
+                                  child: Container(
+                                    padding: EdgeInsets.only(top: busTop, left: left),
+                                    child: DragBus(),
+                                  ),
+                                  feedback: Container(
+                                    padding: EdgeInsets.only(top: busTop, left: left),
+                                    child: DragBus(),
 
-                                      ),
-                                      childWhenDragging: Container(
-                                        padding: EdgeInsets.only(top: busTop, left: left),
-                                        child:  IconButton(
-                                          icon: Icon(
-                                            Icons.directions_bus,
-                                            //IconData(57744, fontFamily: 'MaterialIcons'),
-                                            size: 47,
-                                          ),
-                                          onPressed: (){
-                                            setState(() {
-                                              //_toggle();
-                                              tapped = true;
-                                            });
-                                            print(tapped);
-                                          },
-                                        ),
+                                  ),
+                                  childWhenDragging: Container(
+                                    padding: EdgeInsets.only(top: busTop, left: left),
+                                    child:  DragBus(),
 
-                                      ),
-                                      onDragCompleted: () {},
-                                      onDragEnd: (drag) {
-                                        setState(() {
-                                          if((busTop + drag.offset.dy) > (300.0 - 30.0)){
-                                            busTop = (300.0 - 30.0);
-                                          }else if((busTop + drag.offset.dy-30.0) < 0.0){
-                                            busTop = 0;
-                                          }else{
-                                            busTop =  busTop + drag.offset.dy-30.0;
-                                          }if((left + drag.offset.dx) > (300.0 - 30.0)){
-                                            left = (300.0 - 30.0);
-                                          }else if((left + drag.offset.dx-30.0) < 0.0){
-                                            left = 0;
-                                          }else{
-                                            left =  left + drag.offset.dx-30.0;
-                                          }});
-                                      },
-                                    ),
+                                  ),
+                                  onDragCompleted: () {},
+                                  onDragEnd: (drag) {
+                                    setState(() {
+                                      if((busTop + drag.offset.dy) > (300.0 - 30.0)){
+                                        busTop = (300.0 - 30.0);
+                                      }else if((busTop + drag.offset.dy-30.0) < 0.0){
+                                        busTop = 0;
+                                      }else{
+                                        busTop =  busTop + drag.offset.dy-30.0;
+                                      }if((left + drag.offset.dx) > (300.0 - 30.0)){
+                                        left = (300.0 - 30.0);
+                                      }else if((carLeft + drag.offset.dx-30.0) < 0.0){
+                                        left = 0;
+                                      }else{
+                                        left =  left + drag.offset.dx-30.0;
+                                      }});
+                                  },
+                                ),
 
-
+                              ),
                               GestureDetector(
                                 onTap: (){
                                   setState(() {
@@ -567,6 +563,64 @@ class _DrawState extends State<Draw> {
                                 ),
                               ),
 
+                              Visibility(
+                                visible: alerta,
+                                child: Container(
+                                  height: 500,
+                                  width: 300,
+                                  color: LightColors.kLightYellow,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Icon(Icons.error, size: 70, color: LightColors.kRed,),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 20),
+                                        child: Text("Atenção!", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey[900]),),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                                        child: Flexible(child: Text("1. Mova os ícones para posicioná-los de acordo com a cena do acidente;\n\n2. Clique na barra abaixo para escolher as cores e desenhar;\n\n3. Clique no ícone de câmera abaixo para gravar o seu desenho!", style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.grey[700]),)),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10, right: 10, top: 40, bottom: 40),
+                                        child: FlatButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              alerta = false;
+                                            });
+
+                                            //Navigator.pop(context);
+
+                                          },
+                                          textColor: Colors.white,
+                                          color: Colors.white,
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 45.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(15.0),
+                                              gradient: LinearGradient(
+                                                colors: <Color>[
+                                                  Colors.yellow[800],
+                                                  Colors.yellow[700],
+                                                  Colors.yellow[600],
+                                                ],
+                                              ),
+                                            ),
+                                            //padding: const EdgeInsets.fromLTRB(90.0, 15.0, 90.0, 15.0),
+                                            child: Center(
+                                                child: const Text('OK',
+                                                    style: TextStyle(fontSize: 20))),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+
                             ],
                           ),
 
@@ -765,11 +819,12 @@ enum SelectedMode { StrokeWidth, Opacity, Color }
 class DragBus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Icon(
-        Icons.directions_bus,
-        //IconData(57744, fontFamily: 'MaterialIcons'),
-        size: 47,
-      );
+    return  ImageIcon(
+      // Image.asset("images/ETT.png", fit: BoxFit.contain)
+      AssetImage('images/busFront.png'),
+      size: 55,
+      //color: Colors.black,
+    );
 
   }
 }
@@ -778,11 +833,11 @@ class DragCar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Icon(
-          Icons.directions_car,
-          //IconData(57744, fontFamily: 'MaterialIcons'),
-          size: 40,
-        );
+    return ImageIcon(
+      AssetImage('images/carro.png'),
+      size: 41,
+      //color: Colors.black,
+    );
   }
 }
 class DragBike extends StatelessWidget {
@@ -810,7 +865,7 @@ class DragTruck extends StatelessWidget {
   Widget build(BuildContext context) {
     return ImageIcon(
           // Image.asset("images/ETT.png", fit: BoxFit.contain)
-          AssetImage('images/caminhao.png'),
+          AssetImage('images/truckFrontIcon.png'),
           size: 45,
           //color: Colors.black,
         );
@@ -821,8 +876,8 @@ class DragPickUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ImageIcon(
           // Image.asset("images/ETT.png", fit: BoxFit.contain)
-          AssetImage('images/caminhoneta.png'),
-          size: 50,
+          AssetImage('images/pickUp.png'),
+          size: 73,
           //color: Colors.black,
         );
   }

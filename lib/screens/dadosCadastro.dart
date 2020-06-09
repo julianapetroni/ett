@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:ett_app/screens/login.dart';
-import 'package:ett_app/domains/Estado.dart';
-import 'package:ett_app/domains/Perfil.dart';
-import 'package:ett_app/domains/Usuario.dart';
-import 'package:ett_app/domains/Cidade.dart';
+import 'package:ett_app/domains/estado.dart';
+import 'package:ett_app/domains/perfil.dart';
+import 'package:ett_app/domains/usuario.dart';
+import 'package:ett_app/domains/cidade.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/screens/termosDeUso.dart';
 import 'package:ett_app/utils/validators.dart';

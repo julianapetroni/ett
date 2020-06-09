@@ -50,9 +50,15 @@ String requiredValidator(String value, String field) {
 }
 
 String enderecoValidator(String value, String field) {
-  final regex = RegExp("([\w\W]+)\s(\d+)");
+  final regex = RegExp("^[a-zA-Z0-9]+");
   final hasMatch = regex.hasMatch(value);
   return hasMatch ? null : 'Digite um endereço válido!';
+}
+
+String placaValidator(String value, String field) {
+  final regex = RegExp("^[a-zA-Z0-9]+");
+  final hasMatch = regex.hasMatch(value);
+  return hasMatch ? null : 'Digite uma placa válida!';
 }
 
 String minLegthValidator(String value, String field) {
@@ -60,6 +66,12 @@ String minLegthValidator(String value, String field) {
     return 'Mínimo de 6 caracteres para $field!';
   }
   return null;
+}
+
+String dataValidator(String value, String field) {
+  final regex = RegExp("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\\d\\d)");
+  final hasMatch = regex.hasMatch(value);
+  return hasMatch ? null : 'Digite uma data válida!';
 }
 
 Function(String) composeValidators(String field, List<Function> validators) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ett_app/domains/HoraAgendamento.dart';
-import 'package:ett_app/domains/Usuario.dart';
+import 'package:ett_app/domains/horaAgendamento.dart';
+import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/screens/dadosCadastro.dart';
 import 'package:ett_app/screens/esqueceuSenha.dart';
