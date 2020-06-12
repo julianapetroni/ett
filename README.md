@@ -1,16 +1,9 @@
-# ett_app
+# Bus fleet inspection and accident report
 
-App ETT
+A Flutter/Dart Application with several tables to inspect the bus fleet, record accidents by taking pictures or drawing (using some draggable vehicle icons and drawing whatever they want to) and sign their forms.
 
-## Getting Started
+## Projects Screens
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="327" alt="Captura de Tela 2020-06-12 às 14 54 43" src="https://user-images.githubusercontent.com/30326310/84532760-2ce19880-acbd-11ea-99ab-4c01acf6abf9.png">
+<img width="323" alt="Captura de Tela 2020-06-12 às 14 55 04" src="https://user-images.githubusercontent.com/30326310/84532765-2eab5c00-acbd-11ea-9648-3067b8da0f3e.png">
+![status](https://user-images.githubusercontent.com/30326310/84533080-cf018080-acbd-11ea-907a-27a5bc8c64ac.gif)
