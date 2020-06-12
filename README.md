@@ -13,3 +13,7 @@ A Flutter/Dart Application with several tables to inspect the bus fleet, record 
 
 
 ![ComInterno](https://user-images.githubusercontent.com/30326310/84542560-18f36200-acd0-11ea-949a-607ba3aa4c69.gif)
+
+
+
+![table2](https://user-images.githubusercontent.com/30326310/84542883-b64e9600-acd0-11ea-989d-b5d2e457dc71.gif)
