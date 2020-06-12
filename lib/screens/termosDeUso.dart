@@ -1,4 +1,3 @@
-import 'package:ett_app/testes/teste.dart';
 import 'package:flutter/material.dart';
 
 class TermosDeUso extends StatelessWidget {

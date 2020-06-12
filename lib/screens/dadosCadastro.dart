@@ -219,7 +219,7 @@ class DadosCadastroState extends State<DadosCadastro> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
                                         Image(
-                                          image: AssetImage('images/ETT.png'),
+                                          image: AssetImage('images/logo-slim-tsp.png'),
                                         ),
                                       ],
                                     ),

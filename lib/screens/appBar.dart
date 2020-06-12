@@ -6,21 +6,15 @@ import 'package:ett_app/screens/avariasVeiculoTerceiros.dart';
 import 'package:ett_app/screens/comunicadoInterno.dart';
 import 'package:ett_app/screens/consultarAlteracaoEscala.dart';
 import 'package:ett_app/screens/controleDeFreqDeLinha.dart';
-import 'package:ett_app/testes/croqui.dart';
-import 'package:ett_app/testes/draggableExample.dart';
+import 'package:ett_app/screens/selecaoMultiplaComTag.dart';
 import 'package:ett_app/screens/draw.dart';
 import 'package:ett_app/style/lightColors.dart';
-import 'package:ett_app/testes/home.dart';
-import 'package:ett_app/testes/onTapTeste.dart';
 import 'package:ett_app/screens/relatorioOcorrenciaTransito.dart';
-import 'package:ett_app/testes/stepperValidate.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/screens/alterarCadastro.dart';
 import 'package:ett_app/screens/termosDeUso.dart';
-import '../testes/consultarAlteracaoEscalaTeste.dart';
 import 'comunicadoInternoGrupo.dart';
-import '../testes/createNewTask.dart';
 import 'conclusoesRelOcorrencia.dart';
 import 'dadosCadastro.dart';
 import 'enviarAlteracaoEscala.dart';
@@ -219,20 +213,20 @@ class MyDrawer extends Drawer {
                             },
                           ),
 
-                          ListTile(
-                            leading: Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Icon(Icons.assignment_ind, color: Colors.grey[700]),
-                            ),
-                            title: Text('Teste',
-                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.grey[700], fontSize: 16.0),),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => AvariasVeiculoTerceiro(user: user, token: token, sol: sol)),
-                              );
-                            },
-                          ),
+//                          ListTile(
+//                            leading: Padding(
+//                              padding: const EdgeInsets.only(left: 20.0),
+//                              child: Icon(Icons.assignment_ind, color: Colors.grey[700]),
+//                            ),
+//                            title: Text('Teste',
+//                              style: TextStyle(fontWeight: FontWeight.normal, color: Colors.grey[700], fontSize: 16.0),),
+//                            onTap: () {
+//                              Navigator.push(
+//                                context,
+//                                MaterialPageRoute(builder: (context) => SelecaoMultiplaTag(user: user, token: token, sol: sol)),
+//                              );
+//                            },
+//                          ),
 
 
 
@@ -342,8 +336,8 @@ class AppBarComLogoSlim extends AppBar {
       children: <Widget>[
         Spacer(flex: 2),
         Container(
-            height: 45.0,
-            child: Image(image: AssetImage('images/logo-slim.png'))),
+            height: 70.0,
+            child: Image(image: AssetImage('images/logo-slim-tsp.png'))),
         Spacer(flex: 2),
         Container(child: Icon(Icons.person),),
         SizedBox(width: 5.0,),

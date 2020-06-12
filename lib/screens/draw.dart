@@ -820,7 +820,7 @@ class DragBus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  ImageIcon(
-      // Image.asset("images/ETT.png", fit: BoxFit.contain)
+      // Image.asset("images/logo-slim-tsp.png", fit: BoxFit.contain)
       AssetImage('images/busFront.png'),
       size: 55,
       //color: Colors.black,
@@ -864,7 +864,7 @@ class DragTruck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ImageIcon(
-          // Image.asset("images/ETT.png", fit: BoxFit.contain)
+          // Image.asset("images/logo-slim-tsp.png", fit: BoxFit.contain)
           AssetImage('images/truckFrontIcon.png'),
           size: 45,
           //color: Colors.black,
@@ -875,7 +875,7 @@ class DragPickUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ImageIcon(
-          // Image.asset("images/ETT.png", fit: BoxFit.contain)
+          // Image.asset("images/logo-slim-tsp.png", fit: BoxFit.contain)
           AssetImage('images/pickUp.png'),
           size: 73,
           //color: Colors.black,

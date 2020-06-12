@@ -161,7 +161,7 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
 //                        Container(
 //                          width: SizeConfig.safeBlockVertical * 30,
 //                          child: Image(
-//                            image: AssetImage('images/ETT.png'),
+//                            image: AssetImage('images/logo-slim-tsp.png'),
 //                          ),
 //                        ),
 //                      ],

@@ -1,3 +1,5 @@
+import 'package:ett_app/domains/solicitacao.dart';
+import 'package:ett_app/screens/login.dart';
 import 'package:ett_app/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
@@ -18,24 +20,28 @@ import '../style/topContainer.dart';
 
 class ControleDeFrequenciaDeLinha extends StatefulWidget {
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
   ControleDeFrequenciaDeLinha(
       {Key key,
       // this.value,
-      this.user})
+      this.user, this.token, this.sol})
       : super(key: key);
 
   @override
   ControleDeFrequenciaDeLinhaState createState() {
-    return ControleDeFrequenciaDeLinhaState(user: user);
+    return ControleDeFrequenciaDeLinhaState(user: user, token: token, sol: sol);
   }
 }
 
 class ControleDeFrequenciaDeLinhaState
     extends State<ControleDeFrequenciaDeLinha> {
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
-  ControleDeFrequenciaDeLinhaState({this.user});
+  ControleDeFrequenciaDeLinhaState({this.user, this.token, this.sol});
 
   final GlobalKey<FormFieldState<String>> _nomeKey =
       GlobalKey<FormFieldState<String>>();
@@ -552,6 +558,59 @@ class ControleDeFrequenciaDeLinhaState
 //                      ]),
 //                    ]
                   )),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 40, bottom: 40),
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                     // _myActivitiesResult = _myActivities.toString();
+                    });
+
+                    //if (
+//                    _formTipoOcorrenciaKey.currentState.validate()
+//                        &&_formCondViaKey.currentState.validate()
+//                        && _formSemaforoKey.currentState.validate()
+//                        && _formPlacasKey.currentState.validate()
+                   // ) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Status(
+                              user: user,
+                              token: token,
+                              sol: sol,
+                            )),
+                      );
+//                    }else {
+//                      final semCadastro =
+//                      new SnackBar(content: new Text('Escolha as opções para prosseguir!'));
+//                      _scaffoldKey.currentState.showSnackBar(semCadastro);
+//                    }
+                  },
+                  textColor: Colors.white,
+                  color: Colors.white,
+                  child: Container(
+                    width: double.infinity,
+                    height: 45.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Colors.yellow[800],
+                          Colors.yellow[700],
+                          Colors.yellow[600],
+                        ],
+                      ),
+                    ),
+                    //padding: const EdgeInsets.fromLTRB(90.0, 15.0, 90.0, 15.0),
+                    child: Center(
+                        child: const Text('ENVIAR',
+                            style: TextStyle(fontSize: 20))),
+                  ),
                 ),
               ),
             ],

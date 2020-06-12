@@ -217,7 +217,7 @@ class _TelaLoginState extends State<TelaLogin> {
                   titlePadding: EdgeInsets.zero,
                   centerTitle: true,
 
-                  background: Image.asset("images/ETT.png", fit: BoxFit.contain),
+                  background: Image.asset("images/logo-slim-tsp.png", fit: BoxFit.contain),
 
                 ),),
 
