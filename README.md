@@ -37,9 +37,8 @@ A Flutter/Dart Application with several tables to inspect the bus fleet, record 
 
 
 
+![radio](https://user-images.githubusercontent.com/30326310/84545046-e304ac80-acd4-11ea-864a-23a219eaab49.gif)
 
-
-![radiobtn](https://user-images.githubusercontent.com/30326310/84544427-a08ea000-acd3-11ea-9f58-4ad7c61f78a4.gif)
 
 
 
