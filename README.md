@@ -28,12 +28,13 @@ A Flutter/Dart Application with several tables to inspect the bus fleet, record 
 
 
 
+![Selection](https://user-images.githubusercontent.com/30326310/84544433-a5535400-acd3-11ea-813c-f08da6a9ba21.gif)
+
+
+
 
 ![photo](https://user-images.githubusercontent.com/30326310/84544420-9cfb1900-acd3-11ea-9280-627961707b40.gif)
 
-
-
-![Selection](https://user-images.githubusercontent.com/30326310/84544433-a5535400-acd3-11ea-813c-f08da6a9ba21.gif)
 
 
 
