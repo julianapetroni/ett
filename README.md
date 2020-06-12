@@ -6,4 +6,4 @@ A Flutter/Dart Application with several tables to inspect the bus fleet, record 
 
 <img width="327" alt="Login" src="https://user-images.githubusercontent.com/30326310/84533578-c78ea700-acbe-11ea-96af-ee79a4dd813f.png">
 <img width="323" alt="Cadastro" src="https://user-images.githubusercontent.com/30326310/84533655-f4db5500-acbe-11ea-8776-fb2f8ea84670.png">
-![status](ett/images/gif(1).gif)
+![status](gif(1).gif)
