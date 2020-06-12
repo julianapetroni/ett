@@ -17,3 +17,33 @@ A Flutter/Dart Application with several tables to inspect the bus fleet, record 
 
 
 ![table2](https://user-images.githubusercontent.com/30326310/84542883-b64e9600-acd0-11ea-989d-b5d2e457dc71.gif)
+
+
+
+![Form](https://user-images.githubusercontent.com/30326310/84543073-07f72080-acd1-11ea-80ae-21f91c51cd4e.gif)
+
+
+
+![FormF](https://user-images.githubusercontent.com/30326310/84544014-d97a4500-acd2-11ea-9b67-94a950aa8157.gif)
+
+
+
+![Selection](https://user-images.githubusercontent.com/30326310/84544433-a5535400-acd3-11ea-813c-f08da6a9ba21.gif)
+
+
+
+![acidente](https://user-images.githubusercontent.com/30326310/84544411-98366500-acd3-11ea-851b-706104ab3d42.gif)
+
+
+
+![photo](https://user-images.githubusercontent.com/30326310/84544420-9cfb1900-acd3-11ea-9280-627961707b40.gif)
+
+
+
+
+![radiobtn](https://user-images.githubusercontent.com/30326310/84544427-a08ea000-acd3-11ea-9f58-4ad7c61f78a4.gif)
+
+
+
+
+![Conclusao](https://user-images.githubusercontent.com/30326310/84544019-db440880-acd2-11ea-83df-03a7fe622c4c.gif)
