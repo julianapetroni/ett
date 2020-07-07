@@ -1,10 +1,14 @@
+import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/screens/appBar.dart';
+import 'package:ett_app/screens/login.dart';
+import 'package:ett_app/style/lightColors.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:json_table/json_table.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -15,24 +19,30 @@ import 'package:flutter/foundation.dart';
 class ConsultarAlteracaoEscala extends StatefulWidget {
 
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
   ConsultarAlteracaoEscala(
       {Key key,
         // this.value,
-        this.user})
+        this.user,
+      this.token,
+      this.sol})
       : super(key: key);
 
   @override
   ConsultarAlteracaoEscalaState createState() {
-    return ConsultarAlteracaoEscalaState(user: user);
+    return ConsultarAlteracaoEscalaState(user: user, token: token, sol: sol);
   }
 }
 
 class ConsultarAlteracaoEscalaState extends State<ConsultarAlteracaoEscala> {
   Usuario user;
+  Token token;
+  Solicitacao sol;
   
 
-  ConsultarAlteracaoEscalaState({this.user})
+  ConsultarAlteracaoEscalaState({this.user, this.token, this.sol})
 //  {_searchView.addListener((){
 //      if(_searchView.text.isEmpty){
 //          setState(() {
@@ -124,109 +134,138 @@ class ConsultarAlteracaoEscalaState extends State<ConsultarAlteracaoEscala> {
 
     SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBarETT(
-
+      appBar: AppBar(
+        backgroundColor: LightColors.neonYellowLight,
+        iconTheme: new IconThemeData(color: LightColors.neonYellowDark),
+        elevation: 0,
       ),
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, top: 30.0),
-              child: Container(
-                child: Text("Alteração de Escala - Consultar",
-                    style: TextStyle(
-                        fontSize: 19.0,
-                        color: Colors.grey[700],
-                        fontFamily: "Poppins-Bold",
-                        letterSpacing: .6)),
-              ),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                    labelText: 'Pesquisar'
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              LightColors.neonYellowLight,
+              LightColors.neonETT,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: ListView(
+            children: <Widget>[
+              Container(
+                height: 80.0,
+                width: double.infinity,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image(
+                        image: AssetImage('images/logo-slim.png'),
+                      ),
+                    ],
+                  ),
                 ),
-                controller: controller,
-                onChanged: _onChanged,
-                onTap: _changed,
               ),
-            ),
+              SizedBox(height: 10.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, top: 30.0),
+                child: Container(
+                  child: Text("Alteração de Escala - Consultar",
+                    style: GoogleFonts.raleway (color: Colors.black87,
+                        fontSize: 19.0, fontWeight: FontWeight.w700, letterSpacing: 0.7)),
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
 
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, top: 10.0),
-              child: //filter == null || filter == "" ?
-              Center(
-                child: toggle
-                    ? Column(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      child: _data != null
-                          ? JsonTable(
-                        _data,
-                        showColumnToggle: true,
-                        paginationRowCount: 10,
-                        allowRowHighlight: true,
-                        rowHighlightColor: Colors.yellow[700].withOpacity(0.3),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: 'Pesquisar'
+                  ),
+                  controller: controller,
+                  onChanged: _onChanged,
+                  onTap: _changed,
+                ),
+              ),
 
-                        tableHeaderBuilder: (_data){
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8.0, vertical: 4.0),
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 0.5),
-                                color: Colors.yellow[700]),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                _data,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.display1.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14.0,
-                                    color: Colors.black87),
-                              ),
-                            ),);
-                        },
-                        tableCellBuilder: (_data) {
-                          return
-                            new Container(
+              Container(
+                //color: LightColors.neonETT,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0, top: 10.0),
+                  child: //filter == null || filter == "" ?
+                  Center(
+                    child: toggle
+                        ? Column(
+                      children: <Widget>[
+                        Container(
+                          color: Colors.white,
+                          alignment: Alignment.center,
+                          child: _data != null
+                              ? JsonTable(
+                            _data,
+                            showColumnToggle: true,
+                            paginationRowCount: 10,
+                            allowRowHighlight: true,
+                            rowHighlightColor: LightColors.neonETT.withOpacity(0.3),
 
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 4.0, vertical: 2.0),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 0.5,
-                                    color: Colors.grey.withOpacity(0.5))),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: filter == null || filter == "" ?
-                              new Text(
-                                _data,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.display1.copyWith(
-                                    fontSize: 14.0, color: Colors.grey[900]),
-                              ): _data.contains(filter)?
-                              new Text(
-                                _data,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.display1.copyWith(
-                                    fontSize: 14.0, color: Colors.grey[900]),
-                              ):  Visibility(visible: false, child: Container()),
-                          ))
-                          ;}
-                      )
-                          : _filterList,
-                    )
-                  ],
-                ): _filterList,
-              )
+                            tableHeaderBuilder: (_data){
+                              return Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.5),
+                                    color: LightColors.neonYellowLight),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    _data,
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.display1.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14.0,
+                                        color: Colors.black87),
+                                  ),
+                                ),);
+                            },
+                            tableCellBuilder: (_data) {
+                              return
+                                new Container(
+
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 4.0, vertical: 2.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 0.5,
+                                        color: Colors.grey.withOpacity(0.5))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: filter == null || filter == "" ?
+                                  new Text(
+                                    _data,
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.display1.copyWith(
+                                        fontSize: 14.0,
+                                        color: Colors.black),
+                                  ): _data.contains(filter)?
+                                  new Text(
+                                    _data,
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context).textTheme.display1.copyWith(
+                                        fontSize: 14.0,
+                                        color: Colors.black),
+                                  ):  Visibility(visible: false, child: Container()),
+                              ))
+                              ;}
+                          )
+                              : _filterList,
+                        )
+                      ],
+                    ): _filterList,
+                  )
 //              : _data.contains(filter)?
 //              Center(
 //                child: toggle
@@ -288,10 +327,12 @@ class ConsultarAlteracaoEscalaState extends State<ConsultarAlteracaoEscala> {
 //              )
 //                  :
 //              Container(),
-                //(child: Text(controller.text),),
+                    //(child: Text(controller.text),),
 
-            ),
-          ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

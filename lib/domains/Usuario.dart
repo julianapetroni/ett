@@ -22,9 +22,10 @@ class Usuario {
   String senha;
   String resetSenha;//= "N";
   String prefixo;
+  String monitor;
 
 
-  Usuario({this.id, this.nome, this.cpf, this.endereco, this.complemento, this.bairro, this.cidade, this.estado, this.cep, this.contato, this.email ,this.observacao, this.perfil, this.status, this.senha, this.resetSenha, this.prefixo});
+  Usuario({this.id, this.nome, this.cpf, this.endereco, this.complemento, this.bairro, this.cidade, this.estado, this.cep, this.contato, this.email ,this.observacao, this.perfil, this.status, this.senha, this.resetSenha, this.prefixo, this.monitor});
 
   factory Usuario.fromJson(Map<String, dynamic> json) {
     return Usuario(
@@ -45,6 +46,7 @@ class Usuario {
       senha: json['senha'],
       resetSenha: json['resetSenha'],
       prefixo: json['prefixo'],
+      monitor: json['monitor'],
 
     );
   }
@@ -67,6 +69,7 @@ class Usuario {
     'senha': senha,
     'resetSenha': resetSenha,
     'prefixo': prefixo,
+    'monitor': monitor,
   };
 
   Usuario.vazio(){}

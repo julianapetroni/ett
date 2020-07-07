@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/domains/usuario.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FormCheckBoxComunicadoInterno extends StatefulWidget {
 
@@ -81,9 +82,7 @@ class FormCheckBoxComunicadoInternoState extends State<FormCheckBoxComunicadoInt
                     Flexible(
                       child: Text(
                         'Quem pode ver esse relatório:',
-                        style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 17.0),
+                        style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
                       ),
                     ),
                   ],

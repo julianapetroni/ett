@@ -8,6 +8,16 @@ class LightColors  {
   static const Color kPink = Color(0xFFF06292);
   static const Color kPink2 = Color(0xFFF48FB1);
 
+  static const Color neonETT = Color(0xFFEFFD5F);
+  static const Color neonYellowDark = Color(0xFFFFF700);
+  static const Color neonYellowLight = Color(0xFFFFFF9E);
+  static const Color neonYellowCanetinha = Color(0xFFe7ff00);
+  static const Color yellowBanana = Color(0xFFFCF4A3);
+  static const Color yellowDaffodil = Color(0xFFFDEE87);
+  static const Color yellowCorn = Color(0xFFE4CD05);
+  static const Color yellowStrong = Color(0xFFFDE64B);
+
+
   static const Color kRed = Color(0xFFE46472);
   static const Color kLavender = Color(0xFFD5E4FE);
   static const Color kBlue = Color(0xFF6488E4);

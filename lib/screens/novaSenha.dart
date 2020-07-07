@@ -1,3 +1,6 @@
+import 'package:ett_app/domains/solicitacao.dart';
+import 'package:ett_app/screens/dasboardScreen.dart';
+import 'package:ett_app/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
@@ -9,23 +12,31 @@ import 'package:ett_app/domains/usuario.dart';
 class NovaSenha extends StatefulWidget {
 
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
   NovaSenha(
       {Key key,
         // this.value,
-        this.user})
+        this.user,
+      this.token,
+      this.sol})
       : super(key: key);
 
   @override
   NovaSenhaState createState() {
-    return NovaSenhaState(user: user);
+    return NovaSenhaState(user: user, token: token, sol: sol);
   }
 }
 
 class NovaSenhaState extends State<NovaSenha> {
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
-  NovaSenhaState({this.user});
+  NovaSenhaState({this.user,
+    this.token,
+    this.sol});
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -36,7 +47,7 @@ class NovaSenhaState extends State<NovaSenha> {
       GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = false;
+  bool _autovalidate = true;
 
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -83,7 +94,7 @@ class NovaSenhaState extends State<NovaSenha> {
         title: Center(
             child: Text(
           ' ',
-          style: TextStyle(color: Colors.grey[400]),
+          style: TextStyle(color: Colors.black),
         )),
         backgroundColor: Colors.grey[100],
         actions: <Widget>[
@@ -176,7 +187,7 @@ class NovaSenhaState extends State<NovaSenha> {
                                   children: <Widget>[
                                     Icon(
                                       Icons.lock_open,
-                                      color: Colors.grey[400],
+                                      color: Colors.black87,
                                       size: 19.0,
                                     ),
                                     SizedBox(
@@ -208,6 +219,8 @@ class NovaSenhaState extends State<NovaSenha> {
                                     requiredValidator,
                                     minLegthValidator
                                   ]),
+                                  onChanged: (value) =>
+                                  _loginData.password = value,
                                   onSaved: (value) =>
                                   _loginData.password = value,
                                   decoration: InputDecoration(
@@ -229,7 +242,7 @@ class NovaSenhaState extends State<NovaSenha> {
                                   children: <Widget>[
                                     Icon(
                                       Icons.lock_open,
-                                      color: Colors.grey[400],
+                                      color: Colors.black87,
                                       size: 19.0,
                                     ),
                                     SizedBox(
@@ -253,6 +266,8 @@ class NovaSenhaState extends State<NovaSenha> {
                                     requiredValidator,
                                     minLegthValidator
                                   ]),
+                                  onChanged: (value) =>
+                                  _loginData.confirmPassword = value,
                                   onSaved: (value) =>
                                   _loginData.confirmPassword = value,
                                   decoration: InputDecoration(
@@ -292,10 +307,10 @@ class NovaSenhaState extends State<NovaSenha> {
                         } else {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Status()),
+                            MaterialPageRoute(builder: (context) => DashboardScreen(user: user, token: token, sol: sol,)),
                           );
                           Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) => Status()),
+                              MaterialPageRoute(builder: (context) => DashboardScreen(user: user, token: token, sol: sol,)),
                                   (Route<dynamic> route) => false);
 
                           print(Text(_passwordController.text));

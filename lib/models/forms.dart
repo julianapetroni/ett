@@ -21,15 +21,18 @@ class LoginFormData {
   String descricao = '';
   String mensagem = '';
   String prefixo = ' ';
+  String prefixoMonit = ' ';
   String placa = ' ';
   String linha = ' ';
   String sentido = ' ';
   String localAc = ' ';
   String altura = ' ';
   String motorista1 = ' ';
+  String matricula = ' ';
   String matricula1 = ' ';
   String motorista2 = ' ';
   String matricula2 = ' ';
+  String monitor= ' ';
 
 
   Map<String, dynamic> toJSON() => {
@@ -55,14 +58,17 @@ class LoginFormData {
         'descricao': descricao,
         'mensagem': mensagem,
         'prefixo': prefixo,
+        'prefixoMonit': prefixoMonit,
         'placa': placa,
         'linha': linha,
         'sentido': sentido,
         'localAc': localAc,
         'altura': altura,
         'motorista1': motorista1,
-        'matrmatricula1': matricula1,
+        'matricula': matricula,
+        'matricula1': matricula1,
         'motorista2': motorista2,
-        'matrmatricula2': matricula2
+        'matricula2': matricula2,
+        'monitor': monitor
       };
 }

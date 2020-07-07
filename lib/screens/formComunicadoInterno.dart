@@ -4,6 +4,7 @@ import 'package:ett_app/utils/validators.dart';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FormComunicadoInterno extends StatefulWidget {
 
@@ -61,7 +62,7 @@ class FormComunicadoInterno extends StatefulWidget {
   GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = false;
+  bool _autovalidate = true;
 
   final _dataController = TextEditingController();
   final _horaController = TextEditingController();
@@ -105,9 +106,7 @@ class FormComunicadoInterno extends StatefulWidget {
             children: <Widget>[
               Text(
                 'Data: *',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),
@@ -139,9 +138,7 @@ class FormComunicadoInterno extends StatefulWidget {
             children: <Widget>[
               Text(
                 'Hora: *',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),
@@ -173,9 +170,7 @@ class FormComunicadoInterno extends StatefulWidget {
               Flexible(
                 child: Text(
                   'Chapa do funcionário associado:',
-                  style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 17.0),
+                  style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
                 ),
               ),
             ],
@@ -207,9 +202,7 @@ class FormComunicadoInterno extends StatefulWidget {
 
               Text(
                 'Nome:',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),
@@ -240,9 +233,7 @@ class FormComunicadoInterno extends StatefulWidget {
 
               Text(
                 'Veículo:',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),
@@ -273,9 +264,7 @@ class FormComunicadoInterno extends StatefulWidget {
 
               Text(
                 'Local da ocorrência:',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),
@@ -306,9 +295,7 @@ class FormComunicadoInterno extends StatefulWidget {
 
               Text(
                 'Linha:',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),
@@ -349,9 +336,7 @@ class FormComunicadoInterno extends StatefulWidget {
 
               Text(
                 'Sentido:',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),
@@ -392,9 +377,7 @@ class FormComunicadoInterno extends StatefulWidget {
 
               Text(
                 'Mensagem:',
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 17.0),
+                style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
               ),
             ],
           ),

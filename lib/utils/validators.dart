@@ -25,9 +25,9 @@ String numberValidator(String value, String field) {
 }
 
 String cpfValidator(String value, String field) {
-  final regex = RegExp("[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}");
+  final regex = RegExp("[0-9]{11}");
   final hasMatch = regex.hasMatch(value);
-  return hasMatch ? null : 'Digite um CPF válido!';
+  return hasMatch ? null : 'Digite apenas números sem pontuações!';
 }
 
 String rgValidator(String value, String field) {
@@ -36,10 +36,22 @@ String rgValidator(String value, String field) {
   return hasMatch ? null : 'Digite um RG válido!';
 }
 
+String nascimentoValidator(String value, String field) {
+  final regex = RegExp("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\\d\\d)");
+  final hasMatch = regex.hasMatch(value);
+  return hasMatch ? null : 'Digite uma data válida!';
+}
+
 String cepValidator(String value, String field) {
-  final regex = RegExp("^\\d{5}[-]\\d{3}");
+  final regex = RegExp("^[0-9]{5}(?:-[0-9]{3})?");
   final hasMatch = regex.hasMatch(value);
   return hasMatch ? null : 'Digite um CEP válido!';
+}
+
+String numeroCartaoValidator(String value, String field) {
+  final regex = RegExp("[0-9]{2}(?:[\.])?[0-9]{2}(?:[\.])?[0-9]{8}(?:[\.])?[0-9]{1}");
+  final hasMatch = regex.hasMatch(value);
+  return hasMatch ? null : 'Digite um número válido!';
 }
 
 String requiredValidator(String value, String field) {
@@ -50,15 +62,9 @@ String requiredValidator(String value, String field) {
 }
 
 String enderecoValidator(String value, String field) {
-  final regex = RegExp("^[a-zA-Z0-9]+");
+  final regex = RegExp("[A-Za-z0-9'\.\-\s\,]");
   final hasMatch = regex.hasMatch(value);
   return hasMatch ? null : 'Digite um endereço válido!';
-}
-
-String placaValidator(String value, String field) {
-  final regex = RegExp("^[a-zA-Z0-9]+");
-  final hasMatch = regex.hasMatch(value);
-  return hasMatch ? null : 'Digite uma placa válida!';
 }
 
 String minLegthValidator(String value, String field) {
@@ -68,10 +74,34 @@ String minLegthValidator(String value, String field) {
   return null;
 }
 
-String dataValidator(String value, String field) {
-  final regex = RegExp("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\\d\\d)");
-  final hasMatch = regex.hasMatch(value);
-  return hasMatch ? null : 'Digite uma data válida!';
+String maxLegthNumero6Validator(String value, String field) {
+  if (value.length > 6) {
+    return 'Máximo de 6 dígitos para $field!';
+  }
+  return null;
+}
+
+//value.length < 2 ? 'Name must be greater than two characters' : null
+
+String maxLegthTelefoneValidator(String value, String field) {
+  if (value.length > 11) {
+    return 'Máximo de 11 dígitos para $field!';
+  }
+  return null;
+}
+
+String maxLegthCEPValidator(String value, String field) {
+  if (value.length > 8) {
+    return 'Máximo de 8 dígitos para $field!';
+  }
+  return null;
+}
+
+String maxLegthCPFValidator(String value, String field) {
+  if (value.length > 11) {
+    return 'Máximo de 11 dígitos para $field!';
+  }
+  return null;
 }
 
 Function(String) composeValidators(String field, List<Function> validators) {
@@ -86,4 +116,22 @@ Function(String) composeValidators(String field, List<Function> validators) {
     }
     return null;
   };
+}
+
+String placaValidator(String value, String field) {
+  final regex = RegExp("^[a-zA-Z0-9]+");
+  final hasMatch = regex.hasMatch(value);
+  return hasMatch ? null : 'Digite uma placa válida!';
+}
+
+String dataValidator(String value, String field) {
+  final regex = RegExp("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.]((19|20)\\d\\d)");
+  final hasMatch = regex.hasMatch(value);
+  return hasMatch ? null : 'Digite uma data válida!';
+}
+
+String horaValidator(String value, String field) {
+  final regex = RegExp("^[0-2][0-3]:[0-5][0-9]");
+  final hasMatch = regex.hasMatch(value);
+  return hasMatch ? null : 'Digite uma hora válida!';
 }

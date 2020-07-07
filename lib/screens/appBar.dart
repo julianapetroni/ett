@@ -7,14 +7,21 @@ import 'package:ett_app/screens/comunicadoInterno.dart';
 import 'package:ett_app/screens/consultarAlteracaoEscala.dart';
 import 'package:ett_app/screens/controleDeFreqDeLinha.dart';
 import 'package:ett_app/screens/selecaoMultiplaComTag.dart';
+import 'package:ett_app/testes/croqui.dart';
+import 'package:ett_app/testes/draggableExample.dart';
 import 'package:ett_app/screens/draw.dart';
 import 'package:ett_app/style/lightColors.dart';
+import 'package:ett_app/testes/home.dart';
+import 'package:ett_app/testes/onTapTeste.dart';
 import 'package:ett_app/screens/relatorioOcorrenciaTransito.dart';
+import 'package:ett_app/testes/stepperValidate.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/screens/alterarCadastro.dart';
 import 'package:ett_app/screens/termosDeUso.dart';
+import '../testes/consultarAlteracaoEscalaTeste.dart';
 import 'comunicadoInternoGrupo.dart';
+import '../testes/createNewTask.dart';
 import 'conclusoesRelOcorrencia.dart';
 import 'dadosCadastro.dart';
 import 'enviarAlteracaoEscala.dart';
@@ -28,7 +35,7 @@ class AppBarETT extends AppBar {
       : super(
     key: key,
     title: title,
-    backgroundColor: LightColors.kDarkYellow,
+    backgroundColor: LightColors.neonYellowLight,
     iconTheme: new IconThemeData(color: Colors.grey[600]),
   );
 }
@@ -330,14 +337,14 @@ class AppBarComLogoSlim extends AppBar {
   AppBarComLogoSlim({Key key, Widget title})
       : super(
     key: key,
-    backgroundColor: LightColors.kDarkYellow,
+    backgroundColor: LightColors.neonYellowLight,
     elevation: 0.0,
     title: Row(
       children: <Widget>[
         Spacer(flex: 2),
         Container(
-            height: 70.0,
-            child: Image(image: AssetImage('images/logo-slim-tsp.png'))),
+            height: 45.0,
+            child: Image(image: AssetImage('images/logo-slim.png'))),
         Spacer(flex: 2),
         Container(child: Icon(Icons.person),),
         SizedBox(width: 5.0,),

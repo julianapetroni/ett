@@ -9,6 +9,7 @@ import 'package:ett_app/domains/cidade.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/screens/termosDeUso.dart';
 import 'package:ett_app/utils/validators.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 class AlterarCadastro extends StatefulWidget {
@@ -77,7 +78,7 @@ class AlterarCadastroState extends State<AlterarCadastro> {
   GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = false;
+  bool _autovalidate = true;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -188,7 +189,7 @@ class AlterarCadastroState extends State<AlterarCadastro> {
         title: Center(
             child: Text(
               ' ',
-              style: TextStyle(color: Colors.grey[400]),
+              style: TextStyle(color: Colors.black),
             )),
         backgroundColor: Colors.grey[100],
         actions: <Widget>[
@@ -205,8 +206,8 @@ class AlterarCadastroState extends State<AlterarCadastro> {
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: <Widget>[
-                Expanded(
-                  flex: 5,
+                Flexible(
+                 // flex: 5,
                   child: Container(
                     height: 450.0,
                     width: double.infinity,
@@ -271,8 +272,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'Nome',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -281,44 +285,14 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                         controller: TextEditingController(text: '${user.nome}'),
                                         validator: composeValidators('nome',
                                             [requiredValidator, stringValidator]),
+                                        onChanged: (value) => _loginData.nome = value,
                                         onSaved: (value) => _loginData.nome = value,
+
 //                                        decoration: InputDecoration(hintText: '${user.nome}'),
                                       ),
                                     ],
                                   ),
                                 ),
-//                            Padding(
-//                              padding: const EdgeInsets.only(
-//                                  left: 20.0, right: 20.0, bottom: 10.0),
-//                              child: Column(
-//                                children: <Widget>[
-//                                  Row(
-//                                    children: <Widget>[
-//                                      Icon(
-//                                        Icons.assignment_ind,
-//                                        color: Colors.grey[400],
-//                                        size: 19.0,
-//                                      ),
-//                                      SizedBox(
-//                                        width: 10.0,
-//                                      ),
-//                                      Text(
-//                                        'RG',
-//                                        style:
-//                                            TextStyle(color: Colors.grey[500]),
-//                                      ),
-//                                    ],
-//                                  ),
-//                                  TextFormField(
-//                                    key: _rgKey,
-//                                    validator: composeValidators(
-//                                        'rg', [requiredValidator, rgValidator]),
-//                                    onSaved: (value) => _loginData.rg = value,
-//                                    decoration: InputDecoration(hintText: ' '),
-//                                  ),
-//                                ],
-//                              ),
-//                            ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20.0, right: 20.0, bottom: 10.0),
@@ -336,57 +310,29 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'CPF',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
                                       TextFormField(
                                         key: _cpfKey,
                                         validator: composeValidators('cpf',
-                                            [requiredValidator, cpfValidator]),
+                                            [requiredValidator,
+                                              cpfValidator,
+                                              maxLegthCPFValidator
+                                            ]),
+                                        onChanged: (value) => _loginData.cpf = value,
                                         onSaved: (value) => _loginData.cpf = value,
                                         controller: TextEditingController(text: '${user.cpf}'),
+                                        // _cpfController, inputFormatters: [cpfMaskFormatter],  // -> "xxx.xxx.xxx-xx"
                                       ),
                                     ],
                                   ),
                                 ),
-//                            Padding(
-//                              padding: const EdgeInsets.only(
-//                                  left: 20.0, right: 20.0, bottom: 10.0),
-//                              child: Column(
-//                                children: <Widget>[
-//                                  Row(
-//                                    children: <Widget>[
-//                                      Icon(
-//                                        Icons.phone,
-//                                        color: Colors.grey[400],
-//                                        size: 19.0,
-//                                      ),
-//                                      SizedBox(
-//                                        width: 10.0,
-//                                      ),
-//                                      Text(
-//                                        'Telefone',
-//                                        style:
-//                                            TextStyle(color: Colors.grey[500]),
-//                                      ),
-//                                    ],
-//                                  ),
-//                                  TextFormField(
-//                                    key: _telefoneKey,
-//                                    validator: composeValidators('telefone', [
-//                                      requiredValidator,
-//                                      minLegthValidator,
-//                                      numberValidator
-//                                    ]),
-//                                    onSaved: (value) =>
-//                                        _loginData.telefone = value,
-//                                    decoration: InputDecoration(hintText: ''),
-//                                  ),
-//                                ],
-//                              ),
-//
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20.0, right: 20.0, bottom: 10.0),
@@ -404,8 +350,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'Endereço',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -415,6 +364,8 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           requiredValidator,
                                         ]),
                                         onSaved: (value) =>
+                                        _loginData.endereco = value,
+                                        onChanged: (value) =>
                                         _loginData.endereco = value,
                                         controller: TextEditingController(text: '${user.endereco}'),
                                       ),
@@ -438,16 +389,21 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'Complemento',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
                                       TextFormField(
                                         key: _complementoKey,
-                                        validator: composeValidators('complemento', [
-                                          requiredValidator,
-                                        ]),
+//                                        validator: composeValidators('complemento', [
+//                                          requiredValidator,
+//                                        ]),
+                                        onChanged: (value) =>
+                                        _loginData.complemento = value,
                                         onSaved: (value) =>
                                         _loginData.complemento = value,
                                         controller: TextEditingController(text: '${user.complemento}'),
@@ -472,8 +428,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'Bairro',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -482,6 +441,8 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                         validator: composeValidators('bairro', [
                                           requiredValidator, stringValidator,
                                         ]),
+                                        onChanged: (value) =>
+                                        _loginData.bairro = value,
                                         onSaved: (value) =>
                                         _loginData.bairro = value,
                                         controller: TextEditingController(text: '${user.bairro}'),
@@ -506,8 +467,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'Cidade',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -565,18 +529,6 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                     ],
                                   ),
                                 ),
-//                                Visibility(
-//                                    visible: _cidadeSelecionada,
-//                                    child: Row(
-//                                      children: <Widget>[
-//                                        Padding(
-//                                          padding: const EdgeInsets.only(left: 20.0, bottom: 20.0),
-//                                          child: Container(
-//                                            child: Text('Escolha uma cidade', style: TextStyle(color: Colors.red),),
-//                                          ),
-//                                        ),
-//                                      ],
-//                                    )),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20.0, right: 20.0, bottom: 10.0),
@@ -594,8 +546,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'Estado',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -650,18 +605,6 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                     ],
                                   ),
                                 ),
-//                                Visibility(
-//                                    visible: _estadoSelecionado,
-//                                    child: Row(
-//                                      children: <Widget>[
-//                                        Padding(
-//                                          padding: const EdgeInsets.only(left: 20.0, bottom: 20.0),
-//                                          child: Container(
-//                                            child: Text('Escolha um Estado', style: TextStyle(color: Colors.red),),
-//                                          ),
-//                                        ),
-//                                      ],
-//                                    )),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20.0, right: 20.0, bottom: 10.0),
@@ -679,8 +622,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'CEP',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -688,9 +634,10 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                         key: _cepKey,
                                         validator: composeValidators('cep', [
                                           requiredValidator,
-                                          minLegthValidator,
-                                          cepValidator
+                                          cepValidator,
+                                          maxLegthCEPValidator
                                         ]),
+                                        onChanged: (value) => _loginData.cep = value,
                                         onSaved: (value) => _loginData.cep = value,
                                         controller: TextEditingController(text: '${user.cep}'),
                                       ),
@@ -714,8 +661,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'Contato',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -724,11 +674,13 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                         validator: composeValidators('telefone', [
                                           requiredValidator,
                                           minLegthValidator,
-                                          numberValidator
+                                          numberValidator,
+                                          maxLegthTelefoneValidator
                                         ]),
+                                        onChanged: (value) => _loginData.telefone = value,
                                         onSaved: (value) =>
                                         _loginData.telefone = value,
-                                        controller: TextEditingController(text:  '${user.contato}'),
+                                        controller: TextEditingController(text: '${user.contato}'),
                                       ),
                                     ],
                                   ),
@@ -750,8 +702,11 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           ),
                                           Text(
                                             'E-mail',
-                                            style:
-                                            TextStyle(color: Colors.grey[500]),
+                                            style: GoogleFonts.raleway(
+                          color: Colors.black87,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.7),
                                           ),
                                         ],
                                       ),
@@ -765,7 +720,8 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                                           minLegthValidator,
                                           emailValidator
                                         ]),
-
+                                        onChanged: (value) =>
+                                        _loginData.email = value,
                                         onSaved: (value) =>
                                         _loginData.email = value,
 
@@ -790,108 +746,111 @@ class AlterarCadastroState extends State<AlterarCadastro> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: FlatButton(
-                    onPressed: () {
-                      if (citySel == null){
-                        _cidadeSelecionada = true;
-                      }
-                      if (estadoSel == null){
-                        _estadoSelecionado = true;
-                      }
+                Flexible(
+                  //flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: FlatButton(
+                      onPressed: () {
+                        if (citySel == null){
+                          _cidadeSelecionada = true;
+                        }
+                        if (estadoSel == null){
+                          _estadoSelecionado = true;
+                        }
 
-                      final form = _formKey.currentState;
-                      if (form.validate()) {
-                        form.save();
-                        print(
-                            'password is: ${_loginData
-                                .password}, confirmPassword is: ${_loginData
-                                .confirmPassword}, email is: ${_loginData
-                                .email}, nome is: ${_loginData.nome}');
+                        final form = _formKey.currentState;
+                        if (form.validate()) {
+                          form.save();
+                          print(
+                              'password is: ${_loginData
+                                  .password}, confirmPassword is: ${_loginData
+                                  .confirmPassword}, email is: ${_loginData
+                                  .email}, nome is: ${_loginData.nome}');
 
 
 //                          Usuario user = new Usuario.vazio();
 //                          Perfil perfil = new Perfil.vazio();
-                          Cidade cidade = new Cidade.vazio();
-                          Estado estado = new Estado.vazio();
+                            Cidade cidade = new Cidade.vazio();
+                            Estado estado = new Estado.vazio();
 //                          perfil.id = 2;
 //                          print(idCity);
 //                          print(idState);
-                          cidade.id = idCity;
-                          estado.id = idState;
-                          user.nome = _loginData.nome;
-                          user.cpf = _loginData.cpf;
-                          user.endereco = _loginData.endereco;
-                          user.complemento = _loginData.complemento; //_loginData.complemento;
-                          user.bairro = _loginData.bairro; //_loginData.bairro;
-                          cidade.nome = _loginData.cidade;
-                          user.cidade = cidade;
-                          estado.nome = _loginData.estado; //_loginData.estado
-                          user.estado = estado;
-                          user.cep = _loginData.cep;
-                          user.contato = _loginData.telefone;
-                          user.email = _loginData.email;
+                            cidade.id = idCity;
+                            estado.id = idState;
+                            user.nome = _loginData.nome;
+                            user.cpf = _loginData.cpf;
+                            user.endereco = _loginData.endereco;
+                            user.complemento = _loginData.complemento; //_loginData.complemento;
+                            user.bairro = _loginData.bairro; //_loginData.bairro;
+                            cidade.nome = _loginData.cidade;
+                            user.cidade = cidade;
+                            estado.nome = _loginData.estado; //_loginData.estado
+                            user.estado = estado;
+                            user.cep = _loginData.cep;
+                            user.contato = _loginData.telefone;
+                            user.email = _loginData.email;
 //                          user.observacao = "";
 //                          user.perfil = perfil;
 //                          user.status = 'ATIVO';
 //                          user.senha = _loginData.password;
 //                          user.resetSenha = 'N';
 
-                          String url = 'https://www.accio.com.br:447/api/cadastros';
-                          Map<String, dynamic> map = user.toJson();
-                          String body = jsonEncode(map);
-                          print(body);
+                            String url = 'https://www.accio.com.br:447/api/cadastros';
+                            Map<String, dynamic> map = user.toJson();
+                            String body = jsonEncode(map);
+                            print(body);
 
 
-                          http
-                              .post(url,
-                              headers: {
-                                'Content-Type':
-                                'application/json'
-                              },
-                              body: body)
-                              .then((http.Response response) {
-                            print("Response status: ${response.statusCode}");
-                            //print("Response body: ${response.contentLength}");
-                            //print(response.headers);
-                            print(response.body);
-                            if (response.statusCode == 200) {
-                              print("PASSOUYALL");
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => TelaLogin()),
-                              );
-                              Navigator.of(context).pushAndRemoveUntil(
+                            http
+                                .post(url,
+                                headers: {
+                                  'Content-Type':
+                                  'application/json'
+                                },
+                                body: body)
+                                .then((http.Response response) {
+                              print("Response status: ${response.statusCode}");
+                              //print("Response body: ${response.contentLength}");
+                              //print(response.headers);
+                              print(response.body);
+                              if (response.statusCode == 200) {
+                                print("PASSOUYALL");
+                                Navigator.push(
+                                  context,
                                   MaterialPageRoute(builder: (context) => TelaLogin()),
-                                      (Route<dynamic> route) => false);
-                            }
-                          });
-                        }
+                                );
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(builder: (context) => TelaLogin()),
+                                        (Route<dynamic> route) => false);
+                              }
+                            });
+                          }
 
-                      else {
-                        setState(() => _autovalidate = true);
-                      }
-                    },
-                    textColor: Colors.white,
-                    color: Colors.white,
-                    child: Container(
-                      width: double.infinity,
-                      height: 45.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        gradient: LinearGradient(
-                          colors: <Color>[
-                            Color(0xFF33691E),
-                            Color(0xFF689F38),
-                            Color(0xFF8BC34A),
-                          ],
+                        else {
+                          setState(() => _autovalidate = true);
+                        }
+                      },
+                      textColor: Colors.white,
+                      color: Colors.white,
+                      child: Container(
+                        width: double.infinity,
+                        height: 45.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Color(0xFF33691E),
+                              Color(0xFF689F38),
+                              Color(0xFF8BC34A),
+                            ],
+                          ),
                         ),
+                        //padding: const EdgeInsets.fromLTRB(90.0, 15.0, 90.0, 15.0),
+                        child: Center(
+                            child: const Text('ALTERAR CADASTRO',
+                                style: TextStyle(fontSize: 20))),
                       ),
-                      //padding: const EdgeInsets.fromLTRB(90.0, 15.0, 90.0, 15.0),
-                      child: Center(
-                          child: const Text('ALTERAR CADASTRO',
-                              style: TextStyle(fontSize: 20))),
                     ),
                   ),
                 ),

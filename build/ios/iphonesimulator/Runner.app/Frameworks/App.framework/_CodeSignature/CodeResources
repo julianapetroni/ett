@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		nMLG5kA/7UXKj6YnIEFj4RWfLV0=
+		24TldVVYYfin/phz+5LwyNjuuCc=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -20,6 +20,10 @@
 		<data>
 		BvWNWmMsQsbNIdiY4YWHdiyXEWE=
 		</data>
+		<key>flutter_assets/NOTICES</key>
+		<data>
+		DWx/70VPP6Cnt6jNnEVtRBNJ7wg=
+		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
 		<data>
 		nIzDzw7hjOThppiX5OleKNAxtqM=
@@ -27,6 +31,42 @@
 		<key>flutter_assets/images/ETT.png</key>
 		<data>
 		NE7GvU0VkCEF40BPBd2cyUuPfI8=
+		</data>
+		<key>flutter_assets/images/FastBus.jpg</key>
+		<data>
+		ug40BssJpF1M3bxVU8iJg/38N8g=
+		</data>
+		<key>flutter_assets/images/FrenteETT.jpg</key>
+		<data>
+		Fy5NlBu6sH0LDZ7wBuYwgdHN5wI=
+		</data>
+		<key>flutter_assets/images/ModernBus.jpg</key>
+		<data>
+		sE4IuwP0XMlt0y91SlxPQjPxWRk=
+		</data>
+		<key>flutter_assets/images/ModernBus2.jpg</key>
+		<data>
+		uZ9UwbZYr4R6RevpzMF2we6n1Fw=
+		</data>
+		<key>flutter_assets/images/OnibusETTFrenteLateral.jpeg</key>
+		<data>
+		x7J9yK8JpsUgmSoC5RnI+K4qz4Q=
+		</data>
+		<key>flutter_assets/images/OnibusETTLateralEscuro.jpeg</key>
+		<data>
+		rKF291N0vb31i2aYvFx2KfZ8S0U=
+		</data>
+		<key>flutter_assets/images/OnibusETTNoite.jpg</key>
+		<data>
+		1BLeeLiDIoA9Oly3Daf9IL/XaKQ=
+		</data>
+		<key>flutter_assets/images/OnibusEntardecer.jpg</key>
+		<data>
+		4k1XnNWQV0CbgE35grTLUmM2kZc=
+		</data>
+		<key>flutter_assets/images/YellowBus.png</key>
+		<data>
+		AD0HGcc1tptJ4ATefS0q1zUa50I=
 		</data>
 		<key>flutter_assets/images/busFront.png</key>
 		<data>
@@ -74,11 +114,11 @@
 		</data>
 		<key>flutter_assets/isolate_snapshot_data</key>
 		<data>
-		zIBm0C+IF1Uyd0Ysus7GG/2t3BY=
+		RDnH8RhpdZU3SkiqV9ONzudSmi0=
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		FGvgGuOi029oBVzWvZaIQd4BRN4=
+		eQ2w7vsgAJLMOiBO63iHZgl6wKw=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -98,7 +138,7 @@
 		</data>
 		<key>flutter_assets/vm_snapshot_data</key>
 		<data>
-		c4lES89gGDE/pbQYZAtZSx0P7XQ=
+		3xkcXq90SyJ63T3T+Wrv4yV2qrw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -107,11 +147,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nMLG5kA/7UXKj6YnIEFj4RWfLV0=
+			24TldVVYYfin/phz+5LwyNjuuCc=
 			</data>
 			<key>hash2</key>
 			<data>
-			zT9yhYyi6ntSznBXjx++x+KlR6dYZtTP5iQ/TcSTskQ=
+			SbacZurbu38RUNghE2Ifvk5iGznT18Hr6Rnk3jWyU6M=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -136,6 +176,17 @@
 			8v/bos5W8T3FhyOyh7ERLOS6JwGKLrRpOnJjdkr8Gv0=
 			</data>
 		</dict>
+		<key>flutter_assets/NOTICES</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DWx/70VPP6Cnt6jNnEVtRBNJ7wg=
+			</data>
+			<key>hash2</key>
+			<data>
+			9Dr/FOr29p/jTqs/5hnoAQj5sIxNI4Su//kLfmJUFW0=
+			</data>
+		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
 		<dict>
 			<key>hash</key>
@@ -156,6 +207,105 @@
 			<key>hash2</key>
 			<data>
 			bSqTTDeuXh/Rcs+VEz22s8871kpQC/D7kcMoDYbFeQc=
+			</data>
+		</dict>
+		<key>flutter_assets/images/FastBus.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ug40BssJpF1M3bxVU8iJg/38N8g=
+			</data>
+			<key>hash2</key>
+			<data>
+			V1FIq8xJRLQMjss9t90zt/Lq3w6ZonQTRrZcXQ2pZag=
+			</data>
+		</dict>
+		<key>flutter_assets/images/FrenteETT.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Fy5NlBu6sH0LDZ7wBuYwgdHN5wI=
+			</data>
+			<key>hash2</key>
+			<data>
+			qqn32UKitvD42/k/SrCm2iq+O8dJ1LFvAPpXgXE2sQ8=
+			</data>
+		</dict>
+		<key>flutter_assets/images/ModernBus.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sE4IuwP0XMlt0y91SlxPQjPxWRk=
+			</data>
+			<key>hash2</key>
+			<data>
+			XzSfuGMKBxXGNQ+OX9FpU4FFTY/5cgrjdBLRBGDTTTk=
+			</data>
+		</dict>
+		<key>flutter_assets/images/ModernBus2.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uZ9UwbZYr4R6RevpzMF2we6n1Fw=
+			</data>
+			<key>hash2</key>
+			<data>
+			o6UjkZ4+JOtkaUYjDiij8DjHkaDlgr3nYLCXzF8w+xM=
+			</data>
+		</dict>
+		<key>flutter_assets/images/OnibusETTFrenteLateral.jpeg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			x7J9yK8JpsUgmSoC5RnI+K4qz4Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			B5S05dTmtb3uNo+bDBL7ziqvoVz3jJIXR2ZRmxLkB5c=
+			</data>
+		</dict>
+		<key>flutter_assets/images/OnibusETTLateralEscuro.jpeg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rKF291N0vb31i2aYvFx2KfZ8S0U=
+			</data>
+			<key>hash2</key>
+			<data>
+			QzHOgEcyjBYwILwUoZcErmUtR3m0e/Laj8p1vx46NEE=
+			</data>
+		</dict>
+		<key>flutter_assets/images/OnibusETTNoite.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1BLeeLiDIoA9Oly3Daf9IL/XaKQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			gvnzYkYBbt7zEfs/+CIEAB0G+Iu3zGV8KaYQ9qVYNkw=
+			</data>
+		</dict>
+		<key>flutter_assets/images/OnibusEntardecer.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4k1XnNWQV0CbgE35grTLUmM2kZc=
+			</data>
+			<key>hash2</key>
+			<data>
+			OnqQ1SmNo9Z9OBs/5EVrWjSe+5ZbXUKnrH8+RmzMnHY=
+			</data>
+		</dict>
+		<key>flutter_assets/images/YellowBus.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			AD0HGcc1tptJ4ATefS0q1zUa50I=
+			</data>
+			<key>hash2</key>
+			<data>
+			1Mtz1VOXAgUKn0sgOUlMDaaOif2kLHB9Ui5+ZbaKty4=
 			</data>
 		</dict>
 		<key>flutter_assets/images/busFront.png</key>
@@ -283,22 +433,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zIBm0C+IF1Uyd0Ysus7GG/2t3BY=
+			RDnH8RhpdZU3SkiqV9ONzudSmi0=
 			</data>
 			<key>hash2</key>
 			<data>
-			fBGLLWoPsd6V2gnnkU1Ii6PABIH9UtqGJ5s6qgAnF9c=
+			z1w7SDxa/BTkcYljCtqriRfPTsZnwyEmm9feKnSxtKQ=
 			</data>
 		</dict>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			FGvgGuOi029oBVzWvZaIQd4BRN4=
+			eQ2w7vsgAJLMOiBO63iHZgl6wKw=
 			</data>
 			<key>hash2</key>
 			<data>
-			NDH+Mz0By842yb2tzrVBkag3YIO9rqj8akTlXhhEStg=
+			sogfOn9cgd+aqQgBFVMijhbO9PrnF50x++e2UYFP394=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -349,11 +499,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			c4lES89gGDE/pbQYZAtZSx0P7XQ=
+			3xkcXq90SyJ63T3T+Wrv4yV2qrw=
 			</data>
 			<key>hash2</key>
 			<data>
-			I5M7BRnkIZ7bmTulf1uN2H/2vYEAv6BPRMrt+7Mz9lM=
+			M3VcBx6a3izyHcwMTQ8W21LfMKhDZdnNkS5R5QjPmwY=
 			</data>
 		</dict>
 	</dict>

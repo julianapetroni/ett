@@ -7,6 +7,8 @@ import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:json_table/json_table.dart';
 import 'dart:convert';
@@ -15,6 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
 import '../style/lightColors.dart';
+import 'dasboardScreen.dart';
 import 'myBackButton.dart';
 import '../style/topContainer.dart';
 
@@ -26,7 +29,9 @@ class ControleDeFrequenciaDeLinha extends StatefulWidget {
   ControleDeFrequenciaDeLinha(
       {Key key,
       // this.value,
-      this.user, this.token, this.sol})
+      this.user,
+      this.token,
+      this.sol})
       : super(key: key);
 
   @override
@@ -47,9 +52,11 @@ class ControleDeFrequenciaDeLinhaState
       GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = false;
+  bool _autovalidate = true;
 
   final _nomeController = TextEditingController();
+
+  var matriculaController = new MaskedTextController(mask: '000000');
 
   @override
   dispose() {
@@ -189,8 +196,9 @@ class ControleDeFrequenciaDeLinhaState
     SizeConfig().init(context);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: LightColors.kDarkYellow,
+          backgroundColor: LightColors.neonYellowLight,
           elevation: 0.0,
+          iconTheme: new IconThemeData(color: LightColors.neonYellowDark),
         ),
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -201,18 +209,32 @@ class ControleDeFrequenciaDeLinhaState
                 width: width,
                 child: Column(
                   children: <Widget>[
-                    //MyBackButton(),
-                    SizedBox(
-                      height: 30,
+                    Container(
+                      height: 80.0,
+                      width: double.infinity,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image(
+                              image: AssetImage('images/logo-slim.png'),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
+                    SizedBox(height: 30.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Flexible(
                           child: Text(
                             'Controle de Frequência de Linha',
-                            style: TextStyle(
-                                fontSize: 19.0, fontWeight: FontWeight.w700),
+                            style: GoogleFonts.raleway(
+                                color: Colors.black87,
+                                fontSize: 19.0,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.7),
                           ),
                         ),
                       ],
@@ -226,42 +248,48 @@ class ControleDeFrequenciaDeLinhaState
                           child: Column(
                             children: <Widget>[
                               Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 20.0, top: 8.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Flexible(
-                                        child: TextFormField(
-                                          //controller: TextEditingController(text: '${user.nome}'),
-                                          decoration: InputDecoration(
-                                            labelText: 'Nome do Fiscal',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600], width: 2.0),
-                                              borderRadius: BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300], width: 2.0),
-                                              borderRadius: BorderRadius.circular(5.0),
-                                            ),
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 20.0, top: 8.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Flexible(
+                                      child: TextFormField(
+                                        //controller: TextEditingController(text: '${user.nome}'),
+                                        decoration: InputDecoration(
+                                          labelText: 'Nome do Fiscal',
+                                          labelStyle: TextStyle(
+                                              fontSize: 13.0,
+                                              color: Colors.grey[600]),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey[600],
+                                                width: 2.0),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
                                           ),
-                                          key: _nomeKey,
-                                          controller: TextEditingController(
-                                              text: '${user.nome}'),
-                                          validator: composeValidators('nome',
-                                              [requiredValidator, stringValidator]),
-                                          onSaved: (value) => _loginData.nome = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey[300],
+                                                width: 2.0),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
                                         ),
+                                        key: _nomeKey,
+                                        controller: TextEditingController(
+                                            text: '${user.nome}'),
+                                        validator: composeValidators('nome', [
+                                          requiredValidator,
+                                          stringValidator
+                                        ]),
+                                        onSaved: (value) =>
+                                            _loginData.nome = value,
+//                                        decoration: InputDecoration(hintText: '${user.nome}'),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 8.0, right: 8.0, top: 8.0),
@@ -292,6 +320,7 @@ class ControleDeFrequenciaDeLinhaState
                                                   BorderRadius.circular(5.0),
                                             ),
                                           ),
+                                          controller: matriculaController,
 //                    key: _nomeKey,
 //                    controller: TextEditingController(text: '${user.nome}'),
 //                    validator: composeValidators('nome',
@@ -399,9 +428,9 @@ class ControleDeFrequenciaDeLinhaState
                                                 text: formattedTime),
                                             decoration: InputDecoration(
                                               labelText: 'Hora Término',
-                                              labelStyle: TextStyle(
-                                                  fontSize: 13.0,
-                                                  color: Colors.grey[600]),
+                                              labelStyle: GoogleFonts.raleway(
+                                                color: Colors.black87,
+                                              ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: Colors.grey[600],
@@ -457,35 +486,9 @@ class ControleDeFrequenciaDeLinhaState
                   ],
                 ),
               ),
-
               SizedBox(
                 height: 20.0,
               ),
-
-//            ListView(
-//                scrollDirection: Axis.horizontal,
-//                children: <Widget>[
-//
-//                  Padding(
-//                    padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 100.0),
-//                    child: Container(
-//                      child: Center(
-//                        child: DataTable(columns: [
-//                          DataColumn(label: Text('Local', style: TextStyle(fontSize: 13.0, color: Colors.orange[600]),)),
-//                          DataColumn(label: Text('Carro', style: TextStyle(fontSize: 13.0, color: Colors.orange[600]))),
-//                          DataColumn(label: Text('Horário', style: TextStyle(fontSize: 13.0, color: Colors.orange[600]))),
-//
-//                          //DataColumn(label: Text('Ready')),
-//                        ],
-//                            rows: _rowList
-//                        ),
-//                      ),
-//                    ),
-//                  ),
-//
-//                ],
-//              ),
-
               Padding(
                 padding:
                     const EdgeInsets.only(top: 0.0, left: 20.0, right: 20.0),
@@ -496,38 +499,38 @@ class ControleDeFrequenciaDeLinhaState
                     columns: <DataColumn>[
                       DataColumn(
                         label: Text('LOCAL',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13.0,
-                                color: Colors.grey[700])),
+                            style: GoogleFonts.raleway(
+                                color: Colors.black87,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ),
                       DataColumn(
                         label: Text('CARRO',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13.0,
-                                color: Colors.grey[700])),
+                            style: GoogleFonts.raleway(
+                                color: Colors.black87,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ),
                       DataColumn(
                         label: Text('HORÁRIO',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13.0,
-                                color: Colors.grey[700])),
+                            style: GoogleFonts.raleway(
+                                color: Colors.black87,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ),
                       DataColumn(
                         label: Text('EMPRESA',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13.0,
-                                color: Colors.grey[700])),
+                            style: GoogleFonts.raleway(
+                                color: Colors.black87,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ),
                       DataColumn(
                         label: Text('DESTINO',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13.0,
-                                color: Colors.grey[700])),
+                            style: GoogleFonts.raleway(
+                                color: Colors.black87,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ],
                     rows: _rowList,
@@ -560,14 +563,13 @@ class ControleDeFrequenciaDeLinhaState
                   )),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.only(
                     left: 10, right: 10, top: 40, bottom: 40),
                 child: FlatButton(
                   onPressed: () {
                     setState(() {
-                     // _myActivitiesResult = _myActivities.toString();
+                      // _myActivitiesResult = _myActivities.toString();
                     });
 
                     //if (
@@ -575,16 +577,16 @@ class ControleDeFrequenciaDeLinhaState
 //                        &&_formCondViaKey.currentState.validate()
 //                        && _formSemaforoKey.currentState.validate()
 //                        && _formPlacasKey.currentState.validate()
-                   // ) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Status(
-                              user: user,
-                              token: token,
-                              sol: sol,
-                            )),
-                      );
+                    // ) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DashboardScreen(
+                                user: user,
+                                token: token,
+                                sol: sol,
+                              )),
+                    );
 //                    }else {
 //                      final semCadastro =
 //                      new SnackBar(content: new Text('Escolha as opções para prosseguir!'));
@@ -597,12 +599,12 @@ class ControleDeFrequenciaDeLinhaState
                     width: double.infinity,
                     height: 45.0,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(25.0),
                       gradient: LinearGradient(
                         colors: <Color>[
-                          Colors.yellow[800],
-                          Colors.yellow[700],
-                          Colors.yellow[600],
+                          Colors.grey[600],
+                          Colors.grey[500],
+                          Colors.grey[300],
                         ],
                       ),
                     ),
@@ -618,8 +620,11 @@ class ControleDeFrequenciaDeLinhaState
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: _addRow,
-          label: Icon(Icons.add),
-          backgroundColor: Colors.orange,
+          label: Icon(
+            Icons.add,
+            color: LightColors.neonETT,
+          ),
+          backgroundColor: Colors.black87,
         ));
   }
 }

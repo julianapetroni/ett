@@ -103,7 +103,7 @@ class _DrawState extends State<Draw> {
     Colors.green,
     Colors.blue,
     Colors.amber,
-    Colors.black,
+    Colors.black87,
     Colors.grey
   ];
 
@@ -136,7 +136,7 @@ class _DrawState extends State<Draw> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: LightColors.kDarkYellow,
+        backgroundColor: LightColors.neonYellowLight,
         elevation: 0.0,
 //        leading: GestureDetector(
 //          onTap: () {
@@ -166,7 +166,7 @@ class _DrawState extends State<Draw> {
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.0),
-                  color: LightColors.kLightYellow2),
+                  color: LightColors.neonETT),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -241,7 +241,7 @@ class _DrawState extends State<Draw> {
                               child: Icon(
                                 Icons.photo_camera,
                                 size: 25,
-                                color: Colors.black,
+                                color: Colors.black87,
                               ),
                             ),
                           ),
@@ -304,7 +304,7 @@ class _DrawState extends State<Draw> {
                         margin: EdgeInsets.all(30),
                         height: 500,
                         width: 300,
-                        color: LightColors.kLightYellow,
+                        //color: LightColors.neonYellowLight,
                         child: Stack(
                             children: <Widget>[
 
@@ -568,7 +568,7 @@ class _DrawState extends State<Draw> {
                                 child: Container(
                                   height: 500,
                                   width: 300,
-                                  color: LightColors.kLightYellow,
+                                  color: Colors.grey[200],
                                   child: Column(
                                     children: <Widget>[
                                       Padding(
@@ -595,17 +595,17 @@ class _DrawState extends State<Draw> {
 
                                           },
                                           textColor: Colors.white,
-                                          color: Colors.white,
                                           child: Container(
                                             width: double.infinity,
                                             height: 45.0,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15.0),
-                                              gradient: LinearGradient(
-                                                colors: <Color>[
-                                                  Colors.yellow[800],
-                                                  Colors.yellow[700],
-                                                  Colors.yellow[600],
+                                              borderRadius: BorderRadius.circular(25.0),
+                                        gradient: LinearGradient(
+                                          colors: <Color>[
+                                            Colors.grey[600],
+                                            Colors.grey[500],
+                                            Colors.grey[300],
+                                      
                                                 ],
                                               ),
                                             ),
@@ -820,10 +820,10 @@ class DragBus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  ImageIcon(
-      // Image.asset("images/logo-slim-tsp.png", fit: BoxFit.contain)
+      // Image.asset("images/ETT.png", fit: BoxFit.contain)
       AssetImage('images/busFront.png'),
       size: 55,
-      //color: Colors.black,
+      //color: Colors.black87,
     );
 
   }
@@ -836,7 +836,7 @@ class DragCar extends StatelessWidget {
     return ImageIcon(
       AssetImage('images/carro.png'),
       size: 41,
-      //color: Colors.black,
+      //color: Colors.black87,
     );
   }
 }
@@ -864,10 +864,10 @@ class DragTruck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ImageIcon(
-          // Image.asset("images/logo-slim-tsp.png", fit: BoxFit.contain)
+          // Image.asset("images/ETT.png", fit: BoxFit.contain)
           AssetImage('images/truckFrontIcon.png'),
           size: 45,
-          //color: Colors.black,
+          //color: Colors.black87,
         );
   }
 }
@@ -875,10 +875,10 @@ class DragPickUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ImageIcon(
-          // Image.asset("images/logo-slim-tsp.png", fit: BoxFit.contain)
+          // Image.asset("images/ETT.png", fit: BoxFit.contain)
           AssetImage('images/pickUp.png'),
           size: 73,
-          //color: Colors.black,
+          //color: Colors.black87,
         );
   }
 }
