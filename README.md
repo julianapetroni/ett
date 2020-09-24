@@ -18,8 +18,6 @@
 <img width="455" alt="Captura de Tela 2020-09-23 às 23 13 35" src="https://user-images.githubusercontent.com/30326310/94093639-0e2e8a00-fdf4-11ea-9bb0-96750e6dbe9a.png">
 <img width="435" alt="Captura de Tela 2020-09-23 às 23 13 46" src="https://user-images.githubusercontent.com/30326310/94093695-3ae2a180-fdf4-11ea-872f-3a5d7f13c636.png">
 <img width="452" alt="Captura de Tela 2020-09-23 às 23 13 56" src="https://user-images.githubusercontent.com/30326310/94093749-564dac80-fdf4-11ea-9704-f9aa0f482612.png">
-<img width="338" alt="Captura de Tela 2020-09-23 às 23 32 31" src="https://user-images.githubusercontent.com/30326310/94094102-12a77280-fdf5-11ea-9a4c-8c14ba11cfb3.png">
 <img width="224" alt="Captura de Tela 2020-09-23 às 23 32 31" src="https://user-images.githubusercontent.com/30326310/94094866-f573a380-fdf6-11ea-943b-5eb033047d6c.gif">
-![ett](https://user-images.githubusercontent.com/30326310/94094866-f573a380-fdf6-11ea-943b-5eb033047d6c.gif)
 
 
