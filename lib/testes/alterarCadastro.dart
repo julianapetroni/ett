@@ -1,17 +1,17 @@
 //import 'dart:convert';
 //import 'package:flutter_masked_text/flutter_masked_text.dart';
 //import 'package:flutter/material.dart';
-//import 'package:pec/domains/solicitacao.dart';
-//import 'package:pec/screens/login.dart';
-//import 'package:pec/domains/estado.dart';
-//import 'package:pec/domains/usuario.dart';
-//import 'package:pec/domains/cidade.dart';
-//import 'package:pec/models/forms.dart';
-//import 'package:pec/utils/validators.dart';
+//import 'package:ett_app/domains/solicitacao.dart';
+//import 'package:ett_app/screens/login.dart';
+//import 'package:ett_app/domains/estado.dart';
+//import 'package:ett_app/domains/usuario.dart';
+//import 'package:ett_app/domains/cidade.dart';
+//import 'package:ett_app/models/forms.dart';
+//import 'package:ett_app/utils/validators.dart';
 //import 'package:http/http.dart' as http;
 //import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 //
-//import 'appBarPEC.dart';
+//import 'appBar.dart';
 //
 //class AlterarCadastro extends StatefulWidget {
 //  Usuario user;
@@ -201,7 +201,7 @@
 //
 //    return Scaffold(
 //      key: _scaffoldKey,
-//      appBar: AppBarPEC(
+//      appBar: appBar(
 //        user: user, token: token, sol: sol
 //      ),
 //      backgroundColor: Colors.white,
@@ -234,7 +234,7 @@
 //                                      mainAxisAlignment: MainAxisAlignment.center,
 //                                      children: <Widget>[
 //                                        Image(
-//                                          image: AssetImage('images/PECLogo.png'),
+//                                          image: AssetImage('images/logo-slim.png'),
 //                                        ),
 //                                      ],
 //                                    ),

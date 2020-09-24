@@ -1,25 +1,16 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:convert';
-import 'package:ett_app/screens/avariasVeiculoTerceiros.dart';
 import 'package:ett_app/screens/conclusoesRelOcorrencia.dart';
-import 'package:ett_app/screens/selecaoMultiplaComTag.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:ett_app/domains/solicitacao.dart';
-import 'package:ett_app/screens/login.dart';
+import 'package:ett_app/services/token.dart';
 import 'package:ett_app/domains/usuario.dart';
 import '../style/lightColors.dart';
 import "package:flutter/painting.dart";
 import "package:flutter/foundation.dart";
-
-import 'login.dart';
 
 class Testemunhas extends StatefulWidget {
   Solicitacao sol;

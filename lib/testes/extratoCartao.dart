@@ -1,22 +1,22 @@
 //import 'dart:convert';
 //import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 //import 'package:flutter/material.dart';
-//import 'package:pec/domains/dataAgendamento.dart';
-//import 'package:pec/domains/solicitacao.dart';
-//import 'package:pec/domains/tipoSolicitacao.dart';
-//import 'package:pec/screens/login.dart';
-//import 'package:pec/domains/usuario.dart';
-//import 'package:pec/models/forms.dart';
-//import 'package:pec/screens/status.dart';
-//import 'package:pec/utils/validators.dart';
+//import 'package:ett_app/domains/dataAgendamento.dart';
+//import 'package:ett_app/domains/solicitacao.dart';
+//import 'package:ett_app/domains/tipoSolicitacao.dart';
+//import 'package:ett_app/screens/login.dart';
+//import 'package:ett_app/domains/usuario.dart';
+//import 'package:ett_app/models/forms.dart';
+//import 'package:ett_app/screens/status.dart';
+//import 'package:ett_app/utils/validators.dart';
 //import 'package:http/http.dart' as http;
 //import 'package:flutter/cupertino.dart';
 //import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 //import 'package:intl/intl.dart';
 //import 'dart:async';
-//import 'package:pec/domains/extratoCartao.dart';
+//import 'package:ett_app/domains/extratoCartao.dart';
 //
-//import 'appBarPEC.dart';
+//import 'appBar.dart';
 //
 //class ExtratoCartao extends StatefulWidget {
 //  Usuario user;
@@ -270,7 +270,7 @@
 //  Widget build(BuildContext context) {
 //    return Scaffold(
 //      key: _scaffoldKey,
-//      appBar: AppBarPEC(user: user, token: token, sol: sol),
+//      appBar: appBar(user: user, token: token, sol: sol),
 //      backgroundColor: Colors.white,
 //      body: SafeArea(
 //          child: Padding(
@@ -294,7 +294,7 @@
 //                              mainAxisAlignment: MainAxisAlignment.center,
 //                              children: <Widget>[
 //                                Image(
-//                                  image: AssetImage('images/PECLogo.png'),
+//                                  image: AssetImage('images/logo-slim.png'),
 //                                ),
 //                              ],
 //                            ),

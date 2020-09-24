@@ -2,10 +2,10 @@ import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/style/lightColors.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'avariasOnibus.dart';
-import 'login.dart';
+import 'package:ett_app/services/token.dart';
+
 
 class Ambiente extends StatefulWidget {
   Solicitacao sol;
@@ -37,51 +37,15 @@ class AmbienteState extends State<Ambiente> {
   }
 
   //radio button
-  // Default Radio Button Selected Item When App Starts.
   String radioButtonItemAmbiente;
   // Group Value for Radio Button.
   int idAmbiente;
   bool rbAmbiente = false;
 
-  var _isChecked = new List<bool>.filled(10, false);
-
-  void onChanged(bool value) {
-    setState(() {
-      _isChecked[0] = value;
-    });
-  }
-
-  void onChanged2(bool value) {
-    setState(() {
-      _isChecked[1] = value;
-    });
-  }
-
-  void onChanged3(bool value) {
-    setState(() {
-      _isChecked[2] = value;
-    });
-  }
-
-  void onChanged4(bool value) {
-    setState(() {
-      _isChecked[3] = value;
-    });
-  }
 
   //Obs.
   final _obsController = TextEditingController();
   TextEditingController _obstextFieldController = TextEditingController();
-
-  //obs.
-
-  int _obscharCount = 700;
-
-  _onChanged(String value) {
-    setState(() {
-      _obscharCount = 700 - value.length;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -274,10 +238,8 @@ class AmbienteState extends State<Ambiente> {
                     child: TextField(
                       maxLines: 5,
                       controller: _obstextFieldController,
-                      onChanged: _onChanged,
-//                      inputFormatters: [
-//                        LengthLimitingTextInputFormatter(700),
-//                      ],
+                     maxLengthEnforced: true,
+                      maxLength: 700,
                     ),
                   ),
                   SizedBox(height: 20.0),

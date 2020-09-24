@@ -1,7 +1,7 @@
 //import 'package:flutter/material.dart';
-//import 'package:pec/domains/solicitacao.dart';
-//import 'package:pec/domains/usuario.dart';
-//import 'package:pec/screens/appBarPEC.dart';
+//import 'package:ett_app/domains/solicitacao.dart';
+//import 'package:ett_app/domains/usuario.dart';
+//import 'package:ett_app/screens/appBar.dart';
 //
 //import 'login.dart';
 //
@@ -17,7 +17,7 @@
 //
 //  Widget build(BuildContext context) {
 //    return Scaffold(
-//      appBar: AppBarPEC (user: user, token: token, sol: sol),
+//      appBar: appBar (user: user, token: token, sol: sol),
 //      backgroundColor: Colors.white,
 //      body: SafeArea(
 //          child: ListView(
@@ -33,7 +33,7 @@
 //                    mainAxisAlignment: MainAxisAlignment.center,
 //                    children: <Widget>[
 //                      Image(
-//                        image: AssetImage('images/PECLogo.png'),
+//                        image: AssetImage('images/logo-slim.png'),
 //                      ),
 //                    ],
 //                  ),

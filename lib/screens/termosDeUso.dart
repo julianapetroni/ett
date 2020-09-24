@@ -1,9 +1,7 @@
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/domains/usuario.dart';
-import 'package:ett_app/testes/teste.dart';
 import 'package:flutter/material.dart';
-
-import 'login.dart';
+import 'package:ett_app/services/token.dart';
 
 class TermosDeUso extends StatelessWidget {
   Usuario user;
@@ -47,7 +45,7 @@ class TermosDeUso extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Image(
-                        image: AssetImage('images/PECLogo.png'),
+                        image: AssetImage('images/logo-slim.png'),
                       ),
                     ],
                   ),

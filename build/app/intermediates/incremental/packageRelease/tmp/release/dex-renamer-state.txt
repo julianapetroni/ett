@@ -1,0 +1,4 @@
+#Thu Jul 30 20:19:33 BRT 2020
+base.0=/Users/julianapetroni/AndroidStudioProjects/ett_app/build/app/intermediates/dex/release/shrunkDex/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

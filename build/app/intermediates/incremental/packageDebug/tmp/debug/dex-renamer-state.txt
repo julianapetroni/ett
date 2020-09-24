@@ -1,0 +1,4 @@
+#Wed Aug 19 11:23:48 BRT 2020
+base.0=/Users/julianapetroni/AndroidStudioProjects/ett_app/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,0 +1,11 @@
+framework module analog_clock {
+  umbrella header "analog_clock-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module analog_clock.Swift {
+    header "analog_clock-Swift.h"
+    requires objc
+}

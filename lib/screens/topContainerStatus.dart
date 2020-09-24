@@ -1,6 +1,5 @@
 import 'package:ett_app/style/topContainer.dart';
 import 'package:flutter/material.dart';
-import 'package:ett_app/style/lightColors.dart';
 
 class TopContainerStatus extends StatelessWidget {
 
@@ -44,13 +43,6 @@ class TopContainerStatus extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-//                                Expanded(
-//                                  child: MyTextField(
-//                                    label: 'Date',
-//                                    icon: downwardIcon,
-//                                  ),
-//                                ),
-//                                HomePage.calendarIcon(),
                     ],
                   )
                 ],

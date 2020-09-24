@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:ett_app/services/token.dart';
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/style/lightColors.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +78,7 @@ class DadosCadastroState extends State<DadosCadastro> {
       GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = true;
+  bool _autovalidate = false;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();

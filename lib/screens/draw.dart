@@ -4,16 +4,11 @@ import 'dart:ui' as ui;
 import 'dart:ui';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/domains/solicitacao.dart';
-import 'package:ett_app/screens/appBar.dart';
-import 'package:ett_app/screens/avariasOnibus.dart';
+import 'package:ett_app/services/token.dart';
 import 'package:ett_app/style/lightColors.dart';
-import 'package:ett_app/screens/login.dart';
-import 'package:ett_app/screens/relatorioOcorrenciaTransito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
 
 class Draw extends StatefulWidget {
   Solicitacao sol;
@@ -40,14 +35,14 @@ class _DrawState extends State<Draw> {
   double busTop = 10;
   double left = 0;
   double carTop = 25;
-  double carLeft = 57;
-  double bikeTop = 25;
+  double carLeft = 77;
+  double bikeTop = 5;
   double bikeLeft = 100;
-  double personTop = 22;
-  double personLeft = 136;
+//  double personTop = 22;
+//  double personLeft = 136;
   double truckTop = 12;
-  double truckLeft = 170;
-  double pickUpTop = 3;
+  double truckLeft = 150;
+  double pickUpTop = 13;
   double pickUpLeft = 205;
 
   //Alerta
@@ -135,6 +130,7 @@ class _DrawState extends State<Draw> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: LightColors.neonYellowLight,
         elevation: 0.0,
@@ -304,7 +300,7 @@ class _DrawState extends State<Draw> {
                         margin: EdgeInsets.all(30),
                         height: 500,
                         width: 300,
-                        //color: LightColors.neonYellowLight,
+                        color: Colors.white,
                         child: Stack(
                             children: <Widget>[
 
@@ -436,48 +432,48 @@ class _DrawState extends State<Draw> {
                                   },
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    _toggle();
-                                    tapped = true;
-                                  });
-                                  print(tapped);
-                                },
-                                child: Draggable(
-                                  child: Container(
-                                    padding: EdgeInsets.only(top: personTop, left: personLeft),
-                                    child: DragPerson(),
-                                  ),
-                                  feedback: Container(
-                                    padding: EdgeInsets.only(top: personTop, left: personLeft),
-                                    child: DragPerson(),
-
-                                  ),
-                                  childWhenDragging: Container(
-                                    padding: EdgeInsets.only(top: personTop, left: personLeft),
-                                    child:  DragPerson(),
-
-                                  ),
-                                  onDragCompleted: () {},
-                                  onDragEnd: (drag) {
-                                    setState(() {
-                                      if((personTop + drag.offset.dy) > (300.0 - 30.0)){
-                                        personTop = (300.0 - 30.0);
-                                      }else if((personTop + drag.offset.dy-30.0) < 0.0){
-                                        personTop = 0;
-                                      }else{
-                                        personTop =  personTop + drag.offset.dy-30.0;
-                                      }if((left + drag.offset.dx) > (300.0 - 30.0)){
-                                        personLeft = (300.0 - 30.0);
-                                      }else if((personLeft + drag.offset.dx-30.0) < 0.0){
-                                        personLeft = 0;
-                                      }else{
-                                        personLeft =  personLeft + drag.offset.dx-30.0;
-                                      }});
-                                  },
-                                ),
-                              ),
+//                              GestureDetector(
+//                                onTap: (){
+//                                  setState(() {
+//                                    _toggle();
+//                                    tapped = true;
+//                                  });
+//                                  print(tapped);
+//                                },
+//                                child: Draggable(
+//                                  child: Container(
+//                                    padding: EdgeInsets.only(top: personTop, left: personLeft),
+//                                    child: DragPerson(),
+//                                  ),
+//                                  feedback: Container(
+//                                    padding: EdgeInsets.only(top: personTop, left: personLeft),
+//                                    child: DragPerson(),
+//
+//                                  ),
+//                                  childWhenDragging: Container(
+//                                    padding: EdgeInsets.only(top: personTop, left: personLeft),
+//                                    child:  DragPerson(),
+//
+//                                  ),
+//                                  onDragCompleted: () {},
+//                                  onDragEnd: (drag) {
+//                                    setState(() {
+//                                      if((personTop + drag.offset.dy) > (300.0 - 30.0)){
+//                                        personTop = (300.0 - 30.0);
+//                                      }else if((personTop + drag.offset.dy-30.0) < 0.0){
+//                                        personTop = 0;
+//                                      }else{
+//                                        personTop =  personTop + drag.offset.dy-30.0;
+//                                      }if((left + drag.offset.dx) > (300.0 - 30.0)){
+//                                        personLeft = (300.0 - 30.0);
+//                                      }else if((personLeft + drag.offset.dx-30.0) < 0.0){
+//                                        personLeft = 0;
+//                                      }else{
+//                                        personLeft =  personLeft + drag.offset.dx-30.0;
+//                                      }});
+//                                  },
+//                                ),
+//                              ),
                               GestureDetector(
                                 onTap: (){
                                   setState(() {
@@ -822,7 +818,7 @@ class DragBus extends StatelessWidget {
     return  ImageIcon(
       // Image.asset("images/ETT.png", fit: BoxFit.contain)
       AssetImage('images/busFront.png'),
-      size: 55,
+      size: 120,
       //color: Colors.black87,
     );
 
@@ -835,7 +831,7 @@ class DragCar extends StatelessWidget {
 
     return ImageIcon(
       AssetImage('images/carro.png'),
-      size: 41,
+      size: 51,
       //color: Colors.black87,
     );
   }
@@ -843,30 +839,30 @@ class DragCar extends StatelessWidget {
 class DragBike extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Icon(
-          Icons.directions_bike,
-          //IconData(57744, fontFamily: 'MaterialIcons'),
-          size: 37,
-        );
+    return ImageIcon(
+      AssetImage('images/bike-moto.png'),
+      size: 95,
+      //color: Colors.black87,
+    );
   }
 }
-class DragPerson extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-          Icons.directions_run,
-          //IconData(57744, fontFamily: 'MaterialIcons'),
-          size: 37,
-        );
-  }
-}
+//class DragPerson extends StatelessWidget {
+////  @override
+////  Widget build(BuildContext context) {
+////    return Icon(
+////          Icons.directions_run,
+////          //IconData(57744, fontFamily: 'MaterialIcons'),
+////          size: 37,
+////        );
+////  }
+////}
 class DragTruck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ImageIcon(
           // Image.asset("images/ETT.png", fit: BoxFit.contain)
           AssetImage('images/truckFrontIcon.png'),
-          size: 45,
+          size: 100,
           //color: Colors.black87,
         );
   }
@@ -876,8 +872,8 @@ class DragPickUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ImageIcon(
           // Image.asset("images/ETT.png", fit: BoxFit.contain)
-          AssetImage('images/pickUp.png'),
-          size: 73,
+          AssetImage('images/pickup.png'),
+          size: 75,
           //color: Colors.black87,
         );
   }

@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/julianapetroni/AndroidStudioProjects/ett_app/build/image_picker/intermediates/res/merged/release/drawable/notification_icon_background.xml",
+        "source": "/Users/julianapetroni/.gradle/caches/transforms-2/files-2.1/53e3e66556b078b22a3ec34d22aaa100/core-1.1.0/res/drawable/notification_icon_background.xml"
+    },
+    {
+        "merged": "/Users/julianapetroni/AndroidStudioProjects/ett_app/build/image_picker/intermediates/res/merged/release/drawable/notification_bg_low.xml",
+        "source": "/Users/julianapetroni/.gradle/caches/transforms-2/files-2.1/53e3e66556b078b22a3ec34d22aaa100/core-1.1.0/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/Users/julianapetroni/AndroidStudioProjects/ett_app/build/image_picker/intermediates/res/merged/release/drawable/notification_tile_bg.xml",
+        "source": "/Users/julianapetroni/.gradle/caches/transforms-2/files-2.1/53e3e66556b078b22a3ec34d22aaa100/core-1.1.0/res/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "/Users/julianapetroni/AndroidStudioProjects/ett_app/build/image_picker/intermediates/res/merged/release/drawable/notification_bg.xml",
+        "source": "/Users/julianapetroni/.gradle/caches/transforms-2/files-2.1/53e3e66556b078b22a3ec34d22aaa100/core-1.1.0/res/drawable/notification_bg.xml"
+    }
+]

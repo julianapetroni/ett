@@ -1,24 +1,23 @@
 import 'package:ett_app/domains/solicitacao.dart';
-import 'package:ett_app/screens/login.dart';
+import 'package:ett_app/services/token.dart';
 import 'package:ett_app/utils/validators.dart';
+import 'package:ett_app/widgets/buttonDecoration.dart';
+import 'package:ett_app/widgets/inputFormWithDecoration.dart';
+import 'package:ett_app/widgets/logoETTForm.dart';
+import 'package:ett_app/widgets/textRow.dart';
+import 'package:ett_app/widgets/titleFormBold.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
-import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/domains/usuario.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:json_table/json_table.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-
 import '../style/lightColors.dart';
 import 'dasboardScreen.dart';
-import 'myBackButton.dart';
 import '../style/topContainer.dart';
 
 class ControleDeFrequenciaDeLinha extends StatefulWidget {
@@ -50,9 +49,17 @@ class ControleDeFrequenciaDeLinhaState
 
   final GlobalKey<FormFieldState<String>> _nomeKey =
       GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _matriculaKey =
+      GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _horaKey =
+      GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _horaTerminoKey =
+      GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _dataKey =
+      GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = true;
+  bool _autovalidate = false;
 
   final _nomeController = TextEditingController();
 
@@ -142,14 +149,6 @@ class ControleDeFrequenciaDeLinhaState
           TextFormField(
             decoration: InputDecoration(
               border: InputBorder.none,
-//            focusedBorder: OutlineInputBorder(
-//            borderSide: BorderSide(color: Colors.blue, width: 2.0),
-//            borderRadius: BorderRadius.circular(25.7),
-//          ),
-//            enabledBorder: OutlineInputBorder(
-//              borderSide: BorderSide(color: Colors.transparent, width: 2.0),
-//              borderRadius: BorderRadius.circular(25.7),
-//            ),
             ),
           ),
         ),
@@ -187,13 +186,15 @@ class ControleDeFrequenciaDeLinhaState
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width / 1.22;
     final halfMediaWidth = MediaQuery.of(context).size.width / 2.5;
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('d MMM').format(now);
     String formattedTime = DateFormat('kk:mm:ss').format(now);
 
     SizeConfig().init(context);
+    var heightLogoETT = 80.0;
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: LightColors.neonYellowLight,
@@ -209,279 +210,109 @@ class ControleDeFrequenciaDeLinhaState
                 width: width,
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      height: 80.0,
-                      width: double.infinity,
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image(
-                              image: AssetImage('images/logo-slim.png'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    LogoETTForm(heightLogoETT),
                     SizedBox(height: 30.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            'Controle de Frequência de Linha',
-                            style: GoogleFonts.raleway(
-                                color: Colors.black87,
-                                fontSize: 19.0,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.7),
-                          ),
-                        ),
-                      ],
-                    ),
+                    TextRow('Controle de Frequência de Linha', Colors.black87),
                     SizedBox(height: 20),
                     Container(
-                      child: Container(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(bottom: 10.0, top: 10.0),
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 20.0, top: 8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: TextFormField(
-                                        //controller: TextEditingController(text: '${user.nome}'),
-                                        decoration: InputDecoration(
-                                          labelText: 'Nome do Fiscal',
-                                          labelStyle: TextStyle(
-                                              fontSize: 13.0,
-                                              color: Colors.grey[600]),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.grey[600],
-                                                width: 2.0),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.grey[300],
-                                                width: 2.0),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                        ),
-                                        key: _nomeKey,
-                                        controller: TextEditingController(
-                                            text: '${user.nome}'),
-                                        validator: composeValidators('nome', [
-                                          requiredValidator,
-                                          stringValidator
-                                        ]),
-                                        onSaved: (value) =>
-                                            _loginData.nome = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0, top: 8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: Container(
-                                        alignment: Alignment.topCenter,
-                                        width: halfMediaWidth,
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Matrícula',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          controller: matriculaController,
-//                    key: _nomeKey,
-//                    controller: TextEditingController(text: '${user.nome}'),
-//                    validator: composeValidators('nome',
-//                        [requiredValidator, stringValidator]),
-                                          //                   onSaved: (value) => _loginData.nome = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                        ),
-                                      ),
-                                    ),
-                                    //SizedBox(width: 3.0,),
-                                    Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8.0, right: 8.0),
-                                        child: Container(
-                                          alignment: Alignment.topCenter,
-                                          width: halfMediaWidth,
-                                          child: TextFormField(
-                                            controller: TextEditingController(
-                                                text: formattedDate),
-                                            decoration: InputDecoration(
-                                              labelText: 'Data',
-                                              labelStyle: TextStyle(
-                                                  fontSize: 13.0,
-                                                  color: Colors.grey[600]),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[600],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[300],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-//                    key: _nomeKey,
-//                    controller: TextEditingController(text: '${user.nome}'),
-//                    validator: composeValidators('nome',
-//                        [requiredValidator, stringValidator]),
-                                            //                   onSaved: (value) => _loginData.nome = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0, top: 8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: Container(
-                                        alignment: Alignment.topCenter,
-                                        width: halfMediaWidth,
-                                        child: TextFormField(
-                                          controller: TextEditingController(
-                                              text: formattedTime),
-                                          decoration: InputDecoration(
-                                            labelText: 'Hora Início',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-//                    key: _nomeKey,
-//                    controller: TextEditingController(text: '${user.nome}'),
-//                    validator: composeValidators('nome',
-//                        [requiredValidator, stringValidator]),
-                                          //                   onSaved: (value) => _loginData.nome = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                        ),
-                                      ),
-                                    ),
-                                    //SizedBox(width: 5.0,),
-                                    Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8.0, right: 8.0),
-                                        child: Container(
-                                          alignment: Alignment.topCenter,
-                                          width: halfMediaWidth,
-                                          child: TextFormField(
-                                            controller: TextEditingController(
-                                                text: formattedTime),
-                                            decoration: InputDecoration(
-                                              labelText: 'Hora Término',
-                                              labelStyle: GoogleFonts.raleway(
-                                                color: Colors.black87,
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[600],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[300],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-//                    key: _nomeKey,
-//                    controller: TextEditingController(text: '${user.nome}'),
-//                    validator: composeValidators('nome',
-//                        [requiredValidator, stringValidator]),
-                                            //                   onSaved: (value) => _loginData.nome = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                      padding: const EdgeInsets.only(
+                          left: 8.0, bottom: 10.0, top: 10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Flexible(
+                                child: InputFormWithDecoration(
+                                  width,
+                                  'Nome do Fiscal',
+                                  _nomeKey,
+                                  TextEditingController(text: '${user.nome}'),
+                                  composeValidators('nome',
+                                      [requiredValidator, stringValidator]),
+                                  (value) => _loginData.nome = value,
+                                  true,
                                 ),
                               ),
                             ],
                           ),
-                        ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: InputFormWithDecoration(
+                                  halfMediaWidth,
+                                  'Matrícula',
+                                  _matriculaKey,
+//                            TextEditingController(
+//                                text: '${_loginData.matricula}'),
+                                  matriculaController,
+                                  composeValidators('matricula',
+                                      [requiredValidator, minLegthValidator]),
+                                  (value) => _loginData.matricula = value,
+                                  true,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              Flexible(
+                                child: InputFormWithDecoration(
+                                  halfMediaWidth,
+                                  'Data',
+                                  _dataKey,
+                                  TextEditingController(text: formattedDate),
+                                  composeValidators('data',
+                                      [requiredValidator, dataValidator]),
+                                  (value) => _loginData.data = value,
+                                  true,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: InputFormWithDecoration(
+                                  halfMediaWidth,
+                                  'Hora Início',
+                                  _horaKey,
+                                  TextEditingController(text: formattedTime),
+                                  composeValidators('hora', [
+                                    requiredValidator,
+                                    horaLegthValidator,
+                                    horaValidator
+                                  ]),
+                                  (value) => _loginData.hora = value,
+                                  true,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              Flexible(
+                                child: InputFormWithDecoration(
+                                  halfMediaWidth,
+                                  'Hora Término',
+                                  _horaTerminoKey,
+                                  TextEditingController(text: formattedTime),
+                                  composeValidators('hora do término', [
+                                    requiredValidator,
+                                    horaLegthValidator,
+                                    horaValidator
+                                  ]),
+                                  (value) => _loginData.hora = value,
+                                  true,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-//                      Column(
-//                        crossAxisAlignment: CrossAxisAlignment.start,
-//                        children: <Widget>[
-//                          //MyTextField(label: 'Title'),
-//                          Row(
-//                            mainAxisAlignment: MainAxisAlignment.start,
-//                            crossAxisAlignment: CrossAxisAlignment.end,
-//                            children: <Widget>[
-////                              Expanded(
-////                                child: MyTextField(
-////                                  label: 'Date',
-////                                  icon: downwardIcon,
-////                                ),
-////                              ),
-//                              //HomePage.calendarIcon(),
-//                            ],
-//                          )
-//                        ],
-//                      )
                     )
                   ],
                 ),
@@ -489,79 +320,30 @@ class ControleDeFrequenciaDeLinhaState
               SizedBox(
                 height: 20.0,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(top: 0.0, left: 20.0, right: 20.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                      child: DataTable(
-                    columns: <DataColumn>[
-                      DataColumn(
-                        label: Text('LOCAL',
-                            style: GoogleFonts.raleway(
-                                color: Colors.black87,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      DataColumn(
-                        label: Text('CARRO',
-                            style: GoogleFonts.raleway(
-                                color: Colors.black87,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      DataColumn(
-                        label: Text('HORÁRIO',
-                            style: GoogleFonts.raleway(
-                                color: Colors.black87,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      DataColumn(
-                        label: Text('EMPRESA',
-                            style: GoogleFonts.raleway(
-                                color: Colors.black87,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      DataColumn(
-                        label: Text('DESTINO',
-                            style: GoogleFonts.raleway(
-                                color: Colors.black87,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    ],
-                    rows: _rowList,
-//                    <DataRow>[
-//                      DataRow(cells: [
-//                        DataCell(Text('1 Boston')),
-//                        DataCell(Text('3')),
-//                        DataCell(Text('3')),
-//                        DataCell(Text('7')),
-//                        DataCell(Text('1')),
-//
-//                      ]),
-//                      DataRow(cells: [
-//                        DataCell(Text('2 London')),
-//                        DataCell(Text('3')),
-//                        DataCell(Text('4')),
-//                        DataCell(Text('12')),
-//                        DataCell(Text('44')),
-//
-//                      ]),
-//                      DataRow(cells: [
-//                        DataCell(Text('3 Rome')),
-//                        DataCell(Text('10')),
-//                        DataCell(Text('50')),
-//                        DataCell(Text('90')),
-//                        DataCell(Text('4')),
-//
-//                      ]),
-//                    ]
-                  )),
-                ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: DataTable(
+                      columns: <DataColumn>[
+                        DataColumn(
+                          label: TitleFormBold('LOCAL'),
+                        ),
+                        DataColumn(
+                          label: TitleFormBold('CARRO'),
+                        ),
+                        DataColumn(
+                          label: TitleFormBold('HORÁRIO'),
+                        ),
+                        DataColumn(
+                          label: TitleFormBold('EMPRESA'),
+                        ),
+                        DataColumn(
+                          label: TitleFormBold('DESTINO'),
+                        ),
+                      ],
+                      rows: _rowList,
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -571,13 +353,6 @@ class ControleDeFrequenciaDeLinhaState
                     setState(() {
                       // _myActivitiesResult = _myActivities.toString();
                     });
-
-                    //if (
-//                    _formTipoOcorrenciaKey.currentState.validate()
-//                        &&_formCondViaKey.currentState.validate()
-//                        && _formSemaforoKey.currentState.validate()
-//                        && _formPlacasKey.currentState.validate()
-                    // ) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -587,32 +362,10 @@ class ControleDeFrequenciaDeLinhaState
                                 sol: sol,
                               )),
                     );
-//                    }else {
-//                      final semCadastro =
-//                      new SnackBar(content: new Text('Escolha as opções para prosseguir!'));
-//                      _scaffoldKey.currentState.showSnackBar(semCadastro);
-//                    }
                   },
                   textColor: Colors.white,
                   color: Colors.white,
-                  child: Container(
-                    width: double.infinity,
-                    height: 45.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          Colors.grey[600],
-                          Colors.grey[500],
-                          Colors.grey[300],
-                        ],
-                      ),
-                    ),
-                    //padding: const EdgeInsets.fromLTRB(90.0, 15.0, 90.0, 15.0),
-                    child: Center(
-                        child: const Text('ENVIAR',
-                            style: TextStyle(fontSize: 20))),
-                  ),
+                  child: ButtonDecoration('ENVIAR'),
                 ),
               ),
             ],

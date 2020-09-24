@@ -74,6 +74,20 @@ String minLegthValidator(String value, String field) {
   return null;
 }
 
+String nomeLegthValidator(String value, String field) {
+  if (value.length < 3) {
+    return 'Digite o $field!';
+  }
+  return null;
+}
+
+String horaLegthValidator(String value, String field) {
+  if (value.length == 4) {
+    return 'Mínimo de 4 caracteres para $field!';
+  }
+  return null;
+}
+
 String maxLegthNumero6Validator(String value, String field) {
   if (value.length > 6) {
     return 'Máximo de 6 dígitos para $field!';

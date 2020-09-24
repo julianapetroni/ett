@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:convert';
 import 'package:ett_app/screens/testemunhas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:ett_app/domains/solicitacao.dart';
-import 'package:ett_app/screens/login.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/domains/usuario.dart';
@@ -20,6 +18,7 @@ import "package:flutter/foundation.dart";
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:signature/signature.dart';
+import 'package:ett_app/services/token.dart';
 
 class AvariasVeiculoTerceiro extends StatefulWidget {
   Solicitacao sol;
@@ -50,7 +49,8 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
 
   Future getImage1(ImageSource src) async {
     File img1 = await ImagePicker.pickImage(
-        source: src, maxHeight: 50.0, maxWidth: 50.0);
+      source: src, // maxHeight: 50.0, maxWidth: 50.0
+    );
     //final pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       _image1 = File(img1.path);
@@ -59,7 +59,8 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
 
   Future getImage(ImageSource src) async {
     File img = await ImagePicker.pickImage(
-        source: src, maxHeight: 50.0, maxWidth: 50.0);
+      source: src, //maxHeight: 50.0, maxWidth: 50.0
+    );
     //final pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       _image = File(img.path);
@@ -143,6 +144,12 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
   int id2 = 1;
 
   var botoes = new List<bool>.filled(26, false);
+  //var nbotoes = new List<int>(26);
+
+  List<String> getListElements() {
+    var items = List<String>.generate(13, (counter) => "$counter");
+    return items;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +187,6 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
           child: Image.asset('images/logo-slim.png'),
         ),
         iconTheme: new IconThemeData(color: LightColors.neonYellowDark),
-
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -232,10 +238,18 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                     },
                   ),
                   Flexible(
+                      child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        haAvariaNoCarro = true;
+                        radioButtonItem = 'ONE';
+                        id = 1;
+                      });
+                    },
                     child: Text('PEQUENA',
                         style:
                             TextStyle(color: Colors.grey[800], fontSize: 14.0)),
-                  ),
+                  )),
                   Radio(
                     activeColor: Colors.black87,
                     value: 2,
@@ -249,9 +263,18 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                     },
                   ),
                   Flexible(
-                    child: Text('MÉDIA',
-                        style:
-                            TextStyle(color: Colors.grey[800], fontSize: 14.0)),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          haAvariaNoCarro = true;
+                          radioButtonItem = 'TWO';
+                          id = 2;
+                        });
+                      },
+                      child: Text('MÉDIA',
+                          style: TextStyle(
+                              color: Colors.grey[800], fontSize: 14.0)),
+                    ),
                   ),
                   Radio(
                     activeColor: Colors.black87,
@@ -266,10 +289,18 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                     },
                   ),
                   Flexible(
+                      child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        haAvariaNoCarro = true;
+                        radioButtonItem = 'THREE';
+                        id = 3;
+                      });
+                    },
                     child: Text('GRANDE',
                         style:
                             TextStyle(color: Colors.grey[800], fontSize: 14.0)),
-                  ),
+                  )),
                 ],
               ),
 
@@ -290,6 +321,7 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             ),
                           ),
                         ),
+
                         //botao 1
                         Padding(
                           padding: const EdgeInsets.only(left: 26, top: 3),
@@ -1256,7 +1288,10 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                         child: Center(
                                           child: _image1 == null
                                               ? Text(' ')
-                                              : Image.file(_image1),
+                                              : Image.file(
+                                                  _image1,
+                                                  scale: 50,
+                                                ),
                                         ),
                                       ),
                                     ],
@@ -1429,10 +1464,17 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                           },
                         ),
                         Flexible(
+                            child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              radioButton2Item = 'ONE';
+                              id2 = 1;
+                            });
+                          },
                           child: Text('PEQUENA',
                               style: TextStyle(
                                   color: Colors.grey[800], fontSize: 14.0)),
-                        ),
+                        )),
                         Radio(
                           activeColor: Colors.black87,
                           value: 2,
@@ -1445,10 +1487,17 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                           },
                         ),
                         Flexible(
+                            child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              radioButton2Item = 'TWO';
+                              id2 = 2;
+                            });
+                          },
                           child: Text('MÉDIA',
                               style: TextStyle(
                                   color: Colors.grey[800], fontSize: 14.0)),
-                        ),
+                        )),
                         Radio(
                           activeColor: Colors.black87,
                           value: 3,
@@ -1461,13 +1510,19 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                           },
                         ),
                         Flexible(
+                            child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              radioButton2Item = 'THREE';
+                              id2 = 3;
+                            });
+                          },
                           child: Text('GRANDE',
                               style: TextStyle(
                                   color: Colors.grey[800], fontSize: 14.0)),
-                        ),
+                        )),
                       ],
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(top: 50),
                       child: Container(
@@ -1479,6 +1534,32 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             //height: 100.0,
                           ),
                         ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 26, top: 53),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[13] = !botoes[13];
+                              });
+                            },
+                            child: botoes[13]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
                       ),
                     ),
 
@@ -1494,15 +1575,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[13]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1520,15 +1601,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[14]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1546,15 +1627,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[15]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1572,21 +1653,20 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[16]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
                       ),
                     ),
-
                     //botao 18
                     Padding(
                       padding: const EdgeInsets.only(top: 415),
@@ -1599,15 +1679,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[17]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1625,15 +1705,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[18]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1651,15 +1731,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[19]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1677,15 +1757,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[20]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1703,15 +1783,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[21]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1729,15 +1809,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[22]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1755,15 +1835,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[23]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1781,15 +1861,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[24]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -1807,15 +1887,15 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                             },
                             child: botoes[25]
                                 ? Icon(
-                                        Icons.cancel,
-                                        color: Colors.black87,
-                                        size: 50,
-                                      )
-                                    : Icon(
-                                        Icons.add_circle,
-                                        color: Colors.grey[400],
-                                        size: 50,
-                                      )),
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
                         title: new Text(' ',
                             style: new TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14.0)),
@@ -2442,7 +2522,10 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                         child: Center(
                                           child: _image == null
                                               ? Text(' ')
-                                              : Image.file(_image),
+                                              : Image.file(
+                                                  _image,
+                                                  scale: 50,
+                                                ),
                                         ),
                                       ),
                                     ],

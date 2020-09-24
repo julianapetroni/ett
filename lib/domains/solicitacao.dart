@@ -147,49 +147,6 @@ class Solicitacao {
         'status': status,
       };
 
-
-//HoraAgendamento horaAgendamento;
-
-//  Solicitacao(int id, Instituicao instituicao, TipoSolicitacao tipoSolicitacao, Usuario cliente, Cidade cidade, String cpf, String rg, String rgAcompanhante, String comprovanteEndereco, String declaracaoEscolar,String declaracaoRenda1, String declaracaoRenda2, String declaracaoRenda3, String declaracaoRenda,String declaracaoMedica, String declaracaoMedica1, String declaracaoMedica2, String declaracaoMedica3, String laudoMedicoOrgaoPublico, String cartaoSusFrente, String cartaoSusVerso, String bolsista = 'N', String comprovanteBolsistaFiesPagina1, String comprovanteBolsistaFiesPagina2, String comprovanteBolsistaProuniPagina1, String comprovanteBolsistaProuniPagina2, String comprovanteRevalidacao, String fichaFrequencia, String numeroCartao, String statusSolicitacao, String motivoRejeicao, DateTime data, String status)
-//      : this.id = id,
-//        this.instituicao = instituicao,
-//        this.tipoSolicitacao = tipoSolicitacao,
-//        this.cliente = cliente,
-//        this.cidade = cidade,
-//this.cpf = cpf,
-//this.rg = rg,
-//this.rgAcompanhante = rgAcompanhante,
-//this.comprovanteEndereco = comprovanteEndereco,
-//this.declaracaoEscolar = declaracaoEscolar,
-//this.declaracaoRenda1 = declaracaoRenda1,
-//this.declaracaoRenda2 = declaracaoRenda2,
-//this.declaracaoRenda3 = declaracaoRenda3,
-//this.declaracaoRenda = declaracaoRenda,
-//this.declaracaoMedica = declaracaoMedica,
-//this.declaracaoMedica1 = declaracaoMedica1,
-//this.declaracaoMedica2 = declaracaoMedica2,
-//this.declaracaoMedica3 = declaracaoMedica3,
-//this.laudoMedicoOrgaoPublico = laudoMedicoOrgaoPublico,
-//this.cartaoSusFrente = cartaoSusFrente,
-//this.cartaoSusVerso = cartaoSusVerso,
-//this.bolsista = bolsista,
-//this.comprovanteBolsistaFiesPagina1 = comprovanteBolsistaFiesPagina1,
-//this.comprovanteBolsistaFiesPagina2 = comprovanteBolsistaFiesPagina2,
-//this.comprovanteBolsistaProuniPagina1 = comprovanteBolsistaProuniPagina1,
-//this.comprovanteBolsistaProuniPagina2 = comprovanteBolsistaProuniPagina2,
-//this.comprovanteRevalidacao = comprovanteRevalidacao,
-//this.fichaFrequencia = fichaFrequencia,
-//this.numeroCartao = numeroCartao,
-//this.statusSolicitacao = statusSolicitacao,
-////this.documentos = documentos,
-//this.motivoRejeicao = motivoRejeicao,
-//this.data = data,
-//this.status = status
-////this.horaAgendamento = horaAgendamento
-//  {
-//    print("Teste");
-//}
-
   Solicitacao.vazio(){}
 
 }

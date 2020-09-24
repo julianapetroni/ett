@@ -1,29 +1,17 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:convert';
-import 'package:ett_app/screens/avariasVeiculoTerceiros.dart';
 import 'package:ett_app/screens/dasboardScreen.dart';
-import 'package:ett_app/screens/selecaoMultiplaComTag.dart';
-import 'package:ett_app/screens/testemunhas.dart';
+import 'package:ett_app/services/token.dart';
+import 'package:ett_app/screens/resumoRelatorioOcorrencia.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:ett_app/domains/solicitacao.dart';
-import 'package:ett_app/screens/draw.dart';
-import 'package:ett_app/screens/login.dart';
 import 'package:ett_app/utils/validators.dart';
-import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
-import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/domains/usuario.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import '../style/lightColors.dart';
-import '../style/topContainer.dart';
 import "package:flutter/painting.dart";
 import "package:flutter/foundation.dart";
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -972,12 +960,14 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DashboardScreen(
-                                sol: sol, user: user, token: token
-                                //textSucesso: textSucesso,
-                                //alertSucessoVisible: alertSucessoVisible,
+                            builder:
+                                (context) => //ResumoRelatorioOcorrenciaTransito
+                                    DashboardScreen(
+                                        sol: sol, user: user, token: token
+                                        //textSucesso: textSucesso,
+                                        //alertSucessoVisible: alertSucessoVisible,
 
-                                ),
+                                        ),
                           ),
                         );
                         //});

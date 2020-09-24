@@ -1,34 +1,48 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:ett_app/screens/login.dart';
-import 'package:ett_app/domains/estado.dart';
-import 'package:ett_app/domains/perfil.dart';
-import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/domains/cidade.dart';
+import 'package:ett_app/domains/estado.dart';
+import 'package:ett_app/domains/solicitacao.dart';
+import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/models/forms.dart';
-import 'package:ett_app/screens/termosDeUso.dart';
-import 'package:ett_app/utils/validators.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:ett_app/services/token.dart';
+import 'package:ett_app/style/lightColors.dart';
+import 'package:ett_app/testes/validators.dart';
+import 'package:ett_app/widgets/backgroundDecoration.dart';
+import 'package:ett_app/widgets/buttonDecoration.dart';
+import 'package:ett_app/widgets/logoETTForm.dart';
+import 'package:ett_app/widgets/whiteFormDecoration.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+import 'appBar.dart';
+import 'login.dart';
 
 class AlterarCadastro extends StatefulWidget {
   Usuario user;
+  Token token;
+  Solicitacao sol;
 
   AlterarCadastro(
       {Key key,
-        // this.value,
-        this.user})
+      // this.value,
+      this.user,
+      this.token,
+      this.sol})
       : super(key: key);
 
-
   @override
-  AlterarCadastroState createState() => new AlterarCadastroState(user: user);
+  AlterarCadastroState createState() =>
+      new AlterarCadastroState(user: user, token: token, sol: sol);
 }
 
 class AlterarCadastroState extends State<AlterarCadastro> {
   Usuario user;
-  AlterarCadastroState({this.user});
+  Token token;
+  Solicitacao sol;
+
+  AlterarCadastroState({this.user, this.token, this.sol});
 
   int idCity;
   int idState;
@@ -37,11 +51,9 @@ class AlterarCadastroState extends State<AlterarCadastro> {
   String _selectedFieldCidade = null;
   Cidade citySel;
 
-
   List<Estado> _fieldListEstado = List();
   String _selectedFieldEstado = null;
   Estado estadoSel;
-
 
   bool _isChecked = false;
 
@@ -51,34 +63,37 @@ class AlterarCadastroState extends State<AlterarCadastro> {
     });
   }
 
+  //Mask
+  var cepController = new MaskedTextController(mask: '00000-000');
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<FormFieldState<String>> _passwordKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _confirmPasswordKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _emailKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _nomeKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _rgKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _cpfKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _telefoneKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _cepKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _enderecoKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _complementoKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _bairroKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = true;
+  bool _autovalidate = false;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -94,7 +109,6 @@ class AlterarCadastroState extends State<AlterarCadastro> {
   final _bairroController = TextEditingController();
   final _estadoController = TextEditingController();
 
-
   @override
   initState() {
     super.initState();
@@ -103,10 +117,13 @@ class AlterarCadastroState extends State<AlterarCadastro> {
   }
 
   Future<String> _getDropDownCidade() async {
-    var res = await http.get('https://www.accio.com.br:447/api/cadastros/cidades/status/ATIVO/?access_token=d16e3966-eb87-4337-bfee-bee54b5a4052');
+    var res = await http.get(
+        'https://app.cartaopec.com.br/api/cadastros/cidades/status/ATIVO/?access_token=' +
+            token.access_token.toString());
     print(res.body);
     return res.body;
   }
+
   void _getFieldsCidade() {
     _getDropDownCidade().then((nome) {
       final items = jsonDecode(nome).cast<Map<String, dynamic>>();
@@ -116,7 +133,7 @@ class AlterarCadastroState extends State<AlterarCadastro> {
       _selectedFieldCidade = fieldListCidade[0].nome;
 
       // update widget
-      if(mounted) {
+      if (mounted) {
         setState(() {
           _fieldListCidade = fieldListCidade;
         });
@@ -125,10 +142,13 @@ class AlterarCadastroState extends State<AlterarCadastro> {
   }
 
   Future<String> _getDropDownEstado() async {
-    var res = await http.get('https://www.accio.com.br:447/api/cadastros/estados/status/ATIVO/?access_token=d16e3966-eb87-4337-bfee-bee54b5a4052');
+    var res = await http.get(
+        'https://app.cartaopec.com.br/api/cadastros/estados/status/ATIVO/?access_token=' +
+            token.access_token.toString());
     print(res.body);
     return res.body;
   }
+
   void _getFieldsEstado() {
     _getDropDownEstado().then((sigla) {
       final items = jsonDecode(sigla).cast<Map<String, dynamic>>();
@@ -138,14 +158,13 @@ class AlterarCadastroState extends State<AlterarCadastro> {
       _selectedFieldEstado = fieldListEstado[0].sigla;
 
       // update widget
-      if(mounted) {
+      if (mounted) {
         setState(() {
           _fieldListEstado = fieldListEstado;
         });
       }
     });
   }
-
 
   @override
   dispose() {
@@ -166,7 +185,6 @@ class AlterarCadastroState extends State<AlterarCadastro> {
     super.dispose();
   }
 
-
   // Initially password is obscure
   bool _obscureText = true;
 
@@ -182,549 +200,519 @@ class AlterarCadastroState extends State<AlterarCadastro> {
 
   @override
   Widget build(BuildContext context) {
+    var heightLogoETT = 80.0;
+    var _cpfController = TextEditingController(text: "${user.cpf}");
+    var cpfMaskFormatter = new MaskTextInputFormatter(
+        mask: '###.###.###-##', filter: {"#": RegExp(r'[0-9]')});
+//
+//  TextField(controller: _cpfController, inputFormatters: [cpfMaskFormatter])  // -> "xxx.xxx.xxx-xx"
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        iconTheme: new IconThemeData(color: Colors.grey[600]),
-        title: Center(
-            child: Text(
-              ' ',
-              style: TextStyle(color: Colors.black),
-            )),
-        backgroundColor: Colors.grey[100],
-        actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-              child: Row(
-                children: <Widget>[],
-              ))
-        ],
+        iconTheme: new IconThemeData(color: LightColors.neonYellowDark),
+        backgroundColor: LightColors.neonYellowLight,
+        elevation: 0,
       ),
-      backgroundColor: Colors.white,
-      body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Column(
-              children: <Widget>[
-                Flexible(
-                 // flex: 5,
-                  child: Container(
-                    height: 450.0,
+      body: BackgroundDecoration(
+        SafeArea(
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              LogoETTForm(heightLogoETT),
+              SizedBox(height: 10.0),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 70.0),
                     width: double.infinity,
-                    child: ListView(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                          child: Form(
-                            key: _formKey,
-                            autovalidate: _autovalidate,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  height: 80.0,
-                                  width: double.infinity,
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Image(
-                                          image: AssetImage('images/PECLogo.png'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 30.0),
-                                Padding(
-                                  padding:
+                    child: Form(
+                      key: _formKey,
+                      autovalidate: _autovalidate,
+                      child: WhiteFormDecoration(
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding:
                                   const EdgeInsets.only(left: 20.0, top: 10.0),
-                                  child: Row(
+                              child: Row(
+                                children: <Widget>[
+                                  Text("Alterar Cadastro",
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          fontSize: 22.0,
+                                          color: Colors.black87,
+                                          fontFamily: "Poppins-Bold",
+                                          letterSpacing: .6)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
                                     children: <Widget>[
-                                      Text("Cadastro",
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              fontSize: 22.0,
-                                              color: Colors.green,
-                                              fontFamily: "Poppins-Bold",
-                                              letterSpacing: .6)),
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'Nome',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
+                                      ),
                                     ],
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 30.0,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.person,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'Nome',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
-                                      ),
-                                      TextFormField(
-                                        key: _nomeKey,
-                                        controller: TextEditingController(text: '${user.nome}'),
-                                        validator: composeValidators('nome',
-                                            [requiredValidator, stringValidator]),
-                                        onChanged: (value) => _loginData.nome = value,
-                                        onSaved: (value) => _loginData.nome = value,
+                                  TextFormField(
+                                    key: _nomeKey,
+                                    controller: TextEditingController(
+                                        text: '${user.nome}'),
+                                    validator: composeValidators('nome',
+                                        [requiredValidator, stringValidator]),
+                                    onChanged: (value) => user.nome = value,
+                                    onSaved: (value) => user.nome = value,
 
 //                                        decoration: InputDecoration(hintText: '${user.nome}'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.assignment_ind,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'CPF',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
+                                  TextFormField(
+                                    key: _cpfKey,
+                                    validator: composeValidators('cpf', [
+                                      requiredValidator,
+                                      cpfValidator,
+                                      maxLegthCPFValidator
+                                    ]),
+                                    onChanged: (value) => user.cpf = value,
+                                    onSaved: (value) => user.cpf = value,
+                                    controller: TextEditingController(
+                                        text: '${user.cpf}'),
+                                    // _cpfController, inputFormatters: [cpfMaskFormatter],  // -> "xxx.xxx.xxx-xx"
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
                                     children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.assignment_ind,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'CPF',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
+                                      Icon(
+                                        Icons.home,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
                                       ),
-                                      TextFormField(
-                                        key: _cpfKey,
-                                        validator: composeValidators('cpf',
-                                            [requiredValidator,
-                                              cpfValidator,
-                                              maxLegthCPFValidator
-                                            ]),
-                                        onChanged: (value) => _loginData.cpf = value,
-                                        onSaved: (value) => _loginData.cpf = value,
-                                        controller: TextEditingController(text: '${user.cpf}'),
-                                        // _cpfController, inputFormatters: [cpfMaskFormatter],  // -> "xxx.xxx.xxx-xx"
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'Endereço',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
+                                  TextFormField(
+                                    key: _enderecoKey,
+                                    validator: composeValidators('endereço', [
+                                      requiredValidator,
+                                    ]),
+                                    onSaved: (value) => user.endereco = value,
+                                    onChanged: (value) => user.endereco = value,
+                                    controller: TextEditingController(
+                                        text: '${user.endereco}'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
                                     children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'Endereço',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
+                                      Icon(
+                                        Icons.home,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
                                       ),
-                                      TextFormField(
-                                        key: _enderecoKey,
-                                        validator: composeValidators('endereço', [
-                                          requiredValidator,
-                                        ]),
-                                        onSaved: (value) =>
-                                        _loginData.endereco = value,
-                                        onChanged: (value) =>
-                                        _loginData.endereco = value,
-                                        controller: TextEditingController(text: '${user.endereco}'),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'Complemento',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'Complemento',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
-                                      ),
-                                      TextFormField(
-                                        key: _complementoKey,
+                                  TextFormField(
+                                    key: _complementoKey,
 //                                        validator: composeValidators('complemento', [
 //                                          requiredValidator,
 //                                        ]),
-                                        onChanged: (value) =>
-                                        _loginData.complemento = value,
-                                        onSaved: (value) =>
-                                        _loginData.complemento = value,
-                                        controller: TextEditingController(text: '${user.complemento}'),
+                                    onChanged: (value) =>
+                                        user.complemento = value,
+                                    onSaved: (value) =>
+                                        user.complemento = value,
+                                    controller: TextEditingController(
+                                        text: '${user.complemento}'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.home,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'Bairro',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
+                                  TextFormField(
+                                    key: _bairroKey,
+                                    validator: composeValidators('bairro', [
+                                      requiredValidator,
+                                      stringValidator,
+                                    ]),
+                                    onChanged: (value) => user.bairro = value,
+                                    onSaved: (value) => user.bairro = value,
+                                    controller: TextEditingController(
+                                        text: '${user.bairro}'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
                                     children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.home,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'Bairro',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
+                                      Icon(
+                                        Icons.pin_drop,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
                                       ),
-                                      TextFormField(
-                                        key: _bairroKey,
-                                        validator: composeValidators('bairro', [
-                                          requiredValidator, stringValidator,
-                                        ]),
-                                        onChanged: (value) =>
-                                        _loginData.bairro = value,
-                                        onSaved: (value) =>
-                                        _loginData.bairro = value,
-                                        controller: TextEditingController(text: '${user.bairro}'),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'Cidade',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.pin_drop,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'Cidade',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 20.0),
-                                        child: Form(
-                                          //key: _cidadeKey,
-                                          child: Container(
-                                            decoration: new BoxDecoration(
-                                                border: Border(bottom: BorderSide(color: Colors.grey[500]),
-                                                )
-                                            ),
-                                            child: DropdownButton<Cidade>(
-
-                                              underline: SizedBox(),
-                                              items: _fieldListCidade.map((Cidade cid) {
-                                                return DropdownMenuItem<Cidade>(
-                                                  value: cid,
-                                                  child: Row(
-                                                    //mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding: const EdgeInsets.only(left: 5.0),
-                                                        child: Text(cid.nome, style: TextStyle(
-                                                          fontSize: 18,
-                                                          color: Colors.grey[900],
-                                                        ),),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              value: citySel,
-                                              onChanged: (value) {
-                                                citySel = value;
-                                                print(citySel.nome);
-                                                _selectedFieldCidade = citySel.nome;
-                                                idCity = citySel.id;
-
-                                                setState(() {
-                                                  //_selectedFieldCidade = value;
-                                                  _cidadeSelecionada = false;
-                                                });
-                                              },
-                                              isExpanded: true,
-                                              hint: Padding(
-                                                padding: const EdgeInsets.only(left: 5.0),
-                                                child: new Text('${user.cidade.nome}',
-                                                    style: TextStyle(color: Colors.grey[900])),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.pin_drop,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'Estado',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 20.0),
-                                        child: Container(
-                                          decoration: new BoxDecoration(
-                                              border: Border(bottom: BorderSide(color: Colors.grey[500]),
-                                              )
-                                          ),
-                                          child: DropdownButton<Estado>(
-                                            underline: SizedBox(),
-                                            items: _fieldListEstado.map((Estado es) {
-                                              return DropdownMenuItem<Estado>(
-                                                value: es,
-                                                child: Row(
-                                                  //mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(left: 5.0),
-                                                      child: Text(es.sigla, style: TextStyle(
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20.0),
+                                    child: Form(
+                                      //key: _cidadeKey,
+                                      child: Container(
+                                        decoration: new BoxDecoration(
+                                            border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey[500]),
+                                        )),
+                                        child: DropdownButton<Cidade>(
+                                          underline: SizedBox(),
+                                          items: _fieldListCidade
+                                              .map((Cidade cid) {
+                                            return DropdownMenuItem<Cidade>(
+                                              value: cid,
+                                              child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 5.0),
+                                                    child: Text(
+                                                      cid.nome,
+                                                      style: TextStyle(
                                                         fontSize: 18,
                                                         color: Colors.grey[900],
-                                                      ),),
+                                                      ),
                                                     ),
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
-                                            value: estadoSel,
-                                            onChanged: (value) {
-                                              estadoSel = value;
-                                              print(estadoSel.sigla);
-                                              _selectedFieldEstado = estadoSel.sigla;
-                                              idState = estadoSel.id;
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }).toList(),
+                                          value: citySel,
+                                          onChanged: (value) {
+                                            citySel = value;
+                                            print(citySel.nome);
+                                            _selectedFieldCidade = citySel.nome;
+                                            idCity = citySel.id;
 
-                                              setState(() {
-                                                //_selectedFieldEstado = value;
-                                                _estadoSelecionado = false;
-                                              });
-                                            },
-                                            isExpanded: true,
-                                            hint: Padding(
-                                              padding: const EdgeInsets.only(left: 5.0),
-                                              child: new Text('${user.estado.sigla}',
-                                                style: TextStyle(color: Colors.grey[900]),),
-                                            ),
-
+                                            setState(() {
+                                              //_selectedFieldCidade = value;
+                                              _cidadeSelecionada = false;
+                                            });
+                                          },
+                                          isExpanded: true,
+                                          hint: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 5.0),
+                                            child: new Text(
+                                                '${user.cidade.nome}',
+                                                style: TextStyle(
+                                                    color: Colors.grey[900])),
                                           ),
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
                                     children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.pin_drop,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'CEP',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
+                                      Icon(
+                                        Icons.pin_drop,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
                                       ),
-                                      TextFormField(
-                                        key: _cepKey,
-                                        validator: composeValidators('cep', [
-                                          requiredValidator,
-                                          cepValidator,
-                                          maxLegthCEPValidator
-                                        ]),
-                                        onChanged: (value) => _loginData.cep = value,
-                                        onSaved: (value) => _loginData.cep = value,
-                                        controller: TextEditingController(text: '${user.cep}'),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'Estado',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.phone,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'Contato',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
-                                      ),
-                                      TextFormField(
-                                        key: _telefoneKey,
-                                        validator: composeValidators('telefone', [
-                                          requiredValidator,
-                                          minLegthValidator,
-                                          numberValidator,
-                                          maxLegthTelefoneValidator
-                                        ]),
-                                        onChanged: (value) => _loginData.telefone = value,
-                                        onSaved: (value) =>
-                                        _loginData.telefone = value,
-                                        controller: TextEditingController(text: '${user.contato}'),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0, bottom: 10.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.mail_outline,
-                                            color: Colors.grey[400],
-                                            size: 19.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          Text(
-                                            'E-mail',
-                                            style: GoogleFonts.raleway(
-                          color: Colors.black87,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.7),
-                                          ),
-                                        ],
-                                      ),
-                                      TextFormField(
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20.0),
+                                    child: Container(
+                                      decoration: new BoxDecoration(
+                                          border: Border(
+                                        bottom:
+                                            BorderSide(color: Colors.grey[500]),
+                                      )),
+                                      child: DropdownButton<Estado>(
+                                        underline: SizedBox(),
+                                        items:
+                                            _fieldListEstado.map((Estado es) {
+                                          return DropdownMenuItem<Estado>(
+                                            value: es,
+                                            child: Row(
+                                              //mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 5.0),
+                                                  child: Text(
+                                                    es.sigla,
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.grey[900],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                        value: estadoSel,
+                                        onChanged: (value) {
+                                          estadoSel = value;
+                                          print(estadoSel.sigla);
+                                          _selectedFieldEstado =
+                                              estadoSel.sigla;
+                                          idState = estadoSel.id;
 
-                                        key: _emailKey,
-                                        //style: Theme.of(context).textTheme.headline,
-                                        controller: TextEditingController(text: '${user.email}'),
-                                        validator: composeValidators('email', [
-                                          requiredValidator,
-                                          minLegthValidator,
-                                          emailValidator
-                                        ]),
-                                        onChanged: (value) =>
-                                        _loginData.email = value,
-                                        onSaved: (value) =>
-                                        _loginData.email = value,
-
+                                          setState(() {
+                                            //_selectedFieldEstado = value;
+                                            _estadoSelecionado = false;
+                                          });
+                                        },
+                                        isExpanded: true,
+                                        hint: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5.0),
+                                          child: new Text(
+                                            '${user.estado.sigla}',
+                                            style: TextStyle(
+                                                color: Colors.grey[900]),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.pin_drop,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'CEP',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
+                                      ),
+                                    ],
+                                  ),
+                                  TextFormField(
+                                    key: _cepKey,
+                                    validator: composeValidators('cep', [
+                                      requiredValidator,
+                                      cepValidator,
+                                      maxLegthCEPValidator
+                                    ]),
+                                    onChanged: (value) => user.cep = value,
+                                    onSaved: (value) => user.cep = value,
+                                    controller: TextEditingController(
+                                        text: '${user.cep}'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.phone,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'Contato',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
+                                      ),
+                                    ],
+                                  ),
+                                  TextFormField(
+                                    key: _telefoneKey,
+                                    validator: composeValidators('telefone', [
+                                      requiredValidator,
+                                      minLegthValidator,
+                                      numberValidator,
+                                      maxLegthTelefoneValidator
+                                    ]),
+                                    onChanged: (value) => user.contato = value,
+                                    onSaved: (value) => user.contato = value,
+                                    controller: TextEditingController(
+                                        text: '${user.contato}'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, bottom: 10.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.mail_outline,
+                                        color: Colors.grey[400],
+                                        size: 19.0,
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        'E-mail',
+                                        style:
+                                            TextStyle(color: Colors.grey[500]),
+                                      ),
+                                    ],
+                                  ),
+                                  TextFormField(
+                                    key: _emailKey,
+                                    //style: Theme.of(context).textTheme.headline,
+                                    controller: TextEditingController(
+                                        text: '${user.email}'),
+                                    validator: composeValidators('email', [
+                                      requiredValidator,
+                                      minLegthValidator,
+                                      emailValidator
+                                    ]),
+                                    onChanged: (value) => user.email = value,
+                                    onSaved: (value) => user.email = value,
 
 //                                        decoration: InputDecoration(
 //                                          // border: OutlineInputBorder(
@@ -732,131 +720,133 @@ class AlterarCadastroState extends State<AlterarCadastro> {
 //                                          //labelText: 'E-mail',
 //                                          //border: InputBorder.none,
 //                                            /*labelText: '${user.email}'*/),
-                                      ),
-                                    ],
                                   ),
-                                ),
-
-                                SizedBox(height: 50.0),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Flexible(
-                  //flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: FlatButton(
-                      onPressed: () {
-                        if (citySel == null){
-                          _cidadeSelecionada = true;
-                        }
-                        if (estadoSel == null){
-                          _estadoSelecionado = true;
-                        }
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: FlatButton(
+                                onPressed: () {
+                                  if (citySel == null) {
+                                    _cidadeSelecionada = true;
+                                  }
+                                  if (estadoSel == null) {
+                                    _estadoSelecionado = true;
+                                  }
 
-                        final form = _formKey.currentState;
-                        if (form.validate()) {
-                          form.save();
-                          print(
-                              'password is: ${_loginData
-                                  .password}, confirmPassword is: ${_loginData
-                                  .confirmPassword}, email is: ${_loginData
-                                  .email}, nome is: ${_loginData.nome}');
-
+                                  final form = _formKey.currentState;
+                                  if (form.validate()) {
+                                    form.save();
+                                    print(
+                                        'password is: ${_loginData.password}, confirmPassword is: ${_loginData.confirmPassword}, email is: ${_loginData.email}, nome is: ${_loginData.nome}');
 
 //                          Usuario user = new Usuario.vazio();
 //                          Perfil perfil = new Perfil.vazio();
-                            Cidade cidade = new Cidade.vazio();
-                            Estado estado = new Estado.vazio();
+                                    Cidade cidade = new Cidade.vazio();
+                                    Estado estado = new Estado.vazio();
 //                          perfil.id = 2;
-//                          print(idCity);
-//                          print(idState);
-                            cidade.id = idCity;
-                            estado.id = idState;
-                            user.nome = _loginData.nome;
-                            user.cpf = _loginData.cpf;
-                            user.endereco = _loginData.endereco;
-                            user.complemento = _loginData.complemento; //_loginData.complemento;
-                            user.bairro = _loginData.bairro; //_loginData.bairro;
-                            cidade.nome = _loginData.cidade;
-                            user.cidade = cidade;
-                            estado.nome = _loginData.estado; //_loginData.estado
-                            user.estado = estado;
-                            user.cep = _loginData.cep;
-                            user.contato = _loginData.telefone;
-                            user.email = _loginData.email;
+                                    print(idCity);
+                                    print(idState);
+                                    if (idCity != null) {
+                                      cidade.id = idCity;
+                                      cidade.nome = _selectedFieldCidade;
+                                      user.cidade = cidade;
+                                    }
+
+                                    if (idState != null) {
+                                      estado.id = idState;
+                                      estado.nome = _selectedFieldEstado;
+                                      user.estado = estado;
+                                    }
+//                          user.nome = _loginData.nome;
+//                          user.cpf = _loginData.cpf;
+//                          user.endereco = _loginData.endereco;
+//                          user.complemento = _loginData.complemento; //_loginData.complemento;
+//                          user.bairro = _loginData.bairro; //_loginData.bairro;
+//
+//
+//
+//                          user.cep = _loginData.cep;
+//                          user.contato = _loginData.telefone;
+//                          user.email = _loginData.email;
+
 //                          user.observacao = "";
 //                          user.perfil = perfil;
 //                          user.status = 'ATIVO';
 //                          user.senha = _loginData.password;
 //                          user.resetSenha = 'N';
 
-                            String url = 'https://www.accio.com.br:447/api/cadastros';
-                            Map<String, dynamic> map = user.toJson();
-                            String body = jsonEncode(map);
-                            print(body);
+                                    String url =
+                                        'https://app.cartaopec.com.br/api/cadastros';
+                                    Map<String, dynamic> map = user.toJson();
+                                    String body = jsonEncode(map);
+                                    print(body);
 
-
-                            http
-                                .post(url,
-                                headers: {
-                                  'Content-Type':
-                                  'application/json'
+                                    http
+                                        .put(url,
+                                            headers: {
+                                              'Content-Type': 'application/json'
+                                            },
+                                            body: body)
+                                        .then((http.Response response) {
+                                      print(
+                                          "Response status: ${response.statusCode}");
+                                      //print("Response body: ${response.contentLength}");
+                                      //print(response.headers);
+                                      print(response.body);
+                                      if (response.statusCode == 200) {
+                                        print("PASSOUYALL");
+                                        final sucessoCadastro = new SnackBar(
+                                            content: new Text(
+                                                'Dados cadastrados com sucesso!'));
+                                        _scaffoldKey.currentState
+                                            .showSnackBar(sucessoCadastro);
+                                        Future.delayed(
+                                            const Duration(seconds: 3), () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TelaLogin()),
+                                          );
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          TelaLogin()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        });
+                                      } else {
+                                        final erroCadastro = new SnackBar(
+                                            content: new Text(
+                                                'Verifique os seus dados!'));
+                                        _scaffoldKey.currentState
+                                            .showSnackBar(erroCadastro);
+                                      }
+                                    });
+                                  } else {
+                                    setState(() => _autovalidate = true);
+                                  }
                                 },
-                                body: body)
-                                .then((http.Response response) {
-                              print("Response status: ${response.statusCode}");
-                              //print("Response body: ${response.contentLength}");
-                              //print(response.headers);
-                              print(response.body);
-                              if (response.statusCode == 200) {
-                                print("PASSOUYALL");
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => TelaLogin()),
-                                );
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(builder: (context) => TelaLogin()),
-                                        (Route<dynamic> route) => false);
-                              }
-                            });
-                          }
-
-                        else {
-                          setState(() => _autovalidate = true);
-                        }
-                      },
-                      textColor: Colors.white,
-                      color: Colors.white,
-                      child: Container(
-                        width: double.infinity,
-                        height: 45.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0xFF33691E),
-                              Color(0xFF689F38),
-                              Color(0xFF8BC34A),
-                            ],
-                          ),
+                                textColor: Colors.white,
+                                color: Colors.white,
+                                child: ButtonDecoration('ALTERAR CADASTRO'),
+                              ),
+                            ),
+                            SizedBox(height: 50.0),
+                          ],
                         ),
-                        //padding: const EdgeInsets.fromLTRB(90.0, 15.0, 90.0, 15.0),
-                        child: Center(
-                            child: const Text('ALTERAR CADASTRO',
-                                style: TextStyle(fontSize: 20))),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

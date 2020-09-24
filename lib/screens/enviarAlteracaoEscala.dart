@@ -1,20 +1,27 @@
 import 'package:ett_app/domains/solicitacao.dart';
-import 'package:ett_app/screens/appBar.dart';
+import 'package:ett_app/screens/dasboardScreen.dart';
 import 'package:ett_app/style/lightColors.dart';
+import 'package:ett_app/widgets/alertDialogForm.dart';
+import 'package:ett_app/widgets/appBarNeon.dart';
+import 'package:ett_app/widgets/backgroundDecoration.dart';
+import 'package:ett_app/widgets/buttonDecoration.dart';
+import 'package:ett_app/widgets/dropDownForm.dart';
+import 'package:ett_app/widgets/inputForm.dart';
+import 'package:ett_app/widgets/logoETTForm.dart';
+import 'package:ett_app/widgets/subtitleForm.dart';
+import 'package:ett_app/widgets/textRow.dart';
+import 'package:ett_app/widgets/whiteFormDecoration.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
-import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/utils/validators.dart';
 import 'package:ett_app/domains/usuario.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:ett_app/services/token.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-
-import 'login.dart';
 
 class EnviarAlteracaoEscala extends StatefulWidget {
   Usuario user;
@@ -40,9 +47,7 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
   Token token;
   Solicitacao sol;
 
-
-  EnviarAlteracaoEscalaState({this.user, this.token,
-    this.sol});
+  EnviarAlteracaoEscalaState({this.user, this.token, this.sol});
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,7 +62,7 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
       GlobalKey<FormFieldState<String>>();
 
   LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = true;
+  bool _autovalidate = false;
 
   final _foraDeServicoController = TextEditingController();
   final _veiculoController = TextEditingController();
@@ -83,22 +88,13 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
     super.dispose();
   }
 
-  _submit() {
-    final form = _formKey.currentState;
-    if (form.validate()) {
-      form.save();
-    } else {
-      setState(() => _autovalidate = true);
-    }
-  }
-
   //Motivo
   String _dropdownError;
 
   _validateForm() {
     bool _isValid = _formKey.currentState.validate();
 
-    if (_mySelection == null ) {
+    if (_mySelection == null) {
       setState(() => _dropdownError = "Selecione uma opção");
       _isValid = false;
     }
@@ -118,7 +114,7 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
     });
   }
 
-  Users _motivoEscolhido;
+  var heightLogoETT = 80.0;
 
   String _mySelection;
 
@@ -144,349 +140,136 @@ class EnviarAlteracaoEscalaState extends State<EnviarAlteracaoEscala> {
     SizeConfig().init(context);
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: LightColors.neonYellowLight,
-        iconTheme: new IconThemeData(color: LightColors.neonYellowDark),
-        elevation: 0,
-      ),
-
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              LightColors.neonYellowLight,
-              LightColors.neonETT,
-            ],
-          ),
-        ),
-        child: SafeArea(
+      appBar: AppBarNeon(),
+      body: BackgroundDecoration(
+        SafeArea(
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  LogoETTForm(heightLogoETT),
                   Container(
-                    height: 80.0,
-                    width: double.infinity,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Image(
-                            image: AssetImage('images/logo-slim.png'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding: const EdgeInsets.only(top: 30.0),
-                    child: Container(
-                      width: double.infinity,
-                      //margin: EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 0.0),
-                      child: Form(
-                        key: _formKey,
-                        autovalidate: _autovalidate,
-                        child: Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 700,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black12,
-                                      offset: Offset(0.0, 15.0),
-                                      blurRadius: 15.0),
-                                  BoxShadow(
-                                      color: Colors.black12,
-                                      offset: Offset(0.0, -10.0),
-                                      blurRadius: 10.0),
-                                ]),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: 16.0, right: 16.0, top: 16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, top: 30.0),
-                                    child: Text(
-                                        "Formulário de Alteração de Escala",
-                                        style: GoogleFonts.raleway (color: Colors.black87,
-                                            fontSize: 19.0, fontWeight: FontWeight.w700, letterSpacing: 0.7)),
-                                  ),
-                                  SizedBox(
-                                    height: 30.0,
-                                  ),
-                                  SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text(
-                                          'Fora de serviço: *',
-                                          style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
-                                        ),
-//                                    Spacer(),
-//                                    new FlatButton(
-//                                        onPressed: _toggle,
-//                                        child: new Icon(
-//                                            _obscureText
-//                                                ? Icons.remove_red_eye
-//                                                : Icons.lock,
-//                                            color: Colors.grey))
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: TextFormField(
-                                      key: _foraDeServicoKey,
-                                      controller: dataController,
-                                      validator: composeValidators('a data',
-                                          [requiredValidator, minLegthValidator]),
-                                      onSaved: (value) =>
-                                          _loginData.foraDeServico = value,
-                                      decoration: InputDecoration(
-                                          //border: OutlineInputBorder(
-                                          // borderRadius: BorderRadius.circular(5.0)),
-                                          //labelText: 'E-mail',
-                                          //border: InputBorder.none,
-                                          hintText: ''),
-                                      //obscureText: _obscureText,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text(
-                                          'Veículo: *',
-                                          style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0, top: 10.0),
-                                    child: TextFormField(
-                                      key: _veiculoKey,
-                                      controller: _veiculoController,
-                                      validator: composeValidators('a placa',
-                                          [requiredValidator, minLegthValidator]),
-                                      onSaved: (value) =>
-                                          _loginData.veiculo = value,
-                                      decoration: InputDecoration(
-                                          //border: OutlineInputBorder(
-                                          // borderRadius: BorderRadius.circular(5.0)),
-                                          //labelText: 'E-mail',
-                                          //border: InputBorder.none,
-                                          hintText: ''),
-//                                    obscureText: _obscureText,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text(
-                                          'Motivo: *',
-                                          style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: DropdownButton(
-                                      items: data.map((item) {
-                                        return new DropdownMenuItem(
-                                          child: new Text(item['item_name']),
-                                          value: item['id'].toString(),
-                                        );
-                                      }).toList(),
-                                      onChanged: (newVal) {
-                                        setState(() {
-                                          _mySelection = newVal;
-                                          _dropdownError = null;
-                                        });
-                                      },
-                                      value: _mySelection,
-                                      isExpanded: true,
-                                      hint: Text('Selecione o motivo'),
-                                    ),
-                                  ),
-                                  _dropdownError == null
-                                      ? SizedBox.shrink()
-                                      : Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      _dropdownError ?? "",
-                                      style: TextStyle(color: Colors.red[800], fontSize: 12),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text(
-                                          'Descrição:',
-                                          style:  GoogleFonts.raleway(color: Colors.black87, fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0, top: 10.0),
-                                    child: TextFormField(
-                                      key: _descricaoKey,
-                                      controller: _descricaoController,
-                                      validator:
-                                          composeValidators('a descrição', []),
-                                      onSaved: (value) =>
-                                          _loginData.descricao = value,
-                                      decoration: InputDecoration(
-                                          //border: OutlineInputBorder(
-                                          // borderRadius: BorderRadius.circular(5.0)),
-                                          //labelText: 'E-mail',
-                                          //border: InputBorder.none,
-                                          hintText: ''),
-//                                    obscureText: _obscureText,
-                                    ),
-                                  ),
-                                  SizedBox(height: 50.0),
-                                  FlatButton(child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 20.0),
-                                    child: FlatButton(
-                                      onPressed: () {
-                                        _validateForm();
-                                        if(_formKey.currentState.validate()
-                                        && _mySelection != null
-                                        ) {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              // return object of type Dialog
-                                              return AlertDialog(
-                                                title: Center(
-                                                    child: new Icon(
-                                                      Icons.check_circle, size: 50.0, color: Colors.green,)),
-                                                content: Row(
-                                                  children: <Widget>[
-                                                    Flexible(
-                                                      child: new Text(
-                                                        'Formulário registrado com sucesso!', style: TextStyle(
-                                                          fontSize: 16.0,
-                                                          color: Colors.grey[600],
-                                                          fontFamily: "Poppins-Bold",
-                                                          letterSpacing: .6),
-                                                      ),
-                                                    ),
+                    width: double.infinity,
+                    //margin: EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 0.0),
+                    child: Form(
+                      key: _formKey,
+                      autovalidate: _autovalidate,
+                      child: WhiteFormDecoration(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            TextRow("Formulário de Alteração de Escala", Colors.black87),
+                            SizedBox(
+                              height: 40.0,
+                            ),
+                            SubtitleForm('Fora de serviço: *'),
+                            InputForm(
+                              _foraDeServicoKey,
+                              dataController,
+                              composeValidators('a data',
+                                  [requiredValidator, dataValidator]),
+                                  (value) => _loginData.foraDeServico = value,
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            SubtitleForm('Veículo: *'),
+                            InputForm(
+                              _veiculoKey,
+                              _veiculoController,
+                              composeValidators('a placa',
+                                  [requiredValidator, minLegthValidator]),
+                                  (value) => _loginData.veiculo = value,
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            SubtitleForm('Motivo: *'),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            DropDownForm(
+                                data.map((item) {
+                                  return new DropdownMenuItem(
+                                    child: new Text(item['item_name']),
+                                    value: item['id'].toString(),
+                                  );
+                                }).toList(), (newVal) {
+                              setState(() {
+                                _mySelection = newVal;
+                                _dropdownError = null;
+                              });
+                            }, _mySelection, true, 'Selecione o motivo',
+                                _dropdownError),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            SubtitleForm('Descrição:'),
+                            InputForm(
+                              _descricaoKey,
+                              _descricaoController,
+                              composeValidators('a descrição',
+                                  [requiredValidator, minLegthValidator]),
+                                  (value) => _loginData.descricao = value,
+                            ),
+                            SizedBox(height: 50.0),
+                            FlatButton(
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.only(bottom: 20.0),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    _validateForm();
+                                    if (_formKey.currentState
+                                        .validate() &&
+                                        _mySelection != null) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          // return object of type Dialog
+                                          return AlertDialogForm(
+                                              'Formulário registrado com sucesso!');
+                                        },
+                                      );
+                                      Future.delayed(
+                                          const Duration(
+                                              milliseconds: 3000), () {
+                                        //setState(() {
 
-                                                  ],
-                                                ),
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => DashboardScreen(
+                                                sol: sol,
+                                                user: user,
+                                                token: token
+                                              //textSucesso: textSucesso,
+                                              //alertSucessoVisible: alertSucessoVisible,
 
-                                                actions: <Widget>[
-                                                  // usually buttons at the bottom of the dialog
-                                                  new FlatButton(
-                                                    child: new Text(
-                                                      "Ok",
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                          Future.delayed(const Duration(milliseconds: 3000), () {
-                                            //setState(() {
-
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(builder: (context) =>
-                                                  Status(
-                                                      sol: sol,
-                                                      user: user,
-                                                      token: token
-                                                    //textSucesso: textSucesso,
-                                                    //alertSucessoVisible: alertSucessoVisible,
-
-                                                  ),
-                                              ),
-                                            );
-                                            //});
-                                          });
-                                        }else {
-                                          final semCadastro =
-                                          new SnackBar(content: new Text('Preencha todos os campos para prosseguir!'));
-                                          _scaffoldKey.currentState.showSnackBar(semCadastro);
-                                        }
-
-
-                                      },
-                                      textColor: Colors.white,
-                                      color: Colors.white,
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 45.0,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(25.0),
-                                          gradient: LinearGradient(
-                                            colors: <Color>[
-                                              Colors.grey[600],
-                                              Colors.grey[500],
-                                              Colors.grey[300],
-
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                        child: Center(
-                                          child: const Text('ENVIAR',
-                                              style: TextStyle(fontSize: 20)),
-                                        ),
-                                      ),
-                                    ),
-                                  ),),
-                                  SizedBox(height: 10.0),
-                                ],
+                                        );
+                                        //});
+                                      });
+                                    } else {
+                                      final semCadastro = new SnackBar(
+                                          content: new Text(
+                                              'Preencha todos os campos para prosseguir!'));
+                                      _scaffoldKey.currentState
+                                          .showSnackBar(semCadastro);
+                                    }
+                                  },
+                                  textColor: Colors.white,
+                                  color: Colors.white,
+                                  child:  ButtonDecoration('ENVIAR'),
+                                ),
                               ),
                             ),
-                          ),
+                            SizedBox(height: 10.0),
+                          ],
                         ),
                       ),
                     ),

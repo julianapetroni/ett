@@ -1,10 +1,9 @@
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/screens/dasboardScreen.dart';
-import 'package:ett_app/screens/login.dart';
+import 'package:ett_app/services/token.dart';
 import 'package:flutter/material.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/style/sizeConfig.dart';
-import 'package:ett_app/screens/status.dart';
 import 'package:ett_app/utils/validators.dart';
 
 import 'package:ett_app/domains/usuario.dart';
@@ -126,7 +125,7 @@ class NovaSenhaState extends State<NovaSenha> {
         Container(
           width: SizeConfig.safeBlockVertical * 30,
           child: Image(
-                image: AssetImage('images/PECLogo.png'),
+                image: AssetImage('images/logo-slim.png'),
           ),
         ),
       ],

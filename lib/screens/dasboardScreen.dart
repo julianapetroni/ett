@@ -1,6 +1,5 @@
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/domains/usuario.dart';
-import 'package:ett_app/screens/animation.dart';
 import 'package:ett_app/screens/comunicadoInterno.dart';
 import 'package:ett_app/screens/comunicadoInternoGrupo.dart';
 import 'package:ett_app/screens/consultarAlteracaoEscala.dart';
@@ -8,10 +7,10 @@ import 'package:ett_app/screens/controleDeFreqDeLinha.dart';
 import 'package:ett_app/screens/enviarAlteracaoEscala.dart';
 import 'package:ett_app/screens/relatorioOcorrenciaTransito.dart';
 import 'package:ett_app/style/lightColors.dart';
-import 'package:ett_app/testes/cupertinoTime.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:ett_app/services/token.dart';
+import 'appBar.dart';
 import 'login.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -40,82 +39,74 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: new IconThemeData(color: LightColors.neonYellowDark),
-        title: Padding(
-          padding: const EdgeInsets.only(
-              top: 100, left: 120, right: 80, bottom: 100),
-          child: Image.asset('images/logo-slim.png'),
+        appBar: AppBarETT(
+          context: context,
         ),
-    backgroundColor: Colors.grey[50],
+        drawer: MyDrawer(
+          user: user,
+          sol: sol,
+          token: token,
+        ),
+        body: Container(
+            child: SafeArea(
+                bottom: false,
+                top: false,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("images/YellowBus.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    //color: LightColors.neonETT.withOpacity(0.8),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      padding: EdgeInsets.all(3.0),
+                      children: <Widget>[
+                        makeDashboardItem(
+                            "Enviar Comunicado Interno",
+                            Icons.record_voice_over,
+                            ComunicadoInterno(
+                                user: user, sol: sol, token: token)),
+                        makeDashboardItem(
+                            "Todos Relatórios\n",
+                            Icons.assessment,
+                            ComunicadoInternoGrupo(
+                                user: user, token: token, sol: sol)),
+                        makeDashboardItem(
+                            "Frequência de Linha",
+                            Icons.directions_bus,
+                            //CupertinoExample()),
 
-    elevation: 0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.exit_to_app,
-              color: Colors.black87,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TelaLogin()),
-              );
-            },
-          )
-        ],
-    ),
-    // backgroundColor: LightColors.neonYellowLight,
-    body: Container(
-    child: SafeArea(
-    bottom: false,
-    top: false,
-    child: Padding(
-    padding: const EdgeInsets.only(top: 0),
-    child: Container(
-    decoration: BoxDecoration(
-    image: DecorationImage(
-    image: AssetImage("images/YellowBus.png"),
-    fit: BoxFit.cover,
-    ),
-    ),
-        //color: LightColors.neonETT.withOpacity(0.8),
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          padding: EdgeInsets.all(3.0),
-          children: <Widget>[
-            makeDashboardItem(
-                "Enviar Comunicado Interno",
-                Icons.record_voice_over,
-                ComunicadoInterno(user: user, sol: sol, token: token)),
-            makeDashboardItem("Todos Relatórios\n", Icons.assessment,
-                ComunicadoInternoGrupo(user: user, token: token, sol: sol)),
-            makeDashboardItem(
-                "Frequência de Linha",
-                Icons.directions_bus,
-                //CupertinoExample()),
-
-                ControleDeFrequenciaDeLinha(
-                    user: user, sol: sol, token: token)),
-            makeDashboardItem(
-                "Análise de Monitoramento",
-                Icons.assignment,
-                RelatorioOcorrenciaTransito(
-                    user: user, sol: sol, token: token)),
-            makeDashboardItem("Enviar Alteração de Escala", Icons.reorder,
-                EnviarAlteracaoEscala(user: user, sol: sol, token: token)),
-            makeDashboardItem(
-                "Consultar Alteração de Escala",
-                Icons.search,
+                            ControleDeFrequenciaDeLinha(
+                                user: user, sol: sol, token: token)),
+                        makeDashboardItem(
+                            "Análise de Monitoramento",
+                            Icons.assignment,
+                            RelatorioOcorrenciaTransito(
+                                user: user, sol: sol, token: token)),
+                        makeDashboardItem(
+                            "Enviar Alteração de Escala",
+                            Icons.reorder,
+                            EnviarAlteracaoEscala(
+                                user: user, sol: sol, token: token)),
+                        makeDashboardItem(
+                            "Consultar Alteração de Escala",
+                            Icons.search,
 //                HomePage()
-                ConsultarAlteracaoEscala(
-                    user: user, token: token, sol: sol,
-                ))
-          ],
-        ),
-      ),
-    ))));
+                            ConsultarAlteracaoEscala(
+                              user: user,
+                              token: token,
+                              sol: sol,
+                            ))
+                      ],
+                    ),
+                  ),
+                ))));
   }
 
   Card makeDashboardItem(String title, IconData icon, var rota) {

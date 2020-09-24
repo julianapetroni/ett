@@ -8,10 +8,10 @@
 //import 'dart:typed_data';
 //import 'dart:ui' as ui;
 //import 'package:flutter/rendering.dart';
-//import 'package:pec/domains/usuario.dart';
-//import 'package:pec/domains/solicitacao.dart';
-//import 'package:pec/screens/status.dart';
-//import 'appBarPEC.dart';
+//import 'package:ett_app/domains/usuario.dart';
+//import 'package:ett_app/domains/solicitacao.dart';
+//import 'package:ett_app/screens/status.dart';
+//import 'appBar.dart';
 //import 'login.dart';
 //
 //class TirarFotosDocs extends StatefulWidget {
@@ -246,7 +246,7 @@
 //      //key: _globalKey,
 //      child: Scaffold(
 //          key: _scaffoldKey,
-//          appBar: AppBarPEC(
+//          appBar: appBar(
 //            title: Text(' '),
 //          ),
 //          endDrawer: MyDrawer(user: user),
@@ -264,7 +264,7 @@
 //                      padding: const EdgeInsets.only(top: 20.0),
 //                      child: Container(
 //                          child: Image(
-//                        image: AssetImage('images/PECLogo.png'),
+//                        image: AssetImage('images/logo-slim.png'),
 //                        height: 100.0,
 //                      )),
 //                    ),

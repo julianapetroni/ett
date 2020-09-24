@@ -2,10 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:ett_app/screens/avariasVeiculoTerceiros.dart';
-import 'package:ett_app/screens/relatorioOcorrenciaTransito.dart';
-import 'package:ett_app/screens/testemunhas.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,13 +10,9 @@ import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/screens/draw.dart';
-import 'package:ett_app/screens/login.dart';
-import 'package:ett_app/utils/validators.dart';
-import 'package:ett_app/models/forms.dart';
+import 'package:ett_app/services/token.dart';
 import 'package:ett_app/style/sizeConfig.dart';
 import 'package:ett_app/domains/usuario.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import '../style/lightColors.dart';
 import "package:flutter/painting.dart";
 import "package:flutter/foundation.dart";
@@ -46,30 +39,12 @@ class AvariasOnibusState extends State<AvariasOnibus> {
 
   AvariasOnibusState({this.sol, this.user, this.token});
 
-  final GlobalKey<FormFieldState<String>> _nomeKey =
-      GlobalKey<FormFieldState<String>>();
-
-  LoginFormData _loginData = LoginFormData();
-  bool _autovalidate = true;
-
   //mensagem
   final _nomeController = TextEditingController();
   TextEditingController _textFieldController = TextEditingController();
 
-  //Obs.
-  final _obsController = TextEditingController();
-  TextEditingController _obstextFieldController = TextEditingController();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  //mensagem e obs.
-  int _obscharCount = 700;
-
-  _onChanged(String value) {
-    setState(() {
-      _obscharCount = 700 - value.length;
-    });
-  }
 
   //imagepicker
   File _image;
@@ -89,7 +64,8 @@ class AvariasOnibusState extends State<AvariasOnibus> {
 
   Future getImage(ImageSource src) async {
     File img = await ImagePicker.pickImage(
-        source: src, maxHeight: 70.0, maxWidth: 70.0);
+        source: src, //maxHeight: 70.0, maxWidth: 70.0
+    );
     //final pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       _image = File(img.path);
@@ -98,7 +74,8 @@ class AvariasOnibusState extends State<AvariasOnibus> {
 
   Future getImageFrente(ImageSource src) async {
     File img = await ImagePicker.pickImage(
-        source: src, maxHeight: 50.0, maxWidth: 50.0);
+        source: src, //maxHeight: 50.0, maxWidth: 50.0
+    );
     //final pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       _imageOnibusETTFrente = File(img.path);
@@ -107,7 +84,8 @@ class AvariasOnibusState extends State<AvariasOnibus> {
 
   Future getImageTraseira(ImageSource src) async {
     File img = await ImagePicker.pickImage(
-        source: src, maxHeight: 50.0, maxWidth: 50.0);
+        source: src, //maxHeight: 50.0, maxWidth: 50.0
+    );
     //final pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       _imageOnibusETTTraseira = File(img.path);
@@ -116,8 +94,8 @@ class AvariasOnibusState extends State<AvariasOnibus> {
 
   Future getImageLatEsquerda(ImageSource src) async {
     File img = await ImagePicker.pickImage(
-        source: src, maxHeight: 50.0, maxWidth: 50.0);
-    //final pickedFile = await picker.getImage(source: ImageSource.camera);
+        source: src, //maxHeight: 50.0, maxWidth: 50.0
+    );
     setState(() {
       _imageOnibusETTLateralEsquerda = File(img.path);
     });
@@ -125,7 +103,8 @@ class AvariasOnibusState extends State<AvariasOnibus> {
 
   Future getImageLatDireita(ImageSource src) async {
     File img = await ImagePicker.pickImage(
-        source: src, maxHeight: 50.0, maxWidth: 50.0);
+        source: src, //maxHeight: 50.0, maxWidth: 50.0
+    );
     //final pickedFile = await picker.getImage(source: ImageSource.camera);
     setState(() {
       _imageOnibusETTLateralDireita = File(img.path);
@@ -173,131 +152,19 @@ class AvariasOnibusState extends State<AvariasOnibus> {
   @override
   dispose() {
     _nomeController.dispose();
-    _obsController.dispose();
 
     super.dispose();
   }
 
   List _data;
 
-  Future<void> fetchData() async {
-    try {
-      final response =
-          await http.get("https://jsonplaceholder.typicode.com/todos");
-      if (response.statusCode == 200) {
-        print(response.body);
-        setState(() {
-          _data = jsonDecode(response.body) as List;
-        });
-      } else {
-        print("Erro: ${response.statusCode}");
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   bool toggle = true;
 
-//tabela
-  List<DataRow> _rowList = [
-    DataRow(cells: <DataCell>[
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-    ]),
-  ];
-
-  void _addRow() {
-    // Built in Flutter Method.
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below.
-      _rowList.add(DataRow(cells: <DataCell>[
-        DataCell(
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-//            focusedBorder: OutlineInputBorder(
-//            borderSide: BorderSide(color: Colors.blue, width: 2.0),
-//            borderRadius: BorderRadius.circular(25.7),
-//          ),
-//            enabledBorder: OutlineInputBorder(
-//              borderSide: BorderSide(color: Colors.transparent, width: 2.0),
-//              borderRadius: BorderRadius.circular(25.7),
-//            ),
-            ),
-          ),
-        ),
-        DataCell(
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-        DataCell(
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-        DataCell(
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-        DataCell(
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-      ]));
-    });
-  }
 
   //testemunhas stepper
   int currentStep = 0;
   bool complete = false;
   bool incomplete = false;
-  final _formStepperKey = new GlobalKey<FormState>();
 
   testemunha1() {
     if (incomplete == true) {
@@ -413,7 +280,6 @@ class AvariasOnibusState extends State<AvariasOnibus> {
     @override
     void initState() {
       super.initState();
-      fetchData();
       _controller.addListener(() => print("Value changed"));
       _controllerTetst2.addListener(() => print("Value changed"));
       _controllerTest1Conclusao.addListener(() => print("Value changed"));
@@ -466,9 +332,7 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30, top: 20),
-                child: Row(
+               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
@@ -489,9 +353,7 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     Draw(user: user, token: token, sol: sol)),
                           );
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Column(
+                        child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisSize: MainAxisSize.min,
                             verticalDirection: VerticalDirection.down,
@@ -511,18 +373,13 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.raleway(
                                         fontSize: 17),
-//                        style: new TextStyle(
-////                            fontSize: 13.0,
-////                            color: Colors.black87,
-////                            letterSpacing: 1
-//
-//                        )
                                   ),
                                 ),
-                              )
+                              ),
+                              SizedBox(height: 10.0),
                             ],
                           ),
-                        ),
+
                       ),
                     ),
                     Padding(
@@ -594,32 +451,24 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                   color: Colors.black87,
                                 )),
                                 SizedBox(height: 20.0),
-//                                    Visibility(
-//                                      visible: textoVisivel,
-//                                      child: new Flexible(
-//                                        child: Center(
-//                                          child: new Text('Foto do acidente',
-//                                            textAlign: TextAlign.center,
-//                                            style: GoogleFonts.raleway(fontSize: 17),
-//                                          ),
-//                                        ),
-//                                      ),
-//                                    ),
-                                Center(
-                                  child: _image == null
-                                      ? Flexible(
-                                          child: Center(
-                                            child: new Text(
-                                              'Foto do acidente',
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts
-                                                  .raleway(
-                                                      fontSize: 17),
-                                            ),
-                                          ),
-                                        )
-                                      : Image.file(_image),
-                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _image == null
+                                          ? Flexible(
+                                              child: Center(
+                                                child: new Text(
+                                                  'Foto do acidente',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts
+                                                      .raleway(
+                                                          fontSize: 17),
+                                                ),
+                                              ),
+                                            )
+                                          : Image.file(_image, scale: 40,),
+                                    ],
+                                  ),
                               ],
                             ),
                           ),
@@ -628,7 +477,7 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                     ),
                   ],
                 ),
-              ),
+
               Padding(
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, top: 30.0, bottom: 10.0),
@@ -720,22 +569,26 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                   color: Colors.black87,
                                 )),
                                 SizedBox(height: 20.0),
-                                Center(
-                                  child: _imageOnibusETTLateralDireita == null
-                                      ? Flexible(
-                                          child: Center(
-                                            child: new Text(
-                                              'Lateral Direita',
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts
-                                                  .raleway(
-                                                      fontSize: 17),
-                                            ),
-                                          ),
-                                        )
-                                      : Image.file(
-                                          _imageOnibusETTLateralDireita),
-                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _imageOnibusETTLateralDireita == null
+                                          ? Flexible(
+                                              child: Center(
+                                                child: new Text(
+                                                  'Lateral Direita',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts
+                                                      .raleway(
+                                                          fontSize: 17),
+                                                ),
+                                              ),
+                                            )
+                                          : Image.file(
+                                              _imageOnibusETTLateralDireita, scale: 40,),
+                                    ],
+                                  ),
+
                               ],
                             ),
                           ),
@@ -811,32 +664,24 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                   color: Colors.black87,
                                 )),
                                 SizedBox(height: 20.0),
-//                                    Visibility(
-//                                      visible: textoVisivel,
-//                                      child: new Flexible(
-//                                        child: Center(
-//                                          child: new Text('Foto do acidente',
-//                                            textAlign: TextAlign.center,
-//                                            style: GoogleFonts.raleway(fontSize: 17),
-//                                          ),
-//                                        ),
-//                                      ),
-//                                    ),
-                                Center(
-                                  child: _imageOnibusETTFrente == null
-                                      ? Flexible(
-                                          child: Center(
-                                            child: new Text(
-                                              'Frente',
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts
-                                                  .raleway(
-                                                      fontSize: 17),
-                                            ),
-                                          ),
-                                        )
-                                      : Image.file(_imageOnibusETTFrente),
-                                ),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _imageOnibusETTFrente == null
+                                          ? Flexible(
+                                              child: Center(
+                                                child: new Text(
+                                                  'Frente',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts
+                                                      .raleway(
+                                                          fontSize: 17),
+                                                ),
+                                              ),
+                                            )
+                                          : Image.file(_imageOnibusETTFrente, scale: 40,),
+                                    ],
+                                  ),
                               ],
                             ),
                           ),
@@ -921,22 +766,25 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                   color: Colors.black87,
                                 )),
                                 SizedBox(height: 20.0),
-                                Center(
-                                  child: _imageOnibusETTLateralEsquerda == null
-                                      ? Flexible(
-                                          child: Center(
-                                            child: new Text(
-                                              'Lateral Esquerda',
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts
-                                                  .raleway(
-                                                      fontSize: 17),
-                                            ),
-                                          ),
-                                        )
-                                      : Image.file(
-                                          _imageOnibusETTLateralEsquerda),
-                                ),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _imageOnibusETTLateralEsquerda == null
+                                          ? Flexible(
+                                              child: Center(
+                                                child: new Text(
+                                                  'Lateral Esquerda',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts
+                                                      .raleway(
+                                                          fontSize: 17),
+                                                ),
+                                              ),
+                                            )
+                                          : Image.file(
+                                              _imageOnibusETTLateralEsquerda, scale: 40,),
+                                    ],
+                                  ),
                               ],
                             ),
                           ),
@@ -1013,21 +861,25 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                   color: Colors.black87,
                                 )),
                                 SizedBox(height: 20.0),
-                                Center(
-                                  child: _imageOnibusETTTraseira == null
-                                      ? Flexible(
-                                          child: Center(
-                                            child: new Text(
-                                              'Lateral Esquerda',
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts
-                                                  .raleway(
-                                                      fontSize: 17),
-                                            ),
-                                          ),
-                                        )
-                                      : Image.file(_imageOnibusETTTraseira),
-                                ),
+                                 Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _imageOnibusETTTraseira == null
+                                          ? Flexible(
+                                              child: Center(
+                                                child: new Text(
+                                                  'Lateral Esquerda',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts
+                                                      .raleway(
+                                                          fontSize: 17),
+                                                ),
+                                              ),
+                                            )
+                                          : Image.file(_imageOnibusETTTraseira, scale: 40,),
+                                    ],
+                                  ),
+
                               ],
                             ),
                           ),
@@ -1043,7 +895,7 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      'Obs.:',
+                      'Obs:',
                         style: GoogleFonts.raleway(
                             color: Colors.black87,
                             fontSize: 17.0,
@@ -1060,20 +912,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                     child: TextField(
                       maxLines: 3,
                       controller: _textFieldController,
-                      onChanged: _onChanged,
-//                      inputFormatters: [
-//                        LengthLimitingTextInputFormatter(700),
-//                      ],
                     ),
                   ),
                   SizedBox(height: 20.0),
-//                  Padding(
-//                    padding: const EdgeInsets.only(left: 20.0),
-//                    child: Text(
-//                        _obscharCount.toString() + " caracteres restantes",
-//                        style:
-//                            TextStyle(color: Colors.grey[600], fontSize: 12.0)),
-//                  ),
                 ],
               ),
               Padding(

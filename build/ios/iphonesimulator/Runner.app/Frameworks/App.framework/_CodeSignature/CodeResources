@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		24TldVVYYfin/phz+5LwyNjuuCc=
+		YNMfrbxqKlB0WoD6S2W0ZvhVDjc=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
-		jGym5LUfFp5/voDnXSs+LpGBMFs=
+		HuqT/dgvrTHOMum5Qo5BXfxzfaM=
 		</data>
 		<key>flutter_assets/LICENSE</key>
 		<data>
@@ -22,11 +22,11 @@
 		</data>
 		<key>flutter_assets/NOTICES</key>
 		<data>
-		DWx/70VPP6Cnt6jNnEVtRBNJ7wg=
+		OWgYEX9kyN5loDAabT50n6mdqBU=
 		</data>
-		<key>flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
+		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
-		nIzDzw7hjOThppiX5OleKNAxtqM=
+		trwcM3xNRg/vRjEfMxZdPtLer/k=
 		</data>
 		<key>flutter_assets/images/ETT.png</key>
 		<data>
@@ -39,14 +39,6 @@
 		<key>flutter_assets/images/FrenteETT.jpg</key>
 		<data>
 		Fy5NlBu6sH0LDZ7wBuYwgdHN5wI=
-		</data>
-		<key>flutter_assets/images/ModernBus.jpg</key>
-		<data>
-		sE4IuwP0XMlt0y91SlxPQjPxWRk=
-		</data>
-		<key>flutter_assets/images/ModernBus2.jpg</key>
-		<data>
-		uZ9UwbZYr4R6RevpzMF2we6n1Fw=
 		</data>
 		<key>flutter_assets/images/OnibusETTFrenteLateral.jpeg</key>
 		<data>
@@ -68,29 +60,17 @@
 		<data>
 		AD0HGcc1tptJ4ATefS0q1zUa50I=
 		</data>
+		<key>flutter_assets/images/bike-moto.png</key>
+		<data>
+		ZFFV9Zf9e9qJ0AgPvGy10TDyT4o=
+		</data>
 		<key>flutter_assets/images/busFront.png</key>
 		<data>
-		ArSUuXG4L7m5kb3M/Ym8lQo4xaE=
-		</data>
-		<key>flutter_assets/images/caminhao.png</key>
-		<data>
-		FcEGmUaGC7l37A/lHVZFLtwrrYg=
-		</data>
-		<key>flutter_assets/images/caminhoneta.png</key>
-		<data>
-		4/nOWu0SU5uNYEszNo+eFN+jDVk=
-		</data>
-		<key>flutter_assets/images/car.jpg</key>
-		<data>
-		KrU2vGYLbfns2DFQKwSvru0+gnw=
+		PsbMvAjamguxRXZKwwFtHgdol5A=
 		</data>
 		<key>flutter_assets/images/carro.png</key>
 		<data>
-		biZnIuX66uqoLU5k9nlS4WmIKcs=
-		</data>
-		<key>flutter_assets/images/carroAvaria.png</key>
-		<data>
-		8qXTsdlkmnHKAp5gR1++0UsrGgs=
+		N6cqhV+nx04ZiRPT7UFhOqN4n3k=
 		</data>
 		<key>flutter_assets/images/carroAvariaComLinhas.jpg</key>
 		<data>
@@ -104,21 +84,21 @@
 		<data>
 		crvxOrOuN7aQE/U7hZR2XNQITHo=
 		</data>
-		<key>flutter_assets/images/pickUP.png</key>
+		<key>flutter_assets/images/pickup.png</key>
 		<data>
-		tA2BdJLYK7cae7+zTHBCeGPaUy4=
+		vpBkoVOSGtYygtjpzrJzvlH9OmY=
 		</data>
 		<key>flutter_assets/images/truckFrontIcon.png</key>
 		<data>
-		pq/9puEKzb5alwfre0nZl16pvmM=
+		2Uc4EAfmZV510R4GkXE7FXbFNlg=
 		</data>
 		<key>flutter_assets/isolate_snapshot_data</key>
 		<data>
-		RDnH8RhpdZU3SkiqV9ONzudSmi0=
+		qWCU8K+Q2qf8S9D7xtkkDlCygZk=
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		eQ2w7vsgAJLMOiBO63iHZgl6wKw=
+		qxbl0V1wjjS0+029yG87lBjn6zU=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -138,7 +118,7 @@
 		</data>
 		<key>flutter_assets/vm_snapshot_data</key>
 		<data>
-		3xkcXq90SyJ63T3T+Wrv4yV2qrw=
+		J7oHBIaXNPl37qqKZXKDfS5xwQQ=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -147,22 +127,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			24TldVVYYfin/phz+5LwyNjuuCc=
+			YNMfrbxqKlB0WoD6S2W0ZvhVDjc=
 			</data>
 			<key>hash2</key>
 			<data>
-			SbacZurbu38RUNghE2Ifvk5iGznT18Hr6Rnk3jWyU6M=
+			9ml43BMCl4Wtcw4Ehrt77+q+8TmA3xDwjzEKZk1iKdM=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jGym5LUfFp5/voDnXSs+LpGBMFs=
+			HuqT/dgvrTHOMum5Qo5BXfxzfaM=
 			</data>
 			<key>hash2</key>
 			<data>
-			FjKHGWh7MMpdd6b76S4WdIStd5g87XJBOdeJuGmIEdg=
+			LNlBG1QOXG4VrGVSOjYBvuZorsqRBOHeE2/DSzqRJ3E=
 			</data>
 		</dict>
 		<key>flutter_assets/LICENSE</key>
@@ -180,22 +160,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DWx/70VPP6Cnt6jNnEVtRBNJ7wg=
+			OWgYEX9kyN5loDAabT50n6mdqBU=
 			</data>
 			<key>hash2</key>
 			<data>
-			9Dr/FOr29p/jTqs/5hnoAQj5sIxNI4Su//kLfmJUFW0=
+			tw4MrrGtv45l2zGjpWfsnoO7KWIgPSxdVpoQDwQcdb4=
 			</data>
 		</dict>
-		<key>flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
+		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nIzDzw7hjOThppiX5OleKNAxtqM=
+			trwcM3xNRg/vRjEfMxZdPtLer/k=
 			</data>
 			<key>hash2</key>
 			<data>
-			Wuh7JiGdsCj8cMnXMpa8jtW4ekzRz359zPE0NyQ7iRE=
+			JFzKpqCndnRmV4D7m6KgybGGZEZqcKWPEq2UkrgCUO4=
 			</data>
 		</dict>
 		<key>flutter_assets/images/ETT.png</key>
@@ -229,28 +209,6 @@
 			<key>hash2</key>
 			<data>
 			qqn32UKitvD42/k/SrCm2iq+O8dJ1LFvAPpXgXE2sQ8=
-			</data>
-		</dict>
-		<key>flutter_assets/images/ModernBus.jpg</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			sE4IuwP0XMlt0y91SlxPQjPxWRk=
-			</data>
-			<key>hash2</key>
-			<data>
-			XzSfuGMKBxXGNQ+OX9FpU4FFTY/5cgrjdBLRBGDTTTk=
-			</data>
-		</dict>
-		<key>flutter_assets/images/ModernBus2.jpg</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			uZ9UwbZYr4R6RevpzMF2we6n1Fw=
-			</data>
-			<key>hash2</key>
-			<data>
-			o6UjkZ4+JOtkaUYjDiij8DjHkaDlgr3nYLCXzF8w+xM=
 			</data>
 		</dict>
 		<key>flutter_assets/images/OnibusETTFrenteLateral.jpeg</key>
@@ -308,70 +266,37 @@
 			1Mtz1VOXAgUKn0sgOUlMDaaOif2kLHB9Ui5+ZbaKty4=
 			</data>
 		</dict>
+		<key>flutter_assets/images/bike-moto.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZFFV9Zf9e9qJ0AgPvGy10TDyT4o=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZaHAKiU52Vcd1GUCfxC+A9tFcrXXBsxwl9NeVXw/7i0=
+			</data>
+		</dict>
 		<key>flutter_assets/images/busFront.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ArSUuXG4L7m5kb3M/Ym8lQo4xaE=
+			PsbMvAjamguxRXZKwwFtHgdol5A=
 			</data>
 			<key>hash2</key>
 			<data>
-			BDobXGqs2hzawaLn6cIviatVdz2EU65UU1HL6tc0Wv8=
-			</data>
-		</dict>
-		<key>flutter_assets/images/caminhao.png</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			FcEGmUaGC7l37A/lHVZFLtwrrYg=
-			</data>
-			<key>hash2</key>
-			<data>
-			zRIfxwlIMfo6jbThuMnbMtJI14/TnTkTEOCEjktf2Zg=
-			</data>
-		</dict>
-		<key>flutter_assets/images/caminhoneta.png</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			4/nOWu0SU5uNYEszNo+eFN+jDVk=
-			</data>
-			<key>hash2</key>
-			<data>
-			QPJw5ExCXaOTNPRhXMfqWXL25/XtJ0l3QAmxxno+tHs=
-			</data>
-		</dict>
-		<key>flutter_assets/images/car.jpg</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			KrU2vGYLbfns2DFQKwSvru0+gnw=
-			</data>
-			<key>hash2</key>
-			<data>
-			f9HG9p9YamLvTB9h8m8gqM80hkrIIcL5D1EfctmzVA8=
+			lRjWMKcEMklh8+UEpLH+5PudPqWHKjIaBUchcncEIMU=
 			</data>
 		</dict>
 		<key>flutter_assets/images/carro.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			biZnIuX66uqoLU5k9nlS4WmIKcs=
+			N6cqhV+nx04ZiRPT7UFhOqN4n3k=
 			</data>
 			<key>hash2</key>
 			<data>
-			pZMmqa3hMOSoB59Bo0GgFpKCq+PTTYNnxDyS0kuX86g=
-			</data>
-		</dict>
-		<key>flutter_assets/images/carroAvaria.png</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			8qXTsdlkmnHKAp5gR1++0UsrGgs=
-			</data>
-			<key>hash2</key>
-			<data>
-			DFOERUYrmS8UvNtxxixYBkJUSY1fEkMWYwr+wwtHJH8=
+			RXgQZPP9dx+Z0/xd21HPRCvWRK8Pk5sDREt1XCtp5l0=
 			</data>
 		</dict>
 		<key>flutter_assets/images/carroAvariaComLinhas.jpg</key>
@@ -407,48 +332,48 @@
 			O0W02RkgfELQCZ6fXRAb5BonjixJbFqInLstKp+q7QE=
 			</data>
 		</dict>
-		<key>flutter_assets/images/pickUP.png</key>
+		<key>flutter_assets/images/pickup.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tA2BdJLYK7cae7+zTHBCeGPaUy4=
+			vpBkoVOSGtYygtjpzrJzvlH9OmY=
 			</data>
 			<key>hash2</key>
 			<data>
-			3CzQfxFWG2fg1Pi37SD0Oe9EywGXeghH1v8GYQ3X+DM=
+			ugBgcWm86WnET8Ox2h+apxPdm7he+kVGKapS6KZJH1o=
 			</data>
 		</dict>
 		<key>flutter_assets/images/truckFrontIcon.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pq/9puEKzb5alwfre0nZl16pvmM=
+			2Uc4EAfmZV510R4GkXE7FXbFNlg=
 			</data>
 			<key>hash2</key>
 			<data>
-			vopvWL/WhdYC7/XHGVpeTluKiW1ZnG+7eAZ7TRcw08I=
+			5yQBvYEm0u/fGvetnYt6c0a1LTkP6Na10qtUPfjmq+M=
 			</data>
 		</dict>
 		<key>flutter_assets/isolate_snapshot_data</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RDnH8RhpdZU3SkiqV9ONzudSmi0=
+			qWCU8K+Q2qf8S9D7xtkkDlCygZk=
 			</data>
 			<key>hash2</key>
 			<data>
-			z1w7SDxa/BTkcYljCtqriRfPTsZnwyEmm9feKnSxtKQ=
+			yFUFLY4Sa2NG2uheE65dD6/G09+wdbkA0QLOwr6Q334=
 			</data>
 		</dict>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			eQ2w7vsgAJLMOiBO63iHZgl6wKw=
+			qxbl0V1wjjS0+029yG87lBjn6zU=
 			</data>
 			<key>hash2</key>
 			<data>
-			sogfOn9cgd+aqQgBFVMijhbO9PrnF50x++e2UYFP394=
+			SGSlKJqoISrGgSXf9dJYDl0HhXnv8V6tvdEQlm8cjME=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -499,11 +424,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			3xkcXq90SyJ63T3T+Wrv4yV2qrw=
+			J7oHBIaXNPl37qqKZXKDfS5xwQQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			M3VcBx6a3izyHcwMTQ8W21LfMKhDZdnNkS5R5QjPmwY=
+			vHJYY2eT9vqbr7jNJ9rU2rvBslAvzYsJ4W7FaEmobXs=
 			</data>
 		</dict>
 	</dict>
