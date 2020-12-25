@@ -1,3 +1,4 @@
+import 'package:ett_app/generalConfig/generalConfig.strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
@@ -18,7 +19,8 @@ const double DATETIME_PICKER_ITEM_HEIGHT = 36.0;
 
 /// Default value of DatePicker's item [TextStyle].
 const TextStyle DATETIME_PICKER_ITEM_TEXT_STYLE =
-const TextStyle(color: Color(0xFF000046), fontSize: 16.0);
+    const TextStyle(color: Color(0xFF000046), fontSize: 16.0);
+
 //DiagnosticableMixin
 class DateTimePickerTheme with DiagnosticableTreeMixin {
   final cancelDefault = const Text('OK');

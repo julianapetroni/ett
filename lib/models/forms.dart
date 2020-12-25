@@ -32,8 +32,8 @@ class LoginFormData {
   String matricula1 = ' ';
   String motorista2 = ' ';
   String matricula2 = ' ';
-  String monitor= ' ';
-
+  String monitor = ' ';
+  String outrosMotivos = ' ';
 
   Map<String, dynamic> toJSON() => {
         'email': email,
@@ -69,6 +69,7 @@ class LoginFormData {
         'matricula1': matricula1,
         'motorista2': motorista2,
         'matricula2': matricula2,
-        'monitor': monitor
+        'monitor': monitor,
+        'outrosMotivos': outrosMotivos
       };
 }

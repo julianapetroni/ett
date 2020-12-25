@@ -1,4 +1,7 @@
-#Wed Aug 19 11:23:48 BRT 2020
-base.0=/Users/julianapetroni/AndroidStudioProjects/ett_app/build/app/intermediates/transforms/dexMerger/debug/0
+#Sun Nov 22 18:26:52 BRT 2020
+base.0=/Users/julianapetroni/Git/GITHUB/CFIS/build/app/intermediates/transforms/dexMerger/debug/0
+path.1=classes2.dex
+renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
+base.1=/Users/julianapetroni/Git/GITHUB/CFIS/build/app/intermediates/transforms/dexMerger/debug/0

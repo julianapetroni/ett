@@ -1,16 +1,16 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/julianapetroni/AndroidStudioProjects/ett_app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "/Users/julianapetroni/Git/GITHUB/CFIS/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
-                    "source": "/Users/julianapetroni/.gradle/caches/transforms-1/files-1.1/core-1.1.0.aar/0aead8c18b142756b1695967712b089b/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "/Users/julianapetroni/.gradle/caches/transforms-1/files-1.1/core-1.2.0.aar/a84540081b10f18b69b38833bda069f3/res/values-en-rXC/values-en-rXC.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
                         "startOffsets": "55",
-                        "endColumns": "202",
-                        "endOffsets": "253"
+                        "endColumns": "203",
+                        "endOffsets": "254"
                     }
                 }
             ]

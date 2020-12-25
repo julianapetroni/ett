@@ -1,3 +1,4 @@
+import 'package:ett_app/generalConfig/generalConfig.strings.dart';
 import 'package:flutter/material.dart';
 
 class btnIniciarSolicitacao extends StatefulWidget {

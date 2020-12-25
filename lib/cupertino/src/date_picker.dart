@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+
+import 'package:ett_app/generalConfig/generalConfig.strings.dart';
 import 'package:flutter/material.dart';
 
 import 'date_picker_theme.dart';
@@ -39,21 +41,21 @@ class DatePicker {
   /// onChange: [DateValueCallback] selected date time changed event
   /// onConfirm: [DateValueCallback] pressed title confirm widget event
   static void showDatePicker(
-      BuildContext context, {
-        DateTime minDateTime,
-        DateTime maxDateTime,
-        DateTime initialDateTime,
-        String dateFormat,
-        DateTimePickerLocale locale: DATETIME_PICKER_LOCALE_DEFAULT,
-        DateTimePickerMode pickerMode: DateTimePickerMode.date,
-        DateTimePickerTheme pickerTheme: DateTimePickerTheme.Default,
-        DateVoidCallback onCancel,
-        DateVoidCallback onClose,
-        DateValueCallback onChange,
-        DateValueCallback onConfirm,
-        int minuteDivider = 1,
-        bool onMonthChangeStartWithFirstDate = false,
-      }) {
+    BuildContext context, {
+    DateTime minDateTime,
+    DateTime maxDateTime,
+    DateTime initialDateTime,
+    String dateFormat,
+    DateTimePickerLocale locale: DATETIME_PICKER_LOCALE_DEFAULT,
+    DateTimePickerMode pickerMode: DateTimePickerMode.date,
+    DateTimePickerTheme pickerTheme: DateTimePickerTheme.Default,
+    DateVoidCallback onCancel,
+    DateVoidCallback onClose,
+    DateValueCallback onChange,
+    DateValueCallback onConfirm,
+    int minuteDivider = 1,
+    bool onMonthChangeStartWithFirstDate = false,
+  }) {
     // handle the range of datetime
     if (minDateTime == null) {
       minDateTime = DateTime.parse(DATE_PICKER_MIN_DATETIME);
@@ -102,7 +104,7 @@ class DatePicker {
         onConfirm: onConfirm,
         theme: Theme.of(context, shadowThemeOnly: true),
         barrierLabel:
-        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         minuteDivider: minuteDivider,
       ),
     ).whenComplete(onClose ?? () => {});
@@ -198,7 +200,7 @@ class _DatePickerComponent extends StatelessWidget {
       case DateTimePickerMode.date:
         pickerWidget = DatePickerWidget(
           onMonthChangeStartWithFirstDate:
-          route.onMonthChangeStartWithFirstDate,
+              route.onMonthChangeStartWithFirstDate,
           minDateTime: route.minDateTime,
           maxDateTime: route.maxDateTime,
           initialDateTime: route.initialDateTime,

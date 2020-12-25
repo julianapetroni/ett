@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ett_app/screens/login.dart';
+import 'package:ett_app/screens/login/ui/login.page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -36,34 +36,34 @@ void main() {
               fontWeight: FontWeight.normal,
               color: Colors.black87,
             ),
-            display4: GoogleFonts.raleway(fontSize: 13),
-            display3: GoogleFonts.raleway(fontSize: 13),
-            display1: GoogleFonts.raleway(fontSize: 13),
-            headline: GoogleFonts.raleway(fontSize: 13),
-            title: GoogleFonts.raleway(fontSize: 16),
+            display4: GoogleFonts.poppins(fontSize: 13),
+            display3: GoogleFonts.poppins(fontSize: 13),
+            display1: GoogleFonts.poppins(fontSize: 13),
+            headline: GoogleFonts.poppins(fontSize: 13),
+            title: GoogleFonts.poppins(fontSize: 16),
             //multiselect
-            subhead: GoogleFonts.raleway(fontSize: 13, color: Colors.black),
+            subhead: GoogleFonts.poppins(fontSize: 13, color: Colors.black),
             // tags
-            body2: GoogleFonts.raleway(fontSize: 13),
-            body1: GoogleFonts.raleway(fontSize: 13),
-            subtitle: GoogleFonts.raleway(fontSize: 13),
-            overline: GoogleFonts.raleway(fontSize: 13),
+            body2: GoogleFonts.poppins(fontSize: 13),
+            body1: GoogleFonts.poppins(fontSize: 13),
+            subtitle: GoogleFonts.poppins(fontSize: 13),
+            overline: GoogleFonts.poppins(fontSize: 13),
           ),
         ),
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           DefaultCupertinoLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,  // Add global cupertino localiztions.
+          GlobalCupertinoLocalizations
+              .delegate, // Add global cupertino localiztions.
         ],
-        locale: Locale('pt', 'BR'),  // Current locale
+        locale: Locale('pt', 'BR'), // Current locale
         supportedLocales: [const Locale('pt', 'BR')],
         home: MainApp()));
   });
 }
 
 class MainApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return TelaLogin();

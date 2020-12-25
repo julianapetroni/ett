@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+
+import 'package:ett_app/generalConfig/generalConfig.strings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ett_app/cupertino/src/date_picker.dart';
@@ -271,14 +273,14 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
     IndexedWidgetBuilder builder = itemBuilder != null
         ? itemBuilder
         : (context, index) {
-      int value = valueRange.first + index;
+            int value = valueRange.first + index;
 
-      if (format.contains('m')) {
-        value = minuteDivider * index;
-      }
+            if (format.contains('m')) {
+              value = minuteDivider * index;
+            }
 
-      return _renderDatePickerItemComponent(value, format);
-    };
+            return _renderDatePickerItemComponent(value, format);
+          };
 
     Widget columnWidget = Container(
       padding: EdgeInsets.all(8.0),
@@ -320,7 +322,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
       child: Text(
         DateTimeFormatter.formatDate(dateTime, format, widget.locale),
         style:
-        widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
+            widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
       ),
     );
   }
@@ -333,7 +335,7 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
       child: Text(
         DateTimeFormatter.formatDateTime(value, format, widget.locale),
         style:
-        widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
+            widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
       ),
     );
   }
