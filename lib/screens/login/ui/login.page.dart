@@ -12,7 +12,6 @@ import 'package:ett_app/domains/usuario.dart';
 import 'package:ett_app/models/forms.dart';
 import 'package:ett_app/services/auth_api_service.dart';
 import 'package:ett_app/utils/validators.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TelaLogin extends StatefulWidget {
   final AuthApiService authApi = AuthApiService();
@@ -141,7 +140,7 @@ class _TelaLoginState extends State<TelaLogin>
                           ]),
                           onSavedForm: (value) => _loginData.email = value,
                           larguraInputForm: double.infinity,
-                          focusNode: inputFieldNode,
+                          // focusNode: inputFieldNode,
                           obscureText: false,
                         ),
                         // Padding(

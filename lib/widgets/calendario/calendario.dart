@@ -14,22 +14,6 @@ class Calendario extends StatelessWidget {
   Calendario(this._selectDate, this.dataSelecionada, this.fraseSelecao,
       this.linhaVisivel, this.semData, this.selectedDate);
 
-//  Future<Null> _selectDate(BuildContext context) async {
-//    final DateTime picked = await showDatePicker(
-//        context: context,
-//        initialDate: selectedDate,
-//        firstDate: DateTime(2000, 8),
-//        lastDate: DateTime(2101));
-//    if (picked != null && picked != selectedDate)
-//      setState(() {
-//        dataSelecionada = true;
-//        fraseSelecao = false;
-//        selectedDate = picked;
-//        linhaVisivel = false;
-//        semData = null;
-//      });
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -58,7 +42,7 @@ class Calendario extends StatelessWidget {
                 )
               : new BoxDecoration(
                   border: new Border(
-                      bottom: BorderSide(color: Colors.grey[400], width: 1.5))),
+                      bottom: BorderSide(color: Colors.grey[300], width: 1.5))),
           child: FlatButton(
             onPressed: () {
               _selectDate(context);

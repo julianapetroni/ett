@@ -72,13 +72,31 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
 
   //Erro linha
   String _dropdownError;
-  //String _selectedItem;
 
   //Erro sentido
   String _dropdownErrorSentido;
-  //String _selectedItemSentido;
+
+  //Erro grupo
+  String _dropdownErrorGrupo;
 
   bool _linhaVisivelSentido = false;
+  bool _linhaVisivel = false;
+  bool _linhaVisivelGrupo = false;
+  bool userNameValidate = false;
+  bool isUserNameValidate = false;
+
+  bool validateTextField(String userInput) {
+    if (userInput.isEmpty) {
+      setState(() {
+        isUserNameValidate = true;
+      });
+      return false;
+    }
+    setState(() {
+      isUserNameValidate = false;
+    });
+    return true;
+  }
 
   _validateForm() {
     bool _isValid = _formKey.currentState.validate();
@@ -92,6 +110,22 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
       setState(() {
         _dropdownErrorSentido = "Selecione uma opção";
         _linhaVisivelSentido = true;
+      });
+      _isValid = false;
+    }
+
+    if (_mySelectionGrupo == null) {
+      setState(() {
+        _dropdownErrorGrupo = "Selecione uma opção";
+        _linhaVisivelGrupo = true;
+      });
+      _isValid = false;
+    }
+
+    if (_mySelection == null) {
+      setState(() {
+        _dropdownError = "Selecione uma opção";
+        _linhaVisivel = true;
       });
       _isValid = false;
     }
@@ -124,10 +158,9 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
   var horaController = new MaskedTextController(mask: '00:00:00');
 
   String _mySelection;
+  String _mySelectionGrupo;
   String _mySelectionSentido;
 
-  final _dataKey = GlobalKey<FormFieldState<String>>();
-  final _horaKey = GlobalKey<FormFieldState<String>>();
   final _veiculoKey = GlobalKey<FormFieldState<String>>();
   final _chapaKey = GlobalKey<FormFieldState<String>>();
   final _nomeKey = GlobalKey<FormFieldState<String>>();
@@ -187,7 +220,6 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               TextRow('Comunicado Interno', Colors.black87),
-
                               SizedBox(
                                 height: 20.0,
                               ),
@@ -198,40 +230,43 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                                   borderOnForeground: false,
                                   child: Container(
                                     padding: const EdgeInsets.only(
-                                        left: 20, right: 0),
+                                      left: 20,
+                                    ),
                                     child: DropdownButtonFormField<String>(
-                                      items: ['Grupo 1', 'Grupo 2']
+                                      items: [
+                                        'Grupo 1',
+                                        'Grupo 2',
+                                        'Grupo 3',
+                                      ]
                                           .map((label) => DropdownMenuItem(
-                                                child: Text('Grupo'),
+                                                child: Text(label),
                                                 value: label,
                                               ))
                                           .toList(),
                                       dropdownColor:
                                           LightColors.neonYellowLight,
-                                      onChanged: (valSentido) {
+                                      onChanged: (newVal) {
                                         setState(() {
-                                          // _mySelectionSentido = valSentido;
-                                          // _dropdownErrorSentido = null;
-                                          // _linhaVisivelSentido = false;
+                                          _mySelectionGrupo = newVal;
+                                          _dropdownErrorGrupo = null;
+                                          _linhaVisivelGrupo = false;
                                         });
                                       },
-                                      // value: _mySelectionSentido,
+                                      value: _mySelectionGrupo,
                                       isExpanded: true,
-                                      hint: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 10),
-                                        child: Text('Selecione o grupo'),
-                                      ),
-
-                                      // _dropdownErrorSentido
+                                      hint: Text('Selecione o grupo'),
                                     ),
                                   )),
-
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
+                                child: MensagemErroDropDown(
+                                    _linhaVisivelGrupo, "Selecione o grupo!"),
+                              ),
                               SizedBox(
                                 height: 20.0,
                               ),
                               SubtitleForm('Data e Hora: '),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 20, right: 20),
@@ -315,7 +350,6 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                                   ),
                                 ),
                               ),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 20, right: 20),
@@ -323,154 +357,6 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                                     "Selecione a data e o horário!"),
                               ),
                               SizedBox(height: 8),
-
-                              // Column(
-                              //   children: [
-                              //     FlatButton(
-                              //       child: Row(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.start,
-                              //         children: [
-                              //           Flexible(
-                              //             child: Visibility(
-                              //               visible: fraseHoraEscolhida,
-                              //               child: Text(
-                              //                 'Selecione a data',
-                              //                 style: GoogleFonts.poppins(
-                              //                     color: Colors.grey[700],
-                              //                     fontSize: 13.0),
-                              //               ),
-                              //             ),
-                              //           ),
-                              //           Flexible(
-                              //             child: Visibility(
-                              //                 visible: horaEscolhida,
-                              //                 child: Container(
-                              //                   padding: EdgeInsets.only(
-                              //                       left: 10.0),
-                              //                   child: Text(
-                              //                     '${_dateTime.day}/${_dateTime.month}/${_dateTime.year}',
-                              //                     style: GoogleFonts.poppins(
-                              //                         color: Colors.grey[800],
-                              //                         fontSize: 13.0),
-                              //                   ),
-                              //                 )),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //       onPressed: () {
-                              //         setState(() {
-                              //           fraseHoraEscolhida = false;
-                              //           linhaVisivelAc = false;
-                              //           semDataAc = null;
-                              //         });
-                              //         showModalBottomSheet(
-                              //             context: context,
-                              //             builder: (BuildContext builder) {
-                              //               return Container(
-                              //                 height: 270,
-                              //                 child: Column(
-                              //                   children: [
-                              //                     Container(
-                              //                       height: 200,
-                              //                       child:
-                              //                           CupertinoDatePicker(
-                              //                         mode:
-                              //                             CupertinoDatePickerMode
-                              //                                 .date,
-                              //                         initialDateTime:
-                              //                             _dateTime,
-                              //                         use24hFormat: true,
-                              //                         onDateTimeChanged:
-                              //                             (dateTime) {
-                              //                           setState(() {
-                              //                             _dateTime =
-                              //                                 dateTime;
-                              //                           });
-                              //                         },
-                              //                       ),
-                              //                     ),
-                              //                     Container(
-                              //                       margin:
-                              //                           const EdgeInsets.only(
-                              //                               left: 20,
-                              //                               right: 20),
-                              //                       decoration: BoxDecoration(
-                              //                         borderRadius:
-                              //                             BorderRadius
-                              //                                 .circular(5.0),
-                              //                         gradient:
-                              //                             LinearGradient(
-                              //                           colors: <Color>[
-                              //                             Colors.black,
-                              //                             Colors.black54,
-                              //                             Colors.black45,
-                              //                           ],
-                              //                         ),
-                              //                       ),
-                              //                       width: double.infinity,
-                              //                       height: 40,
-                              //                       child: FlatButton(
-                              //                         child: TextRow(
-                              //                             "CONFIRMAR DATA",
-                              //                             Colors.white),
-                              //                         onPressed: () {
-                              //                           setState(() {
-                              //                             fraseHoraEscolhida =
-                              //                                 false;
-                              //                             horaEscolhida =
-                              //                                 true;
-                              //                             linhaVisivelAc =
-                              //                                 false;
-                              //                             semDataAc = null;
-                              //                           });
-                              //                           Navigator.pop(
-                              //                               context);
-                              //                         },
-                              //                       ),
-                              //                     ),
-                              //                   ],
-                              //                 ),
-                              //               );
-                              //             });
-                              //       },
-                              //     ),
-                              //     Container(
-                              //       margin:
-                              //           EdgeInsets.only(left: 20, right: 20),
-                              //       child: Divider(
-                              //         color: Colors.grey[400],
-                              //         height: 0,
-                              //         thickness: 1.1,
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                              //
-                              // Container(
-                              //   margin: EdgeInsets.only(left: 20, right: 20),
-                              //   child: MensagemErroDropDown(
-                              //       linhaVisivelAc, "Selecione a data!"),
-                              // ),
-
-//                                InputForm(
-//                                  _dataKey,
-//                                  dataController,
-//                                  composeValidators('a data',
-//                                      [requiredValidator, dataValidator]),
-//                                  (value) => _loginData.foraDeServico = value,
-//                                ),
-//                                 SizedBox(
-//                                   height: 20.0,
-//                                 ),
-//                                 SubtitleForm('Hora: '),
-//                                 InputForm(
-//                                   _horaKey,
-//                                   horaController,
-//                                   composeValidators('a hora',
-//                                       [requiredValidator, horaLengthValidator]),
-//                                   (value) => _loginData.hora = value,
-//                                 ),
                               SizedBox(
                                 height: 20.0,
                               ),
@@ -524,19 +410,67 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                               SizedBox(
                                 height: 20.0,
                               ),
-                              DropDownForm(
-                                  data.map((item) {
-                                    return new DropdownMenuItem(
-                                      child: new Text(item['item_name']),
-                                      value: item['id'].toString(),
-                                    );
-                                  }).toList(), (newVal) {
-                                setState(() {
-                                  _mySelection = newVal;
-                                  _dropdownError = null;
-                                });
-                              }, _mySelection, true, 'Selecione a linha',
-                                  _dropdownError),
+                              Material(
+                                  color: Colors.white,
+                                  clipBehavior: Clip.hardEdge,
+                                  borderOnForeground: false,
+                                  child: Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 0),
+                                    child: DropdownButtonFormField<String>(
+                                      items: [
+                                        '101',
+                                        '102',
+                                        '103',
+                                        '104',
+                                        '105',
+                                        '106',
+                                        '107',
+                                        '108',
+                                        '109',
+                                        '110',
+                                        '111',
+                                        '112',
+                                        '113',
+                                        '260',
+                                        '321',
+                                        '407',
+                                        '448',
+                                        '449',
+                                        '450',
+                                        '455',
+                                        '456',
+                                        '497',
+                                        '498',
+                                        '528',
+                                        '542',
+                                        '559',
+                                      ]
+                                          .map((label) => DropdownMenuItem(
+                                                child: Text(label),
+                                                value: label,
+                                              ))
+                                          .toList(),
+                                      dropdownColor:
+                                          LightColors.neonYellowLight,
+                                      onChanged: (newVal) {
+                                        setState(() {
+                                          _mySelection = newVal;
+                                          _dropdownError = null;
+                                          _linhaVisivel = false;
+                                        });
+                                      },
+                                      value: _mySelection,
+                                      isExpanded: true,
+                                      hint: Text('Selecione a linha'),
+                                    ),
+                                  )),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
+                                child: MensagemErroDropDown(
+                                    _linhaVisivel, "Selecione a linha!"),
+                              ),
                               SizedBox(
                                 height: 20.0,
                               ),
@@ -581,22 +515,6 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                                     _linhaVisivelSentido,
                                     "Selecione o sentido!"),
                               ),
-                              // DropDownForm(
-                              //     data.map((item) {
-                              //       return new DropdownMenuItem(
-                              //         child: new Text(item['item_name']),
-                              //         value: item['id'].toString(),
-                              //       );
-                              //     }).toList(), (valSentido) {
-                              //   setState(() {
-                              //     _mySelectionSentido = valSentido;
-                              //     _dropdownErrorSentido = null;
-                              //   });
-                              // },
-                              //     _mySelectionSentido,
-                              //     true,
-                              //     'Selecione o sentido',
-                              //     _dropdownErrorSentido),
                               SizedBox(
                                 height: 20.0,
                               ),
@@ -615,6 +533,10 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(700),
                                       ],
+                                      decoration: InputDecoration(
+                                          errorText: isUserNameValidate
+                                              ? 'Digite uma mensagem!'
+                                              : null),
                                     ),
                                   ),
                                 ],
@@ -627,6 +549,7 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                             shouldHaveIcon: false,
                             onPressed: () {
                               _validateForm();
+                              validateTextField(_textFieldController.text);
                               if (_formKey.currentState.validate() &&
                                   _mySelection != null &&
                                   _mySelectionSentido != null) {

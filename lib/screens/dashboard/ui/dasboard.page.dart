@@ -4,7 +4,7 @@ import 'package:ett_app/screens/comunicado_interno/ui/comunicado_interno.page.da
 import 'package:ett_app/screens/todos_relatorios/ui/comunicado_interno_grupo.dart';
 import 'package:ett_app/screens/alterar_escala/ui/consultar/consultar_alteracao_escala.page.dart';
 import 'package:ett_app/screens/frequencia_linha/ui/controle_frequencia_linha.page.dart';
-import 'package:ett_app/screens/analise_monitoramento/ui/relatorio_ocorrencia_transito.dart';
+import 'package:ett_app/screens/analise_monitoramento/ui/analise_de_monitoramento.dart';
 import 'package:ett_app/style/light_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
