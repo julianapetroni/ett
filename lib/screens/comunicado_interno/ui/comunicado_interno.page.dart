@@ -83,17 +83,17 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
   bool _linhaVisivel = false;
   bool _linhaVisivelGrupo = false;
   bool userNameValidate = false;
-  bool isUserNameValidate = false;
+  bool isMessageValidated = false;
 
   bool validateTextField(String userInput) {
     if (userInput.isEmpty) {
       setState(() {
-        isUserNameValidate = true;
+        isMessageValidated = true;
       });
       return false;
     }
     setState(() {
-      isUserNameValidate = false;
+      isMessageValidated = false;
     });
     return true;
   }
@@ -534,7 +534,7 @@ class ComunicadoInternoState extends State<ComunicadoInterno> {
                                         LengthLimitingTextInputFormatter(700),
                                       ],
                                       decoration: InputDecoration(
-                                          errorText: isUserNameValidate
+                                          errorText: isMessageValidated
                                               ? 'Digite uma mensagem!'
                                               : null),
                                     ),

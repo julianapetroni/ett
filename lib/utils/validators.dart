@@ -63,6 +63,21 @@ Function(String) composeValidators(String field, List<Function> validators) {
   };
 }
 
+Function(String) notRequiredValidators(
+    String field, List<Function> validators) {
+  return (value) {
+    if (validators != null && validators is List && validators.length > 0) {
+      // for (var validator in validators) {
+      //   final errMessage = validator(value, field) as String;
+      //   if (errMessage != null) {
+      //     return errMessage;
+      //   }
+      // }
+    }
+    return null;
+  };
+}
+
 String placaValidator(String value, String field) {
   final regex = RegExp("^[a-zA-Z0-9]+");
   final hasMatch = regex.hasMatch(value);

@@ -10,6 +10,7 @@ class LightColors {
   static const Color kPink2 = Color(0xFFF48FB1);
 
   static const Color neonETT = Color(0xFFEFFD5F);
+  static const Color neonMedium = Color.fromRGBO(246, 252, 135, 0);
   static const Color neonYellowDark = Color(0xFFFFF700);
   static const Color neonYellowLight = Color(0xFFFFFF9E);
   static const Color neonYellowCanetinha = Color(0xFFe7ff00);

@@ -64,6 +64,8 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
   int idAmbiente = 1;
   bool rbAmbiente = false;
 
+  bool _tipoOcorrencia = false;
+
   var _isChecked = new List<bool>.filled(10, false);
 
   void onChanged(bool value) {
@@ -94,20 +96,13 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
   final _obsController = TextEditingController();
   TextEditingController _obstextFieldController = TextEditingController();
 
-  //obs.
-
-  int _obscharCount = 700;
-
-  _onChanged(String value) {
-    setState(() {
-      _obscharCount = 700 - value.length;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     //selecaomultipla com tag
     List _myActivities;
+    List _condicoesViaValue;
+    List _semaforoValue;
+    List _placasValue;
     String _myActivitiesResult;
     final formKey = new GlobalKey<FormState>();
 
@@ -153,7 +148,6 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       colorScheme: ColorScheme.light(
                         primary: Colors.black87,
-                        //Color(0xFFFF7F1019),
                       ),
                       primaryColorBrightness: Brightness.light,
 //                                          primaryColor: LightColors.neonETT, //color of the main banner
@@ -170,7 +164,7 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                           children: [
                             Container(
                               child: Form(
-                                key: _formTipoOcorrenciaKey,
+                                // key: formKey,
                                 child: Column(
                                   children: <Widget>[
                                     Container(
@@ -178,15 +172,7 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                       child: MultiSelectFormField(
                                         fillColor:
                                             Colors.white.withOpacity(0.7),
-                                        autovalidate: false,
                                         title: Text('Tipo de ocorrência'),
-                                        validator: (value) {
-                                          if (value == null ||
-                                              value.length == 0) {
-                                            return 'Escolha uma ou mais opções';
-                                          }
-                                          return '';
-                                        },
                                         dataSource: [
                                           {
                                             "display": "Albarroamento",
@@ -229,23 +215,33 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                             "value": "Vandalismo",
                                           },
                                         ],
-
                                         textField: 'display',
                                         valueField: 'value',
                                         okButtonLabel: 'OK',
                                         cancelButtonLabel: 'CANCELAR',
-
                                         required: true,
                                         hintWidget:
                                             Text('Escolha uma ou mais opções'),
                                         border: InputBorder.none,
-
-                                        //value: _myActivities,
                                         onSaved: (value) {
-                                          if (value == null) return;
-                                          setState(() {
-                                            _myActivities = value;
-                                          });
+                                          if (value != null) {
+                                            setState(() {
+                                              _tipoOcorrencia = true;
+                                              _myActivities = value;
+                                            });
+                                          }
+                                          print('save');
+                                          print(_tipoOcorrencia);
+                                        },
+                                        change: (value) {
+                                          if (value != null) {
+                                            setState(() {
+                                              _tipoOcorrencia = true;
+                                              _myActivities = value;
+                                            });
+                                          }
+                                          print('change');
+                                          print(_tipoOcorrencia);
                                         },
                                       ),
                                     ),
@@ -254,7 +250,7 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                               ),
                             ),
                             Form(
-                              key: _formCondViaKey,
+                              // key: _formCondViaKey,
                               child: Column(
                                 children: <Widget>[
                                   Container(
@@ -263,13 +259,13 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                       fillColor: Colors.white.withOpacity(0.7),
                                       autovalidate: false,
                                       title: Text('Condições da via'),
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.length == 0) {
-                                          return 'Escolha uma ou mais opções';
-                                        }
-                                        return '';
-                                      },
+                                      // validator: (value) {
+                                      //   if (value == null ||
+                                      //       value.length == 0) {
+                                      //     return 'Escolha uma ou mais opções';
+                                      //   }
+                                      //   return '';
+                                      // },
                                       dataSource: [
                                         {
                                           "display": "Asfalto",
@@ -317,16 +313,15 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                       valueField: 'value',
                                       okButtonLabel: 'OK',
                                       cancelButtonLabel: 'CANCELAR',
-                                      required: true,
+                                      required: false,
                                       hintWidget:
                                           Text('Escolha uma ou mais opções'),
                                       border: InputBorder.none,
 
-                                      //value: _myActivities,
                                       onSaved: (value) {
                                         if (value == null) return;
                                         setState(() {
-                                          _myActivities = value;
+                                          _condicoesViaValue = value;
                                         });
                                       },
                                     ),
@@ -335,7 +330,7 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                               ),
                             ),
                             Form(
-                              key: _formSemaforoKey,
+                              // key: _formSemaforoKey,
                               child: Column(
                                 children: <Widget>[
                                   Container(
@@ -344,13 +339,13 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                       fillColor: Colors.white.withOpacity(0.7),
                                       autovalidate: false,
                                       title: Text('Semáforo'),
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.length == 0) {
-                                          return 'Escolha uma ou mais opções';
-                                        }
-                                        return '';
-                                      },
+                                      // validator: (value) {
+                                      //   if (value == null ||
+                                      //       value.length == 0) {
+                                      //     return 'Escolha uma ou mais opções';
+                                      //   }
+                                      //   return '';
+                                      // },
                                       dataSource: [
                                         {
                                           "display": "Existente",
@@ -375,16 +370,15 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                       okButtonLabel: 'OK',
                                       cancelButtonLabel: 'CANCELAR',
 
-                                      required: true,
+                                      required: false,
                                       hintWidget:
                                           Text('Escolha uma ou mais opções'),
                                       border: InputBorder.none,
 
-                                      //value: _myActivities,
                                       onSaved: (value) {
                                         if (value == null) return;
                                         setState(() {
-                                          _myActivities = value;
+                                          _semaforoValue = value;
                                         });
                                       },
                                     ),
@@ -393,7 +387,7 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                               ),
                             ),
                             Form(
-                              key: _formPlacasKey,
+                              // key: _formPlacasKey,
                               child: Column(
                                 children: <Widget>[
                                   Container(
@@ -402,13 +396,13 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                       fillColor: Colors.white.withOpacity(0.7),
                                       autovalidate: false,
                                       title: Text('Placas'),
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.length == 0) {
-                                          return 'Escolha uma ou mais opções';
-                                        }
-                                        return '';
-                                      },
+                                      // validator: (value) {
+                                      //   if (value == null ||
+                                      //       value.length == 0) {
+                                      //     return 'Escolha uma ou mais opções';
+                                      //   }
+                                      //   return '';
+                                      // },
                                       dataSource: [
                                         {
                                           "display": "Regulamentação",
@@ -433,16 +427,15 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                                       okButtonLabel: 'OK',
                                       cancelButtonLabel: 'CANCELAR',
 
-                                      required: true,
+                                      required: false,
                                       hintWidget:
                                           Text('Escolha uma ou mais opções'),
                                       border: InputBorder.none,
 
-                                      //value: _myActivities,
                                       onSaved: (value) {
                                         if (value == null) return;
                                         setState(() {
-                                          _myActivities = value;
+                                          _placasValue = value;
                                         });
                                       },
                                     ),
@@ -473,23 +466,18 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
           padding: const EdgeInsets.only(left: 20, bottom: 10),
           child: FlatButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Ambiente(
-                          user: user,
-                          token: token,
-                          sol: sol,
-                        )),
-              );
               setState(() {
                 _myActivitiesResult = _myActivities.toString();
               });
 
-              if (_formTipoOcorrenciaKey.currentState.validate() &&
-                  _formCondViaKey.currentState.validate() &&
-                  _formSemaforoKey.currentState.validate() &&
-                  _formPlacasKey.currentState.validate()) {
+              if (_tipoOcorrencia == true
+                  //_formTipoOcorrenciaKey.currentState.validate()
+                  // &&
+                  // _formCondViaKey.currentState.validate() &&
+                  // _formSemaforoKey.currentState.validate() &&
+                  // _formPlacasKey.currentState.validate()
+                  ) {
+                print(_myActivities);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -500,6 +488,7 @@ class SelecaoMultiplaTagState extends State<SelecaoMultiplaTag> {
                           )),
                 );
               } else {
+                print(_myActivities);
                 final semCadastro = new SnackBar(
                     content: new Text('Escolha as opções para prosseguir!'));
                 _scaffoldKey.currentState.showSnackBar(semCadastro);

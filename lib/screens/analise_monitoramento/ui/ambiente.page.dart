@@ -222,35 +222,35 @@ class AmbienteState extends State<Ambiente> {
             ),
           ),
 
-          //Mensagem
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-            child: Row(
-              children: <Widget>[
-                Text('Mensagem:',
-                    style: GoogleFonts.poppins(
-                        color: Colors.black87,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.7)),
-              ],
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextField(
-                  maxLines: 5,
-                  controller: _obstextFieldController,
-                  maxLengthEnforced: true,
-                  maxLength: 700,
-                ),
-              ),
-              SizedBox(height: 20.0),
-            ],
-          ),
+          // //Mensagem
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+          //   child: Row(
+          //     children: <Widget>[
+          //       Text('Mensagem:',
+          //           style: GoogleFonts.poppins(
+          //               color: Colors.black87,
+          //               fontSize: 17.0,
+          //               fontWeight: FontWeight.w500,
+          //               letterSpacing: 0.7)),
+          //     ],
+          //   ),
+          // ),
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 25.0),
+          //       child: TextField(
+          //         maxLines: 5,
+          //         controller: _obstextFieldController,
+          //         maxLengthEnforced: true,
+          //         maxLength: 700,
+          //       ),
+          //     ),
+          //     SizedBox(height: 20.0),
+          //   ],
+          // ),
         ],
       ),
     );

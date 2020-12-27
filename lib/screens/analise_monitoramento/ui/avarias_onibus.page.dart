@@ -920,10 +920,11 @@ class AvariasOnibusState extends State<AvariasOnibus> {
               const EdgeInsets.only(left: 10, right: 10, top: 40, bottom: 40),
           child: FlatButton(
             onPressed: () {
-              if (_imageOnibusETTLateralEsquerda != null &&
-                  _imageOnibusETTTraseira != null &&
-                  _imageOnibusETTLateralDireita != null &&
-                  _imageOnibusETTFrente != null &&
+              if (
+                  // _imageOnibusETTLateralEsquerda != null &&
+                  //     _imageOnibusETTTraseira != null &&
+                  //     _imageOnibusETTLateralDireita != null &&
+                  //     _imageOnibusETTFrente != null &&
                   _image != null) {
                 Navigator.push(
                   context,

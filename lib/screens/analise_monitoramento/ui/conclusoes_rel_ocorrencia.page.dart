@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:ett_app/screens/dashboard/ui/dasboard.page.dart';
 import 'package:ett_app/services/token.dart';
+import 'package:ett_app/widgets/dialog/alert_dialog_form.dart';
+import 'package:ett_app/widgets/formUI/text_pattern/subtitle_form.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ett_app/generalConfig/generalConfig.strings.dart';
@@ -59,6 +61,49 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
     penColor: Colors.black87,
     exportBackgroundColor: Colors.blue,
   );
+
+  int selectedRadio;
+  int selectedRadioBus;
+  int selectedRadioBafometro;
+  int selectedRadioEncaminhar;
+  bool _isentoField = false;
+  bool _bafometroField = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedRadio = 0;
+    selectedRadioBus = 0;
+    selectedRadioBafometro = 0;
+    selectedRadioEncaminhar = 0;
+    _controllerTest1Conclusao.addListener(() => print("Value changed"));
+    _controllerTest2Conclusao.addListener(() => print("Value changed"));
+  }
+
+  setSelectedRadio(int val) {
+    setState(() {
+      selectedRadio = val;
+    });
+  }
+
+  setSelectedRadioBus(int val) {
+    setState(() {
+      selectedRadioBus = val;
+    });
+  }
+
+  setSelectedRadioBafometro(int val) {
+    setState(() {
+      selectedRadioBafometro = val;
+    });
+  }
+
+  setSelectedRadioEncaminhar(int val) {
+    setState(() {
+      selectedRadioEncaminhar = val;
+    });
+  }
 
   @override
   dispose() {
@@ -127,6 +172,14 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
   // Group Value for Radio Button.
   int idEstadoCivil = 1;
 
+  bool encaminharJustificativa = false;
+  bool encaminharJustificativaOutro = false;
+
+  bool numCNH = false;
+  bool dataCNH = false;
+  bool numCPF = false;
+  bool idade = false;
+
   var _isChecked = new List<bool>.filled(10, false);
 
   void onChanged(bool value) {
@@ -191,20 +244,12 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
 
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState() {
-      super.initState();
-
-      _controllerTest1Conclusao.addListener(() => print("Value changed"));
-      _controllerTest2Conclusao.addListener(() => print("Value changed"));
-    }
-
     SizeConfig().init(context);
     return Scaffold(
       key: _scaffoldKey,
       appBar: _buildAppBar(context),
       backgroundColor: Colors.white,
-      body: _buildABody(context),
+      body: _buildBody(context),
       floatingActionButton: _buildButton(context),
     );
   }
@@ -222,7 +267,13 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
     );
   }
 
-  Widget _buildABody(BuildContext context) {
+  Widget _buildBody(BuildContext context) {
+    double width = MediaQuery.of(context).size.width / 1.2;
+    // Default Radio Button Selected Item When App Starts.
+    String radioButtonItem;
+    String radioButtonItemBus;
+    String radioButtonItemEncaminhar;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -255,141 +306,193 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
           ),
           //Tabela de conclusão
           Padding(
-            padding: const EdgeInsets.only(bottom: 50, top: 20),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Container(
-                color: Colors.white,
-                child: DataTable(
-//                        sortColumnIndex: 0,
-//                        sortAscending: true,
-//                      columnSpacing: widget.columnSpacing,
-//                      horizontalMargin: widget.horizontalMargin,
-                  dataRowHeight: 50.0,
-                  columns: [
-                    DataColumn(label: Text(' '), numeric: true),
-                    DataColumn(
-                        label: Text(
-                      ' ',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800]),
-                    )),
-                    DataColumn(
-                        label: Text(
-                          ' ',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[800]),
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Radio(
+                          value: 1,
+                          activeColor: Colors.black87,
+                          groupValue: selectedRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              _isentoField = true;
+                              radioButtonItem = 'ONE';
+                              setSelectedRadio(val);
+                            });
+                          },
                         ),
-                        numeric: true),
-                  ],
-                  rows: [
-                    DataRow(
-                        //selected: true,
-                        cells: [
-                          DataCell(
-                            CheckboxListTile(
-                                title: new Text(
-                                  ' ',
-                                  style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                value: _isChecked[0],
-                                activeColor: Colors.black87,
-                                onChanged: (bool value) {
-                                  onChanged(value);
-                                }),
+                        Flexible(
+                            child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isentoField = true;
+                              radioButtonItem = 'ONE';
+                              setSelectedRadio(1);
+                            });
+                          },
+                          child: Text('ISENTO',
+                              style: TextStyle(
+                                  color: Colors.grey[800], fontSize: 14.0)),
+                        )),
+                        Radio(
+                          activeColor: Colors.black87,
+                          value: 2,
+                          groupValue: selectedRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              _isentoField = true;
+                              radioButtonItem = 'TWO';
+                              setSelectedRadio(val);
+                            });
+                          },
+                        ),
+                        Flexible(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isentoField = true;
+                                radioButtonItem = 'TWO';
+                                setSelectedRadio(2);
+                              });
+                            },
+                            child: Text('CULPADO',
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 14.0)),
                           ),
-                          DataCell(Text(
-                            'Isento',
-                            style: GoogleFonts.poppins(fontSize: 14),
-                          )),
-                          DataCell(
-                            TextFormField(
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    labelText: 'Por quê?',
-                                    labelStyle:
-                                        GoogleFonts.poppins(fontSize: 11))),
-                          ),
-                        ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: GoogleFonts.poppins(fontSize: 14),
-                            ),
-                            value: _isChecked[1],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged2(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Culpado',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Por quê?',
-                              labelStyle: GoogleFonts.poppins(fontSize: 11)),
                         ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: GoogleFonts.poppins(fontSize: 14),
-                            ),
-                            value: _isChecked[2],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged3(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Ônibus estava com defeito',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Qual?',
-                              labelStyle: GoogleFonts.poppins(fontSize: 11)),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Divider(
+                          thickness: 0.7,
                         ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: GoogleFonts.poppins(fontSize: 14),
-                            ),
-                            value: _isChecked[3],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged4(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Bafômetro (etilômetro)',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'Por quê?',
+                                style: GoogleFonts.poppins(fontSize: 14),
+                              ),
+                            ),
+                            Expanded(
+                                flex: 4,
+                                child: TextFormField(
+                                    minLines: 5,
+                                    maxLines: 5,
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        labelStyle:
+                                            GoogleFonts.poppins(fontSize: 11))))
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text('ÔNIBUS ESTAVA COM DEFEITO',
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 14.0)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'Qual?',
+                                style: GoogleFonts.poppins(fontSize: 14),
+                              ),
+                            ),
+                            Expanded(
+                                flex: 4,
+                                child: TextFormField(
+                                    minLines: 5,
+                                    maxLines: 5,
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        labelStyle:
+                                            GoogleFonts.poppins(fontSize: 11))))
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text('BAFÔMETRO (ETILÔMETRO)',
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 14.0)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Radio(
                               activeColor: Colors.black87,
@@ -397,6 +500,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                               groupValue: idBafometro,
                               onChanged: (val) {
                                 setState(() {
+                                  _bafometroField = true;
                                   radioButtonItemBafometro = 'ONE';
                                   idBafometro = 1;
                                 });
@@ -404,10 +508,11 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                _bafometroField = true;
                                 radioButtonItemBafometro = 'ONE';
                                 idBafometro = 1;
                               },
-                              child: Text('Sim',
+                              child: Text('SIM',
                                   style: GoogleFonts.poppins(fontSize: 14)),
                             ),
                             Radio(
@@ -416,6 +521,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                               groupValue: idBafometro,
                               onChanged: (val) {
                                 setState(() {
+                                  _bafometroField = true;
                                   radioButtonItemBafometro = 'TWO';
                                   idBafometro = 2;
                                 });
@@ -423,10 +529,11 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                _bafometroField = true;
                                 radioButtonItemBafometro = 'TWO';
                                 idBafometro = 2;
                               },
-                              child: Text('Não',
+                              child: Text('NÃO',
                                   style: GoogleFonts.poppins(fontSize: 14)),
                             ),
                             Radio(
@@ -435,6 +542,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                               groupValue: idBafometro,
                               onChanged: (val) {
                                 setState(() {
+                                  _bafometroField = true;
                                   radioButtonItemBafometro = 'THREE';
                                   idBafometro = 3;
                                 });
@@ -442,467 +550,874 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                _bafometroField = true;
                                 radioButtonItemBafometro = 'THREE';
                                 idBafometro = 3;
                               },
-                              child: Text('Recusou',
+                              child: Text('RECUSOU',
                                   style: GoogleFonts.poppins(fontSize: 14)),
                             ),
                           ],
                         ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            value: _isChecked[4],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged5(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Testemunha 1',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Matrícula',
-                              labelStyle: GoogleFonts.poppins(fontSize: 14)),
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text(' ')),
-                      DataCell(Row(
-                        children: <Widget>[
-                          Text(
-                            'Assinatura da Testemunha 1',
-                            style: GoogleFonts.poppins(fontSize: 14),
-                          ),
-                          Spacer(),
-                          //CLEAR CANVAS
-                          IconButton(
-                            icon: const Icon(Icons.replay),
-                            iconSize: 30,
-                            color: Colors.black87,
-                            onPressed: () {
-                              setState(() => _controllerTest1Conclusao.clear());
-                            },
-                          ),
-                        ],
-                      )),
-                      DataCell(Row(
-                        children: <Widget>[
-                          //SIGNATURE CANVAS
-                          Flexible(
-                            child: Signature(
-                              controller: _controllerTest1Conclusao,
-                              height: 50,
-                              width: double.infinity,
-                              backgroundColor: Colors.grey[100],
-                            ),
-                          ),
-                        ],
-                      )),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: GoogleFonts.poppins(fontSize: 14),
-                            ),
-                            value: _isChecked[5],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged6(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Testemunha 2',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Matrícula',
-                              labelStyle: GoogleFonts.poppins(fontSize: 14)),
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text(' ')),
-                      DataCell(Row(
-                        children: <Widget>[
-                          Text(
-                            'Assinatura da Testemunha 2',
-                            style: GoogleFonts.poppins(fontSize: 14),
-                          ),
-                          Spacer(),
-                          //CLEAR CANVAS
-                          IconButton(
-                            icon: const Icon(Icons.replay),
-                            iconSize: 30,
-                            color: Colors.black87,
-                            onPressed: () {
-                              setState(() => _controllerTest2Conclusao.clear());
-                            },
-                          ),
-                        ],
-                      )),
-                      DataCell(Row(
-                        children: <Widget>[
-                          //SIGNATURE CANVAS
-                          Flexible(
-                            child: Signature(
-                              controller: _controllerTest2Conclusao,
-                              height: 50,
-                              width: double.infinity,
-                              backgroundColor: Colors.grey[100],
-                            ),
-                          ),
-                        ],
-                      )),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: GoogleFonts.poppins(fontSize: 14),
-                            ),
-                            value: _isChecked[6],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged7(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Encaminhar ao Departamento Jurídico',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: ' ',
-                              labelStyle: GoogleFonts.poppins(fontSize: 14)),
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: GoogleFonts.poppins(fontSize: 14),
-                            ),
-                            value: _isChecked[7],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged8(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Encaminhar para reciclagem',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: ' ',
-                              labelStyle: TextStyle(
-                                  fontSize: 9.0, color: Colors.grey[900])),
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            value: _isChecked[8],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged9(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Outros',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: ' ',
-                              labelStyle: TextStyle(
-                                  fontSize: 13.0, color: Colors.grey[900])),
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(
-                        CheckboxListTile(
-                            title: new Text(
-                              ' ',
-                              style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            value: _isChecked[9],
-                            activeColor: Colors.black87,
-                            onChanged: (bool value) {
-                              onChanged10(value);
-                            }),
-                      ),
-                      DataCell(Text(
-                        'Encaminhar para seguro',
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      )),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            labelText: 'Sinistro n.',
-                            labelStyle: GoogleFonts.poppins(
-                                fontSize: 14, color: Colors.black87),
-                          ),
-                        ),
-                      )
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text(' ')),
-                      DataCell(
-                        Form(
-                          key: _formCNHKey,
-                          child: TextFormField(
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Digite a CNH';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Número do registro CNH',
-                                  hintStyle: GoogleFonts.poppins(
-                                      fontSize: 14, color: Colors.black87))),
-                        ),
-                      ),
-                      DataCell(
-                        Form(
-                          key: _formDtVencKey,
-                          child: TextFormField(
-//                          validator: (value) {
-//                            if (value.isEmpty) {
-//                              return 'Digite a Data';
-//                            }
-//                            return null;
-//                          },
-                            validator: composeValidators(
-                                'nome', [requiredValidator, dataValidator]),
-                            controller: dataVencimentoController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Data de Vencimento',
-                              hintStyle: GoogleFonts.poppins(
-                                  fontSize: 14, color: Colors.black87),
-                            ),
-                          ),
-                        ),
-                      )
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('')),
-                      DataCell(
-                        Form(
-                          key: _formCPFKey,
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Digite o CPF';
-                              }
-                              return null;
-                            },
-                            controller: cpfController,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'CPF',
-                                hintStyle: GoogleFonts.poppins(
-                                    fontSize: 14, color: Colors.black87)),
-                          ),
-                        ),
-                      ),
-                      DataCell(
-                        Form(
-                          key: _formIdadeKey,
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Digite a Idade';
-                              }
-                              return null;
-                            },
-                            controller: idadeController,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Idade',
-                                hintStyle: GoogleFonts.poppins(
-                                    fontSize: 14, color: Colors.black87)),
-                          ),
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text(' ')),
-                      DataCell(Text(
-                        'Estado Civil',
-                        style: GoogleFonts.poppins(
-                            fontSize: 14, color: Colors.black87),
-                      )),
-                      DataCell(
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Radio(
-                              activeColor: Colors.black87,
-                              value: 1,
-                              groupValue: idEstadoCivil,
-                              onChanged: (val) {
-                                setState(() {
-                                  radioButtonItemEstadoCivil = 'ONE';
-                                  idEstadoCivil = 1;
-                                });
-                              },
-                            ),
-                            Text('Solteiro',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14, color: Colors.black87)),
-                            Radio(
-                              activeColor: Colors.black87,
-                              value: 2,
-                              groupValue: idEstadoCivil,
-                              onChanged: (val) {
-                                setState(() {
-                                  radioButtonItemEstadoCivil = 'TWO';
-                                  idEstadoCivil = 2;
-                                });
-                              },
-                            ),
-                            Text('Casado',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14, color: Colors.black87)),
-                            Radio(
-                              activeColor: Colors.black87,
-                              value: 3,
-                              groupValue: idEstadoCivil,
-                              onChanged: (val) {
-                                setState(() {
-                                  radioButtonItemEstadoCivil = 'THREE';
-                                  idEstadoCivil = 3;
-                                });
-                              },
-                            ),
-                            Text('Divorciado',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14, color: Colors.black87)),
-                            Radio(
-                              activeColor: Colors.black87,
-                              value: 4,
-                              groupValue: idEstadoCivil,
-                              onChanged: (val) {
-                                setState(() {
-                                  radioButtonItemEstadoCivil = 'FOUR';
-                                  idEstadoCivil = 4;
-                                });
-                              },
-                            ),
-                            Text('Viúvo',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14, color: Colors.black87)),
-                          ],
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('')),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'BO n.',
-                              labelStyle: GoogleFonts.poppins(
-                                  fontSize: 14, color: Colors.black87)),
-                        ),
-                      ),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'DP do BO',
-                              labelStyle: GoogleFonts.poppins(
-                                  fontSize: 14, color: Colors.black87)),
-                        ),
-                      ),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('')),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'IC',
-                              labelStyle: GoogleFonts.poppins(
-                                  fontSize: 14, color: Colors.black87)),
-                        ),
-                      ),
-                      DataCell(Text(' ')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('')),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Chassi',
-                              labelStyle: GoogleFonts.poppins(
-                                  fontSize: 14, color: Colors.black87)),
-                        ),
-                      ),
-                      DataCell(
-                        TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Ano Fabricação\/Modelo',
-                              labelStyle: GoogleFonts.poppins(
-                                  fontSize: 14, color: Colors.black87)),
-                        ),
-                      ),
-                    ]),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text('TESTEMUNHAS',
+                                style: TextStyle(fontSize: 14.0)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              'Testemunha n. 1:',
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black87,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: width,
+                              color: Colors.grey[50],
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: 'Matrícula',
+                                  labelStyle: GoogleFonts.poppins(
+                                      fontSize: 14, color: Colors.black87),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Text(
+                                'Assinatura da Testemunha',
+                                style: GoogleFonts.poppins(fontSize: 14.0),
+                              ),
+                            ),
+                            Spacer(),
+                            //CLEAR CANVAS
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                icon: const Icon(Icons.replay),
+                                iconSize: 30,
+                                color: Colors.black87,
+                                onPressed: () {
+                                  setState(
+                                      () => _controllerTest1Conclusao.clear());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        //SIGNATURE CANVAS
+                        Signature(
+                          controller: _controllerTest1Conclusao,
+                          height: 180,
+                          width: width,
+                          backgroundColor: Colors.grey[50],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              'Testemunha n. 2:',
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black87,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: width,
+                              color: Colors.grey[50],
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: 'Matrícula',
+                                  labelStyle: GoogleFonts.poppins(
+                                      fontSize: 14, color: Colors.black87),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Text(
+                                'Assinatura da Testemunha',
+                                style: GoogleFonts.poppins(fontSize: 14.0),
+                              ),
+                            ),
+                            Spacer(),
+                            //CLEAR CANVAS
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                icon: const Icon(Icons.replay),
+                                iconSize: 30,
+                                color: Colors.black87,
+                                onPressed: () {
+                                  setState(
+                                      () => _controllerTest2Conclusao.clear());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        //SIGNATURE CANVAS
+                        Signature(
+                          controller: _controllerTest2Conclusao,
+                          height: 180,
+                          width: width,
+                          backgroundColor: Colors.grey[50],
+                        ),
+
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, top: 20, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Text('ENCAMINHAR PARA:',
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 16.0))),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Radio(
+                        value: 1,
+                        activeColor: Colors.black87,
+                        groupValue: selectedRadioEncaminhar,
+                        onChanged: (val) {
+                          setState(() {
+                            encaminharJustificativa = true;
+                            encaminharJustificativaOutro = false;
+                            radioButtonItemEncaminhar = 'ONE';
+                            setSelectedRadioEncaminhar(val);
+                          });
+                        },
+                      ),
+                      Flexible(
+                          child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            encaminharJustificativa = true;
+                            encaminharJustificativaOutro = false;
+                            radioButtonItemEncaminhar = 'ONE';
+                            setSelectedRadioEncaminhar(1);
+                          });
+                        },
+                        child: Text('JURÍDICO',
+                            style: TextStyle(
+                                color: Colors.grey[800], fontSize: 14.0)),
+                      )),
+                      Radio(
+                        activeColor: Colors.black87,
+                        value: 2,
+                        groupValue: selectedRadioEncaminhar,
+                        onChanged: (val) {
+                          setState(() {
+                            encaminharJustificativa = true;
+                            encaminharJustificativaOutro = false;
+                            radioButtonItemEncaminhar = 'TWO';
+                            setSelectedRadioEncaminhar(val);
+                          });
+                        },
+                      ),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              encaminharJustificativa = true;
+                              encaminharJustificativaOutro = false;
+                              radioButtonItemEncaminhar = 'TWO';
+                              setSelectedRadioEncaminhar(2);
+                            });
+                          },
+                          child: Text('RECICLAR',
+                              style: TextStyle(
+                                  color: Colors.grey[800], fontSize: 14.0)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Radio(
+                        activeColor: Colors.black87,
+                        value: 3,
+                        groupValue: selectedRadioEncaminhar,
+                        onChanged: (val) {
+                          setState(() {
+                            encaminharJustificativa = true;
+                            encaminharJustificativaOutro = false;
+                            radioButtonItemEncaminhar = 'THREE';
+                            setSelectedRadioEncaminhar(val);
+                          });
+                        },
+                      ),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              encaminharJustificativa = true;
+                              encaminharJustificativaOutro = false;
+                              radioButtonItemEncaminhar = 'THREE';
+                              setSelectedRadioEncaminhar(3);
+                            });
+                          },
+                          child: Text('SEGURO',
+                              style: TextStyle(
+                                  color: Colors.grey[800], fontSize: 14.0)),
+                        ),
+                      ),
+                      Radio(
+                        activeColor: Colors.black87,
+                        value: 4,
+                        groupValue: selectedRadioEncaminhar,
+                        onChanged: (val) {
+                          setState(() {
+                            encaminharJustificativaOutro = true;
+                            encaminharJustificativa = false;
+                            radioButtonItemEncaminhar = 'FOUR';
+                            setSelectedRadioEncaminhar(val);
+                          });
+                        },
+                      ),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              encaminharJustificativaOutro = true;
+                              encaminharJustificativa = false;
+                              radioButtonItemEncaminhar = 'FOUR';
+                              setSelectedRadioEncaminhar(4);
+                            });
+                          },
+                          child: Text('OUTROS',
+                              style: TextStyle(
+                                  color: Colors.grey[800], fontSize: 14.0)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Visibility(
+                            visible: encaminharJustificativa,
+                            child: Column(
+                              children: [
+                                Divider(
+                                  thickness: 0.7,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          'Justificativa',
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 14),
+                                        ),
+                                      ),
+                                      Expanded(
+                                          flex: 4,
+                                          child: TextFormField(
+                                              minLines: 5,
+                                              maxLines: 5,
+                                              decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  labelStyle:
+                                                      GoogleFonts.poppins(
+                                                          fontSize: 11))))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Visibility(
+                            visible: encaminharJustificativaOutro,
+                            child: Column(
+                              children: [
+                                Divider(
+                                  thickness: 0.7,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 30, top: 20),
+                                  child: Container(
+                                    width: width,
+                                    color: Colors.grey[50],
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        labelText: 'Sinistro n.',
+                                        labelStyle: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.black87),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text('Documentos pessoais',
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 14.0)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10, top: 20),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                    onSaved: (value) {
+                                      setState(() {
+                                        numCNH = true;
+                                      });
+                                    },
+                                    onChanged: (value) {
+                                      setState(() {
+                                        numCNH = true;
+                                      });
+                                    },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Digite a CNH';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Número de Registro CNH',
+                                        hintStyle: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.black87))),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  // validator: (value) {
+                                  //   if (value.isEmpty) {
+                                  //     return 'Digite a Data';
+                                  //   }
+                                  //   return null;
+                                  // },
+                                  onSaved: (value) {
+                                    setState(() {
+                                      dataCNH = true;
+                                    });
+                                  },
+                                  onChanged: (value) {
+                                    setState(() {
+                                      dataCNH = true;
+                                    });
+                                  },
+                                  validator: composeValidators('data',
+                                      [requiredValidator, dataValidator]),
+                                  controller: dataVencimentoController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Data de Vencimento',
+                                    hintStyle: GoogleFonts.poppins(
+                                        fontSize: 14, color: Colors.black87),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  onSaved: (value) {
+                                    setState(() {
+                                      numCPF = true;
+                                    });
+                                  },
+                                  onChanged: (value) {
+                                    setState(() {
+                                      numCPF = true;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Digite o CPF';
+                                    }
+                                    return null;
+                                  },
+                                  controller: cpfController,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'CPF',
+                                      hintStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  onSaved: (value) {
+                                    setState(() {
+                                      idade = true;
+                                    });
+                                  },
+                                  onChanged: (value) {
+                                    setState(() {
+                                      idade = true;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Digite a Idade';
+                                    }
+                                    return null;
+                                  },
+                                  controller: idadeController,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Idade',
+                                      hintStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: width,
+                                child: Text(
+                                  'Estado Civil',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 14, color: Colors.black87),
+                                ),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Radio(
+                                    activeColor: Colors.black87,
+                                    value: 1,
+                                    groupValue: idEstadoCivil,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'ONE';
+                                        idEstadoCivil = 1;
+                                      });
+                                    },
+                                  ),
+                                  Text('SOLTEIRO',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                    activeColor: Colors.black87,
+                                    value: 2,
+                                    groupValue: idEstadoCivil,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'TWO';
+                                        idEstadoCivil = 2;
+                                      });
+                                    },
+                                  ),
+                                  Text('CASADO',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                    activeColor: Colors.black87,
+                                    value: 3,
+                                    groupValue: idEstadoCivil,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'THREE';
+                                        idEstadoCivil = 3;
+                                      });
+                                    },
+                                  ),
+                                  Text('DIVORCIADO',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Radio(
+                                    activeColor: Colors.black87,
+                                    value: 4,
+                                    groupValue: idEstadoCivil,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'FOUR';
+                                        idEstadoCivil = 4;
+                                      });
+                                    },
+                                  ),
+                                  Text('VIÚVO',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text('Registros do Acidente',
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 14.0)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10, top: 20),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'BO n.',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'DP do BO',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10, top: 20),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'IC',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text('Dados do Veículo',
+                                style: TextStyle(
+                                    color: Colors.grey[800], fontSize: 14.0)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Divider(
+                          thickness: 0.7,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10, top: 20),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Chassi',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: width,
+                                color: Colors.grey[50],
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Ano Fabricação\/Modelo',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          SizedBox(
+            height: 80,
+          )
         ],
       ),
     );
@@ -913,49 +1428,29 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
       padding: const EdgeInsets.only(left: 30),
       child: FlatButton(
         onPressed: () {
-          if (_formCNHKey.currentState.validate() &&
-              _formDtVencKey.currentState.validate() &&
-              _formCPFKey.currentState.validate() &&
-              _formIdadeKey.currentState.validate()) {
+          if (_isentoField == true &&
+                  _bafometroField == true &&
+                  (encaminharJustificativa == true ||
+                      encaminharJustificativaOutro == true) &&
+                  numCNH == true &&
+                  dataCNH == true &&
+                  numCPF == true &&
+                  idade == true
+
+              // _formCNHKey.currentState.validate() &&
+              //     _formDtVencKey.currentState.validate() &&
+              //     _formCPFKey.currentState.validate() &&
+              //     _formIdadeKey.currentState.validate()
+              ) {
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 // return object of type Dialog
-                return AlertDialog(
-                  title: Center(
-                      child: new Icon(
-                    Icons.check_circle,
-                    size: 50.0,
-                    color: Colors.green,
-                  )),
-                  content: Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: new Text(
-                          'Formulário registrado com sucesso!',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black87,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.7),
-                        ),
-                      ),
-                    ],
-                  ),
-                  actions: <Widget>[
-                    // usually buttons at the bottom of the dialog
-                    new FlatButton(
-                      child: new Text(
-                        "Ok",
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
+                return AlertDialogForm(
+                  textAlert: 'Formulário registrado com sucesso!',
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 );
               },
             );
@@ -995,7 +1490,6 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
               ],
             ),
           ),
-          //padding: const EdgeInsets.fromLTRB(90.0, 15.0, 90.0, 15.0),
           child: Center(
               child: const Text('CONCLUIR', style: TextStyle(fontSize: 20))),
         ),
