@@ -113,7 +113,7 @@ class ResumoRelatorioOcorrenciaTransitoState
   var hora1Controller = new MaskedTextController(mask: '00:00');
   var prefixoController = new MaskedTextController(mask: '000000');
   var dataVencimentoController = new MaskedTextController(mask: '00/00/0000');
-  var cpfController = new MaskedTextController(mask: '00.000.000-0');
+  var cpfController = new MaskedTextController(mask: '000.000.000-00');
   var idadeController = new MaskedTextController(mask: '00');
 
   bool complete = false;

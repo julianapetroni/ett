@@ -47,7 +47,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
   var telController = new MaskedTextController(mask: '(00)00000-0000');
   var dataController = new MaskedTextController(mask: '00/00/0000');
   var dataVencimentoController = new MaskedTextController(mask: '00/00/0000');
-  var cpfController = new MaskedTextController(mask: '00.000.000-0');
+  var cpfController = new MaskedTextController(mask: '000.000.000-00');
   var idadeController = new MaskedTextController(mask: '00');
 
   //assinatura
