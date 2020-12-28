@@ -364,30 +364,47 @@ class ControleDeFrequenciaDeLinhaState
               )),
         ),
         Container(
-            width: 60,
-            padding: EdgeInsets.only(bottom: 100),
-            child: FlatButton(
-              onPressed: _addRow,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
+            padding: EdgeInsets.only(bottom: 100, left: 5, right: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                RawMaterialButton(
+                  onPressed: _addRow,
+                  elevation: 2.0,
+                  fillColor: Colors.grey[200],
+                  child: Icon(
                     Icons.add,
-                    color: LightColors.neonETT,
+                    size: 35.0,
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    'Adicionar linha',
-                    style: TextStyle(
-                      color: LightColors.neonETT,
-                    ),
-                  )
-                ],
-              ),
-              color: Colors.black87,
-            )),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                ),
+              ],
+            )
+
+            // FlatButton(
+            //   onPressed: _addRow,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Icon(
+            //         Icons.add,
+            //         color: LightColors.neonETT,
+            //       ),
+            //       SizedBox(
+            //         width: 20,
+            //       ),
+            //       Text(
+            //         'Adicionar linha',
+            //         style: TextStyle(
+            //           color: LightColors.neonETT,
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            //   color: Colors.black87,
+            // )
+            ),
       ],
     );
   }
