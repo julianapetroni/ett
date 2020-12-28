@@ -1211,9 +1211,18 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                                       });
                                     },
                                   ),
-                                  Text('SOLTEIRO',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black87)),
+                                  GestureDetector(
+                                    child: Text('SOLTEIRO',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.black87)),
+                                    onTap: () {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'ONE';
+                                        idEstadoCivil = 1;
+                                      });
+                                    },
+                                  ),
                                 ],
                               ),
                               Row(
@@ -1229,9 +1238,18 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                                       });
                                     },
                                   ),
-                                  Text('CASADO',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black87)),
+                                  GestureDetector(
+                                    child: Text('CASADO',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.black87)),
+                                    onTap: () {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'TWO';
+                                        idEstadoCivil = 2;
+                                      });
+                                    },
+                                  ),
                                 ],
                               ),
                               Row(
@@ -1247,9 +1265,18 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                                       });
                                     },
                                   ),
-                                  Text('DIVORCIADO',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black87)),
+                                  GestureDetector(
+                                    child: Text('DIVORCIADO',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.black87)),
+                                    onTap: () {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'THREE';
+                                        idEstadoCivil = 3;
+                                      });
+                                    },
+                                  ),
                                 ],
                               ),
                               Row(
@@ -1265,9 +1292,18 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                                       });
                                     },
                                   ),
-                                  Text('VIÚVO',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 14, color: Colors.black87)),
+                                  GestureDetector(
+                                    child: Text('VIÚVO',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.black87)),
+                                    onTap: () {
+                                      setState(() {
+                                        radioButtonItemEstadoCivil = 'FOUR';
+                                        idEstadoCivil = 4;
+                                      });
+                                    },
+                                  ),
                                 ],
                               )
                             ],
