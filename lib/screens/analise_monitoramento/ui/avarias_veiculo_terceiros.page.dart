@@ -132,6 +132,7 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
 
   //botao de avaria do carro - mudança de cor
   bool segundoCarro = false;
+  bool _spaceBetween = true;
   bool haAvariaNoCarro = false;
 
   //radio button para avaria no carro
@@ -1213,19 +1214,70 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                           Center(
                                             child: FlatButton(
                                               onPressed: () {
-                                                //setState(() {});
                                                 showDialog(
                                                     context: context,
                                                     builder:
                                                         (BuildContext context) {
                                                       return AlertDialog(
-                                                          title: Text(
-                                                            "Selecionar imagem da galeria ou tirar foto?",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .grey[600]),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          24.0))),
+                                                          contentPadding:
+                                                              EdgeInsets.only(
+                                                                  top: 10.0),
+                                                          title: Center(
+                                                              child: new Icon(
+                                                            Icons
+                                                                .add_a_photo_outlined,
+                                                            size: 60.0,
+                                                            color: Colors
+                                                                .orange[400],
+                                                          )),
+                                                          content: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 24,
+                                                                    right: 24,
+                                                                    top: 16),
+                                                            child: Wrap(
+                                                              children: [
+                                                                Flexible(
+                                                                  child:
+                                                                      new Text(
+                                                                    "Selecionar imagem da galeria ou tirar foto?",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            18.0,
+                                                                        color: Colors.grey[
+                                                                            600],
+                                                                        fontFamily:
+                                                                            "Poppins-Bold",
+                                                                        letterSpacing:
+                                                                            .6),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .justify,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 20,
+                                                                      left: 30,
+                                                                      right:
+                                                                          30),
+                                                                  child:
+                                                                      Divider(
+                                                                    thickness:
+                                                                        0.7,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                          content: new Text(''),
                                                           actions: <Widget>[
                                                             new FlatButton(
                                                               onPressed:
@@ -1240,7 +1292,9 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                                                 'Galeria',
                                                                 style: TextStyle(
                                                                     fontSize:
-                                                                        20.0),
+                                                                        20.0,
+                                                                    color: Colors
+                                                                        .black87),
                                                               ),
                                                             ),
                                                             new FlatButton(
@@ -1257,7 +1311,9 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                                                 'Câmera',
                                                                 style: TextStyle(
                                                                     fontSize:
-                                                                        20.0),
+                                                                        20.0,
+                                                                    color: Colors
+                                                                        .black87),
                                                               ),
                                                             ),
                                                           ]);
@@ -1265,7 +1321,7 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                               },
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
-                                                    top: 5, bottom: 5.0),
+                                                    top: 5.0, bottom: 5.0),
                                                 child: Center(
                                                   child: Icon(
                                                     Icons.add_a_photo,
@@ -1412,6 +1468,7 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                       onPressed: () {
                         setState(() {
                           segundoCarro = !segundoCarro;
+                          _spaceBetween = !_spaceBetween;
                         });
                       },
                       child: Row(
@@ -1439,464 +1496,473 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
               ),
             ),
           ),
+          Visibility(
+            visible: _spaceBetween,
+            child: SizedBox(
+              height: 70,
+            ),
+          ),
 
           // mostra segundo veículo
           Visibility(
             visible: segundoCarro,
-            child: Stack(
-              children: <Widget>[
-                //radio button grau da avaria
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              children: [
+                Stack(
                   children: <Widget>[
-                    Radio(
-                      activeColor: Colors.black87,
-                      value: 1,
-                      groupValue: id2,
-                      onChanged: (val) {
-                        setState(() {
-                          radioButton2Item = 'ONE';
-                          id2 = 1;
-                        });
-                      },
+                    //radio button grau da avaria
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Radio(
+                          activeColor: Colors.black87,
+                          value: 1,
+                          groupValue: id2,
+                          onChanged: (val) {
+                            setState(() {
+                              radioButton2Item = 'ONE';
+                              id2 = 1;
+                            });
+                          },
+                        ),
+                        Flexible(
+                            child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              radioButton2Item = 'ONE';
+                              id2 = 1;
+                            });
+                          },
+                          child: Text('PEQUENA',
+                              style: TextStyle(
+                                  color: Colors.grey[800], fontSize: 14.0)),
+                        )),
+                        Radio(
+                          activeColor: Colors.black87,
+                          value: 2,
+                          groupValue: id2,
+                          onChanged: (val) {
+                            setState(() {
+                              radioButton2Item = 'TWO';
+                              id2 = 2;
+                            });
+                          },
+                        ),
+                        Flexible(
+                            child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              radioButton2Item = 'TWO';
+                              id2 = 2;
+                            });
+                          },
+                          child: Text('MÉDIA',
+                              style: TextStyle(
+                                  color: Colors.grey[800], fontSize: 14.0)),
+                        )),
+                        Radio(
+                          activeColor: Colors.black87,
+                          value: 3,
+                          groupValue: id2,
+                          onChanged: (val) {
+                            setState(() {
+                              radioButton2Item = 'THREE';
+                              id2 = 3;
+                            });
+                          },
+                        ),
+                        Flexible(
+                            child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              radioButton2Item = 'THREE';
+                              id2 = 3;
+                            });
+                          },
+                          child: Text('GRANDE',
+                              style: TextStyle(
+                                  color: Colors.grey[800], fontSize: 14.0)),
+                        )),
+                      ],
                     ),
-                    Flexible(
-                        child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          radioButton2Item = 'ONE';
-                          id2 = 1;
-                        });
-                      },
-                      child: Text('PEQUENA',
-                          style: TextStyle(
-                              color: Colors.grey[800], fontSize: 14.0)),
-                    )),
-                    Radio(
-                      activeColor: Colors.black87,
-                      value: 2,
-                      groupValue: id2,
-                      onChanged: (val) {
-                        setState(() {
-                          radioButton2Item = 'TWO';
-                          id2 = 2;
-                        });
-                      },
-                    ),
-                    Flexible(
-                        child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          radioButton2Item = 'TWO';
-                          id2 = 2;
-                        });
-                      },
-                      child: Text('MÉDIA',
-                          style: TextStyle(
-                              color: Colors.grey[800], fontSize: 14.0)),
-                    )),
-                    Radio(
-                      activeColor: Colors.black87,
-                      value: 3,
-                      groupValue: id2,
-                      onChanged: (val) {
-                        setState(() {
-                          radioButton2Item = 'THREE';
-                          id2 = 3;
-                        });
-                      },
-                    ),
-                    Flexible(
-                        child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          radioButton2Item = 'THREE';
-                          id2 = 3;
-                        });
-                      },
-                      child: Text('GRANDE',
-                          style: TextStyle(
-                              color: Colors.grey[800], fontSize: 14.0)),
-                    )),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Container(
-                    margin: EdgeInsets.only(top: 10.0, bottom: 50.0),
-                    child: Center(
-                      child: Image(
-                        image: AssetImage('images/carroAvariaComLinhas.jpg'),
-                        //height: 100.0,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                        child: Center(
+                          child: Image(
+                            image:
+                                AssetImage('images/carroAvariaComLinhas.jpg'),
+                            //height: 100.0,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
 
-                Padding(
-                  padding: const EdgeInsets.only(left: 26, top: 53),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[13] = !botoes[13];
-                          });
-                        },
-                        child: botoes[13]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 26, top: 53),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[13] = !botoes[13];
+                              });
+                            },
+                            child: botoes[13]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
 
-                //botao 14
-                Padding(
-                  padding: const EdgeInsets.only(left: 26, top: 53),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[13] = !botoes[13];
-                          });
-                        },
-                        child: botoes[13]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 15
-                Padding(
-                  padding: const EdgeInsets.only(top: 113),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[14] = !botoes[14];
-                          });
-                        },
-                        child: botoes[14]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 16
-                Padding(
-                  padding: const EdgeInsets.only(top: 192),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[15] = !botoes[15];
-                          });
-                        },
-                        child: botoes[15]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 17
-                Padding(
-                  padding: const EdgeInsets.only(top: 298),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[16] = !botoes[16];
-                          });
-                        },
-                        child: botoes[16]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 18
-                Padding(
-                  padding: const EdgeInsets.only(top: 415),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[17] = !botoes[17];
-                          });
-                        },
-                        child: botoes[17]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 19
-                Padding(
-                  padding: const EdgeInsets.only(top: 463),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[18] = !botoes[18];
-                          });
-                        },
-                        child: botoes[18]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 20
-                Padding(
-                  padding: const EdgeInsets.only(left: 290, top: 58),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[19] = !botoes[19];
-                          });
-                        },
-                        child: botoes[19]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 21
-                Padding(
-                  padding: const EdgeInsets.only(left: 290, top: 110),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[20] = !botoes[20];
-                          });
-                        },
-                        child: botoes[20]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 22
-                Padding(
-                  padding: const EdgeInsets.only(left: 290, top: 227),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[21] = !botoes[21];
-                          });
-                        },
-                        child: botoes[21]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 23
-                Padding(
-                  padding: const EdgeInsets.only(left: 290, top: 339),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[22] = !botoes[22];
-                          });
-                        },
-                        child: botoes[22]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 24
-                Padding(
-                  padding: const EdgeInsets.only(left: 290, top: 399),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[23] = !botoes[23];
-                          });
-                        },
-                        child: botoes[23]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 25
-                Padding(
-                  padding: const EdgeInsets.only(left: 290, top: 449),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[24] = !botoes[24];
-                          });
-                        },
-                        child: botoes[24]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
-                //botao 26
-                Padding(
-                  padding: const EdgeInsets.only(left: 158.0, top: 290),
-                  child: ListTile(
-                    leading: InkWell(
-                        onTap: () {
-                          setState(() {
-                            botoes[25] = !botoes[25];
-                          });
-                        },
-                        child: botoes[25]
-                            ? Icon(
-                                Icons.cancel,
-                                color: Colors.black87,
-                                size: 50,
-                              )
-                            : Icon(
-                                Icons.add_circle,
-                                color: Colors.grey[400],
-                                size: 50,
-                              )),
-                    title: new Text(' ',
-                        style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  ),
-                ),
+                    //botao 14
+                    Padding(
+                      padding: const EdgeInsets.only(left: 26, top: 53),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[13] = !botoes[13];
+                              });
+                            },
+                            child: botoes[13]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 15
+                    Padding(
+                      padding: const EdgeInsets.only(top: 113),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[14] = !botoes[14];
+                              });
+                            },
+                            child: botoes[14]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 16
+                    Padding(
+                      padding: const EdgeInsets.only(top: 192),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[15] = !botoes[15];
+                              });
+                            },
+                            child: botoes[15]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 17
+                    Padding(
+                      padding: const EdgeInsets.only(top: 298),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[16] = !botoes[16];
+                              });
+                            },
+                            child: botoes[16]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 18
+                    Padding(
+                      padding: const EdgeInsets.only(top: 415),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[17] = !botoes[17];
+                              });
+                            },
+                            child: botoes[17]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 19
+                    Padding(
+                      padding: const EdgeInsets.only(top: 463),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[18] = !botoes[18];
+                              });
+                            },
+                            child: botoes[18]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 20
+                    Padding(
+                      padding: const EdgeInsets.only(left: 290, top: 58),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[19] = !botoes[19];
+                              });
+                            },
+                            child: botoes[19]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 21
+                    Padding(
+                      padding: const EdgeInsets.only(left: 290, top: 110),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[20] = !botoes[20];
+                              });
+                            },
+                            child: botoes[20]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 22
+                    Padding(
+                      padding: const EdgeInsets.only(left: 290, top: 227),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[21] = !botoes[21];
+                              });
+                            },
+                            child: botoes[21]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 23
+                    Padding(
+                      padding: const EdgeInsets.only(left: 290, top: 339),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[22] = !botoes[22];
+                              });
+                            },
+                            child: botoes[22]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 24
+                    Padding(
+                      padding: const EdgeInsets.only(left: 290, top: 399),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[23] = !botoes[23];
+                              });
+                            },
+                            child: botoes[23]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 25
+                    Padding(
+                      padding: const EdgeInsets.only(left: 290, top: 449),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[24] = !botoes[24];
+                              });
+                            },
+                            child: botoes[24]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
+                    //botao 26
+                    Padding(
+                      padding: const EdgeInsets.only(left: 158.0, top: 290),
+                      child: ListTile(
+                        leading: InkWell(
+                            onTap: () {
+                              setState(() {
+                                botoes[25] = !botoes[25];
+                              });
+                            },
+                            child: botoes[25]
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: Colors.black87,
+                                    size: 50,
+                                  )
+                                : Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey[400],
+                                    size: 50,
+                                  )),
+                        title: new Text(' ',
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      ),
+                    ),
 
 //                    Padding(
 //                      padding: const EdgeInsets.only(left: 160.0, top: 250),
@@ -1909,17 +1975,18 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
 //                        shape: CircleBorder(),
 //                      ),
 //                    )
-                //Dados do carro 1 com avaria
+                    //Dados do carro 1 com avaria
+                  ],
+                ),
                 Container(
-                  margin: EdgeInsets.only(top: 540),
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 90),
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     elevation: 8,
                     child: Padding(
-                      padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
@@ -2439,19 +2506,75 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                         Center(
                                           child: FlatButton(
                                             onPressed: () {
-                                              //setState(() {});
                                               showDialog(
                                                   context: context,
                                                   builder:
                                                       (BuildContext context) {
                                                     return AlertDialog(
-                                                        title: Text(
-                                                          "Selecionar imagem da galeria ou tirar foto?",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .grey[600]),
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.all(
+                                                                    Radius.circular(
+                                                                        24.0))),
+                                                        contentPadding:
+                                                            EdgeInsets.only(
+                                                                top: 10.0),
+                                                        title: Center(
+                                                            child: new Icon(
+                                                          Icons
+                                                              .add_a_photo_outlined,
+                                                          size: 60.0,
+                                                          color: Colors
+                                                              .orange[400],
+                                                        )),
+                                                        content: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 24,
+                                                                  right: 24,
+                                                                  top: 16),
+                                                          child: Wrap(
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  Flexible(
+                                                                    child:
+                                                                        new Text(
+                                                                      "Selecionar imagem da galeria ou tirar foto?",
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18.0,
+                                                                          color: Colors.grey[
+                                                                              600],
+                                                                          fontFamily:
+                                                                              "Poppins-Bold",
+                                                                          letterSpacing:
+                                                                              .6),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .justify,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        top: 20,
+                                                                        left:
+                                                                            30,
+                                                                        right:
+                                                                            30),
+                                                                child: Divider(
+                                                                  thickness:
+                                                                      0.7,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                        content: new Text(''),
                                                         actions: <Widget>[
                                                           new FlatButton(
                                                             onPressed:
@@ -2466,7 +2589,9 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                                               'Galeria',
                                                               style: TextStyle(
                                                                   fontSize:
-                                                                      20.0),
+                                                                      20.0,
+                                                                  color: Colors
+                                                                      .black87),
                                                             ),
                                                           ),
                                                           new FlatButton(
@@ -2483,7 +2608,9 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                                               'Câmera',
                                                               style: TextStyle(
                                                                   fontSize:
-                                                                      20.0),
+                                                                      20.0,
+                                                                  color: Colors
+                                                                      .black87),
                                                             ),
                                                           ),
                                                         ]);
@@ -2491,12 +2618,12 @@ class AvariasVeiculoTerceiroState extends State<AvariasVeiculoTerceiro> {
                                             },
                                             child: Padding(
                                               padding: const EdgeInsets.only(
-                                                  bottom: 20.0),
+                                                  top: 5.0, bottom: 5.0),
                                               child: Center(
                                                 child: Icon(
                                                   Icons.add_a_photo,
                                                   color: Colors.black87,
-                                                  size: 60.0,
+                                                  size: 50.0,
                                                 ),
                                               ),
                                             ),

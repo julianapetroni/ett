@@ -405,11 +405,42 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                              title: Text(
-                                "Selecionar imagem da galeria ou tirar foto?",
-                                style: TextStyle(color: Colors.grey[600]),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(24.0))),
+                              contentPadding: EdgeInsets.only(top: 10.0),
+                              title: Center(
+                                  child: new Icon(
+                                Icons.add_a_photo_outlined,
+                                size: 60.0,
+                                color: Colors.orange[400],
+                              )),
+                              content: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 24, right: 24, top: 16),
+                                child: Wrap(
+                                  children: [
+                                    Flexible(
+                                      child: new Text(
+                                        "Selecionar imagem da galeria ou tirar foto?",
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.grey[600],
+                                            fontFamily: "Poppins-Bold",
+                                            letterSpacing: .6),
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20, left: 30, right: 30),
+                                      child: Divider(
+                                        thickness: 0.7,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              content: new Text(''),
                               actions: <Widget>[
                                 new FlatButton(
                                   onPressed: () async {
@@ -419,7 +450,8 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                   },
                                   child: const Text(
                                     'Galeria',
-                                    style: TextStyle(fontSize: 20.0),
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.black87),
                                   ),
                                 ),
                                 new FlatButton(
@@ -432,7 +464,8 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                   },
                                   child: const Text(
                                     'Câmera',
-                                    style: TextStyle(fontSize: 20.0),
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.black87),
                                   ),
                                 ),
                               ]);
@@ -522,11 +555,42 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                                title: Text(
-                                  "Selecionar imagem da galeria ou tirar foto?",
-                                  style: TextStyle(color: Colors.grey[600]),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(24.0))),
+                                contentPadding: EdgeInsets.only(top: 10.0),
+                                title: Center(
+                                    child: new Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 60.0,
+                                  color: Colors.orange[400],
+                                )),
+                                content: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 24, right: 24, top: 16),
+                                  child: Wrap(
+                                    children: [
+                                      Flexible(
+                                        child: new Text(
+                                          "Selecionar imagem da galeria ou tirar foto?",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.grey[600],
+                                              fontFamily: "Poppins-Bold",
+                                              letterSpacing: .6),
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 20, left: 30, right: 30),
+                                        child: Divider(
+                                          thickness: 0.7,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                content: new Text(''),
                                 actions: <Widget>[
                                   new FlatButton(
                                     onPressed: () async {
@@ -536,7 +600,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Galeria',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                   new FlatButton(
@@ -549,7 +615,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Câmera',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                 ]);
@@ -612,15 +680,47 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                       setState(() {
                         textoVisivel = false;
                       });
+
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                                title: Text(
-                                  "Selecionar imagem da galeria ou tirar foto?",
-                                  style: TextStyle(color: Colors.grey[600]),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(24.0))),
+                                contentPadding: EdgeInsets.only(top: 10.0),
+                                title: Center(
+                                    child: new Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 60.0,
+                                  color: Colors.orange[400],
+                                )),
+                                content: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 24, right: 24, top: 16),
+                                  child: Wrap(
+                                    children: [
+                                      Flexible(
+                                        child: new Text(
+                                          "Selecionar imagem da galeria ou tirar foto?",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.grey[600],
+                                              fontFamily: "Poppins-Bold",
+                                              letterSpacing: .6),
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 20, left: 30, right: 30),
+                                        child: Divider(
+                                          thickness: 0.7,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                content: new Text(''),
                                 actions: <Widget>[
                                   new FlatButton(
                                     onPressed: () async {
@@ -630,7 +730,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Galeria',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                   new FlatButton(
@@ -643,7 +745,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Câmera',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                 ]);
@@ -714,15 +818,47 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                       setState(() {
                         textoVisivel = false;
                       });
+
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                                title: Text(
-                                  "Selecionar imagem da galeria ou tirar foto?",
-                                  style: TextStyle(color: Colors.grey[600]),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(24.0))),
+                                contentPadding: EdgeInsets.only(top: 10.0),
+                                title: Center(
+                                    child: new Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 60.0,
+                                  color: Colors.orange[400],
+                                )),
+                                content: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 24, right: 24, top: 16),
+                                  child: Wrap(
+                                    children: [
+                                      Flexible(
+                                        child: new Text(
+                                          "Selecionar imagem da galeria ou tirar foto?",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.grey[600],
+                                              fontFamily: "Poppins-Bold",
+                                              letterSpacing: .6),
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 20, left: 30, right: 30),
+                                        child: Divider(
+                                          thickness: 0.7,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                content: new Text(''),
                                 actions: <Widget>[
                                   new FlatButton(
                                     onPressed: () async {
@@ -732,7 +868,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Galeria',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                   new FlatButton(
@@ -745,7 +883,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Câmera',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                 ]);
@@ -812,11 +952,42 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                                title: Text(
-                                  "Selecionar imagem da galeria ou tirar foto?",
-                                  style: TextStyle(color: Colors.grey[600]),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(24.0))),
+                                contentPadding: EdgeInsets.only(top: 10.0),
+                                title: Center(
+                                    child: new Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 60.0,
+                                  color: Colors.orange[400],
+                                )),
+                                content: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 24, right: 24, top: 16),
+                                  child: Wrap(
+                                    children: [
+                                      Flexible(
+                                        child: new Text(
+                                          "Selecionar imagem da galeria ou tirar foto?",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.grey[600],
+                                              fontFamily: "Poppins-Bold",
+                                              letterSpacing: .6),
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 20, left: 30, right: 30),
+                                        child: Divider(
+                                          thickness: 0.7,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                content: new Text(''),
                                 actions: <Widget>[
                                   new FlatButton(
                                     onPressed: () async {
@@ -826,7 +997,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Galeria',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                   new FlatButton(
@@ -839,7 +1012,9 @@ class AvariasOnibusState extends State<AvariasOnibus> {
                                     },
                                     child: const Text(
                                       'Câmera',
-                                      style: TextStyle(fontSize: 20.0),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black87),
                                     ),
                                   ),
                                 ]);

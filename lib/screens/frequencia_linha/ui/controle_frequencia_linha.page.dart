@@ -1,6 +1,7 @@
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/services/token.dart';
 import 'package:ett_app/utils/validators.dart';
+import 'package:ett_app/widgets/dialog/alert_dialog_form.dart';
 import 'package:ett_app/widgets/formUI/button/button_decoration.dart';
 import 'package:ett_app/widgets/formUI/input/input_form_square.dart';
 import 'package:ett_app/widgets/formUI/text_pattern/text_row.dart';
@@ -211,191 +212,216 @@ class ControleDeFrequenciaDeLinhaState
     String formattedTime = DateFormat('kk:mm:ss').format(now);
     var heightLogoETT = 80.0;
 
-    return SafeArea(
-      child: ListView(
-        children: <Widget>[
-          TopContainer(
-            padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 40.0),
-            width: width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                LogoETTForm(heightLogoETT),
-                SizedBox(height: 30.0),
-                TextRow('Controle de Frequência de Linha', Colors.black87),
-                SizedBox(height: 20),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Flexible(
-                            child: InputFormSquare(
-                              labelTextForm: 'Nome do Fiscal',
-                              keyForm: _nomeKey,
-                              controller:
-                                  TextEditingController(text: '${user.nome}'),
-                              validatorForm: composeValidators(
-                                  'nome', [requiredValidator, stringValidator]),
-                              onSavedForm: (value) => _loginData.nome = value,
-                              larguraInputForm: width,
-                              paddingTop: 10.0,
-                              obscureText: false,
-                            ),
+    return ListView(
+      children: <Widget>[
+        TopContainer(
+          padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 40.0),
+          width: width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              LogoETTForm(heightLogoETT),
+              SizedBox(height: 30.0),
+              TextRow('Controle de Frequência de Linha', Colors.black87),
+              SizedBox(height: 20),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        Flexible(
+                          child: InputFormSquare(
+                            labelTextForm: 'Nome do Fiscal',
+                            keyForm: _nomeKey,
+                            controller:
+                                TextEditingController(text: '${user.nome}'),
+                            validatorForm: composeValidators(
+                                'nome', [requiredValidator, stringValidator]),
+                            onSavedForm: (value) => _loginData.nome = value,
+                            larguraInputForm: width,
+                            paddingTop: 10.0,
+                            obscureText: false,
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: InputFormSquare(
-                              larguraInputForm: double.infinity,
-                              labelTextForm: 'Matrícula',
-                              keyForm: _matriculaKey,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: InputFormSquare(
+                            larguraInputForm: double.infinity,
+                            labelTextForm: 'Matrícula',
+                            keyForm: _matriculaKey,
 //                            controller: TextEditingController(
 //                                text: '${_loginData.matricula}'),
-                              controller: matriculaController,
-                              validatorForm: composeValidators('matricula',
-                                  [requiredValidator, minLengthValidator]),
-                              onSavedForm: (value) =>
-                                  _loginData.matricula = value,
-                              paddingTop: 0.0,
-                              obscureText: false,
-                            ),
+                            controller: matriculaController,
+                            validatorForm: composeValidators('matricula',
+                                [requiredValidator, minLengthValidator]),
+                            onSavedForm: (value) =>
+                                _loginData.matricula = value,
+                            paddingTop: 0.0,
+                            obscureText: false,
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: InputFormSquare(
-                              larguraInputForm: double.infinity,
-                              labelTextForm: 'Data',
-                              keyForm: _dataKey,
-                              controller:
-                                  TextEditingController(text: formattedDate),
-                              validatorForm: composeValidators(
-                                  'data', [requiredValidator, dataValidator]),
-                              onSavedForm: (value) => _loginData.data = value,
-                              paddingTop: 8.0,
-                              obscureText: false,
-                            ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: InputFormSquare(
+                            larguraInputForm: double.infinity,
+                            labelTextForm: 'Data',
+                            keyForm: _dataKey,
+                            controller:
+                                TextEditingController(text: formattedDate),
+                            validatorForm: composeValidators(
+                                'data', [requiredValidator, dataValidator]),
+                            onSavedForm: (value) => _loginData.data = value,
+                            paddingTop: 8.0,
+                            obscureText: false,
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: InputFormSquare(
-                              larguraInputForm: halfMediaWidth,
-                              labelTextForm: 'Hora Início',
-                              keyForm: _horaKey,
-                              controller:
-                                  TextEditingController(text: formattedTime),
-                              validatorForm: composeValidators('hora', [
-                                requiredValidator,
-                                horaLengthValidator,
-                                horaValidator
-                              ]),
-                              onSavedForm: (value) => _loginData.hora = value,
-                              obscureText: false,
-                              paddingTop: 8.0,
-                            ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: InputFormSquare(
+                            larguraInputForm: halfMediaWidth,
+                            labelTextForm: 'Hora Início',
+                            keyForm: _horaKey,
+                            controller:
+                                TextEditingController(text: formattedTime),
+                            validatorForm: composeValidators('hora', [
+                              requiredValidator,
+                              horaLengthValidator,
+                              horaValidator
+                            ]),
+                            onSavedForm: (value) => _loginData.hora = value,
+                            obscureText: false,
+                            paddingTop: 8.0,
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: InputFormSquare(
-                              larguraInputForm: halfMediaWidth,
-                              labelTextForm: 'Hora Término',
-                              keyForm: _horaTerminoKey,
-                              controller:
-                                  TextEditingController(text: formattedTime),
-                              validatorForm: composeValidators(
-                                  'hora do término', [
-                                requiredValidator,
-                                horaLengthValidator,
-                                horaValidator
-                              ]),
-                              onSavedForm: (value) => _loginData.hora = value,
-                              obscureText: false,
-                              paddingTop: 8.0,
-                            ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: InputFormSquare(
+                            larguraInputForm: halfMediaWidth,
+                            labelTextForm: 'Hora Término',
+                            keyForm: _horaTerminoKey,
+                            controller:
+                                TextEditingController(text: formattedTime),
+                            validatorForm: composeValidators(
+                                'hora do término', [
+                              requiredValidator,
+                              horaLengthValidator,
+                              horaValidator
+                            ]),
+                            onSavedForm: (value) => _loginData.hora = value,
+                            obscureText: false,
+                            paddingTop: 8.0,
                           ),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                child: DataTable(
-                  columns: <DataColumn>[
-                    DataColumn(
-                      label: TitleFormBold('LOCAL'),
-                    ),
-                    DataColumn(
-                      label: TitleFormBold('CARRO'),
-                    ),
-                    DataColumn(
-                      label: TitleFormBold('HORÁRIO'),
-                    ),
-                    DataColumn(
-                      label: TitleFormBold('EMPRESA'),
-                    ),
-                    DataColumn(
-                      label: TitleFormBold('DESTINO'),
-                    ),
+                        ),
+                      ],
+                    )
                   ],
-                  rows: _rowList,
-                )),
+                ),
+              )
+            ],
           ),
-          Container(
-            padding: EdgeInsets.only(right: 20),
-            child: ButtonDecoration(
-                buttonTitle: 'ENVIAR',
-                shouldHaveIcon: false,
-                onPressed: () {
-                  setState(() {
-                    // _myActivitiesResult = _myActivities.toString();
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DashboardScreen(
-                              user: user,
-                              token: token,
-                              sol: sol,
-                            )),
-                  );
-                }),
-          ),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 20.0,
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: DataTable(
+                columns: <DataColumn>[
+                  DataColumn(
+                    label: TitleFormBold('LOCAL'),
+                  ),
+                  DataColumn(
+                    label: TitleFormBold('CARRO'),
+                  ),
+                  DataColumn(
+                    label: TitleFormBold('HORÁRIO'),
+                  ),
+                  DataColumn(
+                    label: TitleFormBold('EMPRESA'),
+                  ),
+                  DataColumn(
+                    label: TitleFormBold('DESTINO'),
+                  ),
+                ],
+                rows: _rowList,
+              )),
+        ),
+        Container(
+            width: 60,
+            padding: EdgeInsets.only(bottom: 100),
+            child: FlatButton(
+              onPressed: _addRow,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.add,
+                    color: LightColors.neonETT,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    'Adicionar linha',
+                    style: TextStyle(
+                      color: LightColors.neonETT,
+                    ),
+                  )
+                ],
+              ),
+              color: Colors.black87,
+            )),
+      ],
     );
   }
 
   Widget _buildButton(BuildContext context) {
-    return FloatingActionButton.extended(
-      onPressed: _addRow,
-      label: Icon(
-        Icons.add,
-        color: LightColors.neonETT,
-      ),
-      backgroundColor: Colors.black87,
+    return Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: ButtonDecoration(
+          buttonTitle: 'ENVIAR',
+          shouldHaveIcon: false,
+          onPressed: () {
+            setState(() {});
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                // return object of type Dialog
+                return AlertDialogForm(
+                  textAlert: 'Formulário registrado com sucesso!',
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+            );
+            Future.delayed(const Duration(milliseconds: 3000), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      DashboardScreen(sol: sol, user: user, token: token),
+                ),
+              );
+            });
+          }),
     );
   }
 }

@@ -60,15 +60,19 @@ class AlertDialogForm extends StatelessWidget {
           padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
           child: Wrap(
             children: [
-              Flexible(
-                child: new Text(
-                  textAlert,
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey[600],
-                      fontFamily: "Poppins-Bold",
-                      letterSpacing: .6),
-                ),
+              Row(
+                children: [
+                  Flexible(
+                    child: new Text(
+                      textAlert,
+                      style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.grey[600],
+                          fontFamily: "Poppins-Bold",
+                          letterSpacing: .6),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 30,

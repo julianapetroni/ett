@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ett_app/style/light_colors.dart';
+import 'package:ett_app/widgets/dialog/alert_dialog_form.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:ett_app/generalConfig/generalConfig.strings.dart';
@@ -260,34 +261,66 @@ class EsqueceuSenhaState extends State<EsqueceuSenha> {
                               builder: (BuildContext context) {
                                 // return object of type Dialog
                                 return AlertDialog(
-                                  title: Center(
-                                      child: new Text(
-                                    "Atenção!",
-                                    textAlign: TextAlign.center,
-                                  )),
-                                  content: new Text(
-                                    "E-mail enviado com sucesso!",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  actions: <Widget>[
-                                    // usually buttons at the bottom of the dialog
-                                    new FlatButton(
-                                      child: new Text(
-                                        "Ok",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                        ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(24.0))),
+                                    contentPadding: EdgeInsets.only(top: 10.0),
+                                    title: Center(
+                                        child: new Icon(
+                                      Icons.check_circle,
+                                      size: 60.0,
+                                      color: Colors.green[400],
+                                    )),
+                                    content: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 24, right: 24, top: 16),
+                                      child: Wrap(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Flexible(
+                                                child: new Text(
+                                                  "E-mail enviado com sucesso!",
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      color: Colors.grey[600],
+                                                      fontFamily:
+                                                          "Poppins-Bold",
+                                                      letterSpacing: .6),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          Divider(
+                                            color: Colors.grey[300],
+                                            height: 16,
+                                          ),
+                                          SizedBox(
+                                            height: 4,
+                                          ),
+                                        ],
                                       ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TelaLogin()));
-                                      },
                                     ),
-                                  ],
-                                );
+                                    actions: <Widget>[
+                                      new FlatButton(
+                                        child: new Text(
+                                          "Ok",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TelaLogin()));
+                                        },
+                                      ),
+                                    ]);
                               },
                             );
                           }

@@ -310,10 +310,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
             child: Container(
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                ),
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
                 child: Column(
                   children: [
                     Row(
@@ -508,9 +505,11 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                _bafometroField = true;
-                                radioButtonItemBafometro = 'ONE';
-                                idBafometro = 1;
+                                setState(() {
+                                  _bafometroField = true;
+                                  radioButtonItemBafometro = 'ONE';
+                                  idBafometro = 1;
+                                });
                               },
                               child: Text('SIM',
                                   style: GoogleFonts.poppins(fontSize: 14)),
@@ -529,9 +528,11 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                _bafometroField = true;
-                                radioButtonItemBafometro = 'TWO';
-                                idBafometro = 2;
+                                setState(() {
+                                  _bafometroField = true;
+                                  radioButtonItemBafometro = 'TWO';
+                                  idBafometro = 2;
+                                });
                               },
                               child: Text('NÃO',
                                   style: GoogleFonts.poppins(fontSize: 14)),
@@ -550,9 +551,11 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                _bafometroField = true;
-                                radioButtonItemBafometro = 'THREE';
-                                idBafometro = 3;
+                                setState(() {
+                                  _bafometroField = true;
+                                  radioButtonItemBafometro = 'THREE';
+                                  idBafometro = 3;
+                                });
                               },
                               child: Text('RECUSOU',
                                   style: GoogleFonts.poppins(fontSize: 14)),
@@ -829,7 +832,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                               setSelectedRadioEncaminhar(2);
                             });
                           },
-                          child: Text('RECICLAR',
+                          child: Text('RECICLAGEM',
                               style: TextStyle(
                                   color: Colors.grey[800], fontSize: 14.0)),
                         ),
@@ -908,6 +911,22 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                                   thickness: 0.7,
                                 ),
                                 Padding(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child: Container(
+                                    width: width,
+                                    color: Colors.grey[50],
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        labelText: 'Sinistro n.',
+                                        labelStyle: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colors.black87),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Row(
                                     children: [
@@ -943,8 +962,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                                   thickness: 0.7,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 30, top: 20),
+                                  padding: const EdgeInsets.only(top: 20),
                                   child: Container(
                                     width: width,
                                     color: Colors.grey[50],
@@ -957,6 +975,31 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                                             color: Colors.black87),
                                       ),
                                     ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          'Justificativa',
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 14),
+                                        ),
+                                      ),
+                                      Expanded(
+                                          flex: 4,
+                                          child: TextFormField(
+                                              minLines: 5,
+                                              maxLines: 5,
+                                              decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  labelStyle:
+                                                      GoogleFonts.poppins(
+                                                          fontSize: 11))))
+                                    ],
                                   ),
                                 ),
                               ],
@@ -1429,19 +1472,13 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
       child: FlatButton(
         onPressed: () {
           if (_isentoField == true &&
-                  _bafometroField == true &&
-                  (encaminharJustificativa == true ||
-                      encaminharJustificativaOutro == true) &&
-                  numCNH == true &&
-                  dataCNH == true &&
-                  numCPF == true &&
-                  idade == true
-
-              // _formCNHKey.currentState.validate() &&
-              //     _formDtVencKey.currentState.validate() &&
-              //     _formCPFKey.currentState.validate() &&
-              //     _formIdadeKey.currentState.validate()
-              ) {
+              _bafometroField == true &&
+              (encaminharJustificativa == true ||
+                  encaminharJustificativaOutro == true) &&
+              numCNH == true &&
+              dataCNH == true &&
+              numCPF == true &&
+              idade == true) {
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -1455,8 +1492,6 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
               },
             );
             Future.delayed(const Duration(milliseconds: 3000), () {
-              //setState(() {
-
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -1468,7 +1503,6 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                           ),
                 ),
               );
-              //});
             });
           } else {
             final semCadastro = new SnackBar(
