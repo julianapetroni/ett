@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:ett_app/screens/analise_monitoramento/ui/analise_de_monitoramento_acidente.dart';
 import 'package:ett_app/screens/analise_monitoramento/ui/selecao_multipla_com_tag.dart';
 import 'package:ett_app/services/token.dart';
 import 'package:ett_app/widgets/dialog/alert_dialog_form.dart';
@@ -91,13 +92,6 @@ class RelatorioOcorrenciaTransitoState
   final _placaController = TextEditingController();
   final _linhaController = TextEditingController();
   final _sentidoController = TextEditingController();
-  final _localAcController = TextEditingController();
-  final _alturaController = TextEditingController();
-  final _motorista1Controller = TextEditingController();
-  final _matriculaController = TextEditingController();
-  final _matricula1Controller = TextEditingController();
-  final _motorista2Controller = TextEditingController();
-  final _matricula2Controller = TextEditingController();
 
   LoginFormData _loginData = LoginFormData();
   bool _autovalidate = true;
@@ -140,23 +134,16 @@ class RelatorioOcorrenciaTransitoState
   dispose() {
     _nomeController.dispose();
     _monitorController.dispose();
-    _matriculaController.dispose();
-    _matricula1Controller.dispose();
     _prefixoController.dispose();
     _placaController.dispose();
     _linhaController.dispose();
     _sentidoController.dispose();
-    _localAcController.dispose();
-    _alturaController.dispose();
-    _motorista1Controller.dispose();
-    _matricula1Controller.dispose();
-    _motorista2Controller.dispose();
-    _matricula2Controller.dispose();
 
     super.dispose();
   }
 
   bool ocorrencia = false;
+  bool _mensagem = false;
 //  // Default Radio Button Selected Item When App Starts.
   String radioButtonItem;
 //  // Group Value for Radio Button.
@@ -207,7 +194,6 @@ class RelatorioOcorrenciaTransitoState
       setState(() {
         linhaVisivelAc = true;
         semDataAc = ' ';
-//        fraseHoraEscolhida = true;
       });
       _isValid = false;
     }
@@ -687,502 +673,17 @@ class RelatorioOcorrenciaTransitoState
                                               errorText: isMessageValidated
                                                   ? 'Digite uma mensagem!'
                                                   : null),
-
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _mensagem = true;
+                                            });
+                                          },
                                           // controller: _obstextFieldController,
                                           maxLengthEnforced: true,
                                           maxLength: 700,
                                         ),
                                       ),
                                       // SizedBox(height: 20.0),
-                                    ],
-                                  ),
-
-                                  SizedBox(height: 30.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                            'FO23 - Relatório de ocorrência de trânsito',
-                                            textAlign: TextAlign.start,
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.black87,
-                                                fontSize: 19.0,
-                                                fontWeight: FontWeight.w700,
-                                                letterSpacing: 0.7)),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 20),
-                                  //Placa
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.topCenter,
-                                          width: double.infinity,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText: 'Placa',
-                                              labelStyle: TextStyle(
-                                                  fontSize: 13.0,
-                                                  color: Colors.grey[600]),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[600],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[300],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-                                            // key: _placaKey,
-                                            //maxLength: 7,
-//                    controller: TextEditingController(text: '${user.nome}'),
-//                                             validator:
-//                                                 composeValidators('placa', [
-//                                               // requiredValidator,
-//                                               placaValidator
-//                                             ]),
-                                            onSaved: (value) =>
-                                                _loginData.placa = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  // Linha e Sentido
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Container(
-                                          width: halfMediaWidth,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText: 'Linha',
-                                              labelStyle: TextStyle(
-                                                  fontSize: 13.0,
-                                                  color: Colors.grey[600]),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[600],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[300],
-                                                    width: 2.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-                                            // key: _linhaKey,
-                                            validator: composeValidators(
-                                                'linha', [
-                                              requiredValidator,
-                                              stringValidator
-                                            ]),
-                                            onSaved: (value) =>
-                                                _loginData.linha = value,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 8.0,
-                                      ),
-//                                       Expanded(
-//                                         child: Container(
-//                                           alignment: Alignment.topCenter,
-//                                           width: halfMediaWidth,
-//                                           child: TextFormField(
-//                                             decoration: InputDecoration(
-//                                               labelText: 'Sentido',
-//                                               labelStyle: TextStyle(
-//                                                   fontSize: 13.0,
-//                                                   color: Colors.grey[600]),
-//                                               focusedBorder: OutlineInputBorder(
-//                                                 borderSide: BorderSide(
-//                                                     color: Colors.grey[600],
-//                                                     width: 2.0),
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(5.0),
-//                                               ),
-//                                               enabledBorder: OutlineInputBorder(
-//                                                 borderSide: BorderSide(
-//                                                     color: Colors.grey[300],
-//                                                     width: 2.0),
-//                                                 borderRadius:
-//                                                     BorderRadius.circular(5.0),
-//                                               ),
-//                                             ),
-//                                             // key: _sentidoKey,
-// //                    controller: TextEditingController(text: '${user.nome}'),
-//                                             validator:
-//                                                 composeValidators('sentido', [
-//                                               // requiredValidator,
-//                                               stringValidator
-//                                             ]),
-//                                             onSaved: (value) =>
-//                                                 _loginData.sentido = value,
-// //                                        decoration: InputDecoration(hintText: '${user.nome}'),
-//                                           ),
-//                                         ),
-//                                       ),
-                                      Material(
-                                          color: LightColors.neonMedium,
-                                          clipBehavior: Clip.hardEdge,
-                                          borderOnForeground: false,
-                                          child: Container(
-                                            padding:
-                                                const EdgeInsets.only(left: 20),
-                                            width: halfMediaWidth,
-                                            height: 60,
-                                            //aqui
-                                            decoration: BoxDecoration(
-                                              border: new Border(
-                                                  left: BorderSide(
-                                                      color: Colors.grey[300],
-                                                      width: 1.5),
-                                                  right: BorderSide(
-                                                      color: Colors.grey[300],
-                                                      width: 1.5),
-                                                  top: BorderSide(
-                                                      color: Colors.grey[300],
-                                                      width: 1.5),
-                                                  bottom: BorderSide(
-                                                      color: Colors.grey[300],
-                                                      width: 1.5)),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                DropdownButtonHideUnderline(
-                                                  child:
-                                                      DropdownButtonFormField<
-                                                          String>(
-                                                    items: ['Ida', 'Volta']
-                                                        .map((label) =>
-                                                            DropdownMenuItem(
-                                                              child:
-                                                                  Text(label),
-                                                              value: label,
-                                                            ))
-                                                        .toList(),
-
-                                                    dropdownColor: LightColors
-                                                        .neonYellowLight,
-
-                                                    decoration: InputDecoration(
-                                                      enabledBorder:
-                                                          InputBorder.none,
-                                                    ),
-                                                    onChanged: (valSentido) {
-                                                      setState(() {
-                                                        _mySelectionSentido =
-                                                            valSentido;
-                                                      });
-                                                    },
-                                                    value: _mySelectionSentido,
-                                                    isExpanded: true,
-                                                    hint: Text(
-                                                      'Selecione o sentido',
-                                                      style: TextStyle(
-                                                          fontSize: 13.0,
-                                                          color:
-                                                              Colors.grey[600]),
-                                                    ),
-
-                                                    // _dropdownErrorSentido
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )),
-                                    ],
-                                  ),
-                                  //Local do acidente
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextFormField(
-                                          //controller: TextEditingController(text: ''),
-                                          decoration: InputDecoration(
-                                            labelText: 'Local do acidente',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          // key: _localAcKey,
-//                                  controller: TextEditingController(
-//                                      text: '${user.nome}'),
-                                          validator:
-                                              composeValidators('local', [
-                                            requiredValidator,
-                                            // enderecoValidator
-                                          ]),
-                                          onSaved: (value) =>
-                                              _loginData.localAc = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  //Altura/Próximo a
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextFormField(
-                                          //controller: TextEditingController(text: '${user.nome}'),
-                                          decoration: InputDecoration(
-                                            labelText: 'Altura \/ Próximo a ',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          // key: _alturaKey,
-//                                                      validator: composeValidators(
-//                                                          'altura', [
-//                                                        requiredValidator,
-//                                                        enderecoValidator
-//                                                      ]),
-                                          onSaved: (value) =>
-                                              _loginData.altura = value,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  //Motorista
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextFormField(
-                                          //controller: TextEditingController(text: '${user.nome}'),
-                                          decoration: InputDecoration(
-                                            labelText: 'Motorista',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          // key: _motorista1Key,
-//                                  controller: TextEditingController(
-//                                      text: '${user.nome}'),
-                                          validator: composeValidators(
-                                              'motorista', [
-                                            requiredValidator,
-                                            stringValidator
-                                          ]),
-                                          onSaved: (value) =>
-                                              _loginData.motorista1 = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  //Matricula
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Matrícula',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          // key: _matricula1Key,
-                                          keyboardType: TextInputType.number,
-                                          controller: matricula1Controller,
-                                          validator: composeValidators(
-                                              'matricula', [
-                                            requiredValidator,
-                                            numberValidator,
-                                            minLengthValidator
-                                          ]),
-                                          onSaved: (value) =>
-                                              _loginData.matricula1 = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                        ),
-                                      ),
-                                      //SizedBox(width: 3.0,),
-                                    ],
-                                  ),
-                                  //Cobrador
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextFormField(
-                                          //controller: TextEditingController(text: '${user.nome}'),
-                                          decoration: InputDecoration(
-                                            labelText: 'Cobrador',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          // key: _motorista2Key,
-//                                  controller: TextEditingController(
-//                                      text: '${user.nome}'),
-//                                           validator: composeValidators(
-//                                               'motorista', [
-//                                             requiredValidator,
-//                                             stringValidator
-//                                           ]),
-                                          onSaved: (value) =>
-                                              _loginData.motorista2 = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  //Matricula
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            labelText: 'Matrícula',
-                                            labelStyle: TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.grey[600]),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[600],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300],
-                                                  width: 2.0),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                          // key: _matricula3Key,
-                                          keyboardType: TextInputType.number,
-                                          controller: matricula3Controller,
-                                          validator: notRequiredValidators(
-                                              'matrícula', [
-                                            numberValidator,
-                                            minLengthValidator
-                                          ]),
-                                          // composeValidators('matrícula', [
-                                          // requiredValidator,
-                                          // numberValidator,
-                                          // minLengthValidator
-                                          // ]),
-                                          onSaved: (value) =>
-                                              _loginData.matricula2 = value,
-//                                        decoration: InputDecoration(hintText: '${user.nome}'),
-                                        ),
-                                      ),
-                                      //SizedBox(width: 3.0,),
                                     ],
                                   ),
                                 ],
@@ -1205,61 +706,11 @@ class RelatorioOcorrenciaTransitoState
       ButtonDecoration(
         buttonTitle: 'ENVIAR',
         shouldHaveIcon: false,
-        // onPressed: () {
-        //   // Navigator.push(
-        //   //   context,
-        //   //   MaterialPageRoute(
-        //   //       builder: (context) => SelecaoMultiplaTag(
-        //   //             user: user,
-        //   //             token: token,
-        //   //             sol: sol,
-        //   //           )),
-        //   // );
-        //   _validateForm();
-        //   //aqui
-        //   if (ocorrencia == false && _formSOKey.currentState.validate()) {
-        //     final relatorioSucesso = new SnackBar(
-        //         content: new Text('Relatório enviado com sucesso!'));
-        //     _scaffoldKey.currentState.showSnackBar(relatorioSucesso);
-        //     Future.delayed(const Duration(seconds: 3), () {
-        //       setState(() {
-        //         Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //               builder: (context) => DashboardScreen(
-        //                     user: user,
-        //                     token: token,
-        //                     sol: sol,
-        //                   )),
-        //         );
-        //       });
-        //     });
-        //   } else if (_formSOKey.currentState.validate() &&
-        //       _formKey.currentState.validate() &&
-        //       ocorrencia == true) {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //           builder: (context) => SelecaoMultiplaTag(
-        //                 user: user,
-        //                 token: token,
-        //                 sol: sol,
-        //               )),
-        //     );
-        //   } else {
-        //     final semCadastro = new SnackBar(
-        //         content:
-        //             new Text('Preencha todos os campos para prosseguir!'));
-        //     _scaffoldKey.currentState.showSnackBar(semCadastro);
-        //   }
-        // }
-
         onPressed: () {
           _validateForm();
           validateTextField(_textFieldController.text);
           if (_formKey.currentState.validate() //&&
-              // _mySelection != null &&
-              // _mySelectionSentido != null
+
               ) {
             if (ocorrencia == false) {
               showDialog(
@@ -1281,13 +732,13 @@ class RelatorioOcorrenciaTransitoState
                         DashboardScreen(sol: sol, user: user, token: token),
                   ),
                 );
-                //});
               });
-            } else {
+            }
+            if (ocorrencia == true && _mensagem == true) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SelecaoMultiplaTag(
+                    builder: (context) => AnaliseMonitoramentoAcidente(
                           user: user,
                           token: token,
                           sol: sol,
