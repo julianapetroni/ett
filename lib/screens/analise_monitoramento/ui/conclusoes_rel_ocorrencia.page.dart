@@ -68,6 +68,40 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
   int selectedRadioEncaminhar;
   bool _isentoField = false;
   bool _bafometroField = false;
+  bool _depJurJustificativa = false;
+  bool _justDepJur = false;
+  bool _encaminharSeguro = false;
+  bool _encaminharReciclagem = false;
+  bool _encaminharOutros = false;
+
+  bool _isChecked = false;
+  bool _isCheckedSeguro = false;
+  bool _isCheckedReciclagem = false;
+  bool _isCheckedOutros = false;
+
+  void onChanged(bool value) {
+    setState(() {
+      _isChecked = value;
+    });
+  }
+
+  void onChangedSeguro(bool value) {
+    setState(() {
+      _isCheckedSeguro = value;
+    });
+  }
+
+  void onChangedReciclagem(bool value) {
+    setState(() {
+      _isCheckedReciclagem = value;
+    });
+  }
+
+  void onChangedOutros(bool value) {
+    setState(() {
+      _isCheckedOutros = value;
+    });
+  }
 
   @override
   void initState() {
@@ -120,46 +154,6 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
   final _formChassiKey = GlobalKey<FormState>();
   final _formAnoFabrKey = GlobalKey<FormState>();
 
-  List<DataRow> _rowList = [
-    DataRow(cells: <DataCell>[
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-      DataCell(
-        TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-    ]),
-  ];
-
   //tabela conclusao
 
   //radio button para tabela conclusoes
@@ -180,67 +174,7 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
   bool numCPF = false;
   bool idade = false;
 
-  var _isChecked = new List<bool>.filled(10, false);
-
-  void onChanged(bool value) {
-    setState(() {
-      _isChecked[0] = value;
-    });
-  }
-
-  void onChanged2(bool value) {
-    setState(() {
-      _isChecked[1] = value;
-    });
-  }
-
-  void onChanged3(bool value) {
-    setState(() {
-      _isChecked[2] = value;
-    });
-  }
-
-  void onChanged4(bool value) {
-    setState(() {
-      _isChecked[3] = value;
-    });
-  }
-
-  void onChanged5(bool value) {
-    setState(() {
-      _isChecked[4] = value;
-    });
-  }
-
-  void onChanged6(bool value) {
-    setState(() {
-      _isChecked[5] = value;
-    });
-  }
-
-  void onChanged7(bool value) {
-    setState(() {
-      _isChecked[6] = value;
-    });
-  }
-
-  void onChanged8(bool value) {
-    setState(() {
-      _isChecked[7] = value;
-    });
-  }
-
-  void onChanged9(bool value) {
-    setState(() {
-      _isChecked[8] = value;
-    });
-  }
-
-  void onChanged10(bool value) {
-    setState(() {
-      _isChecked[9] = value;
-    });
-  }
+  var checkBoxSeguroValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -780,235 +714,604 @@ class ConclusoesRelOcorrenciaState extends State<ConclusoesRelOcorrencia> {
                       ],
                     ),
                   ),
-                  Row(
-                    children: <Widget>[
-                      Radio(
-                        value: 1,
-                        activeColor: Colors.black87,
-                        groupValue: selectedRadioEncaminhar,
-                        onChanged: (val) {
-                          setState(() {
-                            encaminharJustificativa = true;
-                            encaminharJustificativaOutro = false;
-                            radioButtonItemEncaminhar = 'ONE';
-                            setSelectedRadioEncaminhar(val);
-                          });
-                        },
-                      ),
-                      Flexible(
-                          child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            encaminharJustificativa = true;
-                            encaminharJustificativaOutro = false;
-                            radioButtonItemEncaminhar = 'ONE';
-                            setSelectedRadioEncaminhar(1);
-                          });
-                        },
-                        child: Text('JURÍDICO',
-                            style: TextStyle(
-                                color: Colors.grey[800], fontSize: 14.0)),
-                      )),
-                      Radio(
-                        activeColor: Colors.black87,
-                        value: 2,
-                        groupValue: selectedRadioEncaminhar,
-                        onChanged: (val) {
-                          setState(() {
-                            encaminharJustificativa = true;
-                            encaminharJustificativaOutro = false;
-                            radioButtonItemEncaminhar = 'TWO';
-                            setSelectedRadioEncaminhar(val);
-                          });
-                        },
-                      ),
-                      Flexible(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              encaminharJustificativa = true;
-                              encaminharJustificativaOutro = false;
-                              radioButtonItemEncaminhar = 'TWO';
-                              setSelectedRadioEncaminhar(2);
-                            });
-                          },
-                          child: Text('RECICLAGEM',
-                              style: TextStyle(
-                                  color: Colors.grey[800], fontSize: 14.0)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Radio(
-                        activeColor: Colors.black87,
-                        value: 3,
-                        groupValue: selectedRadioEncaminhar,
-                        onChanged: (val) {
-                          setState(() {
-                            encaminharJustificativa = true;
-                            encaminharJustificativaOutro = false;
-                            radioButtonItemEncaminhar = 'THREE';
-                            setSelectedRadioEncaminhar(val);
-                          });
-                        },
-                      ),
-                      Flexible(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              encaminharJustificativa = true;
-                              encaminharJustificativaOutro = false;
-                              radioButtonItemEncaminhar = 'THREE';
-                              setSelectedRadioEncaminhar(3);
-                            });
-                          },
-                          child: Text('SEGURO',
-                              style: TextStyle(
-                                  color: Colors.grey[800], fontSize: 14.0)),
-                        ),
-                      ),
-                      Radio(
-                        activeColor: Colors.black87,
-                        value: 4,
-                        groupValue: selectedRadioEncaminhar,
-                        onChanged: (val) {
-                          setState(() {
-                            encaminharJustificativaOutro = true;
-                            encaminharJustificativa = false;
-                            radioButtonItemEncaminhar = 'FOUR';
-                            setSelectedRadioEncaminhar(val);
-                          });
-                        },
-                      ),
-                      Flexible(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              encaminharJustificativaOutro = true;
-                              encaminharJustificativa = false;
-                              radioButtonItemEncaminhar = 'FOUR';
-                              setSelectedRadioEncaminhar(4);
-                            });
-                          },
-                          child: Text('OUTROS',
-                              style: TextStyle(
-                                  color: Colors.grey[800], fontSize: 14.0)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Visibility(
-                            visible: encaminharJustificativa,
-                            child: Column(
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.grey[200],
+                          width: double.infinity,
+                          child: FlatButton(
+                            child: Row(
                               children: [
-                                Divider(
-                                  thickness: 0.7,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Container(
-                                    width: width,
-                                    color: Colors.grey[50],
-                                    child: TextFormField(
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        labelText: 'Sinistro n.',
-                                        labelStyle: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            color: Colors.black87),
-                                      ),
+                                Container(
+                                  width: width,
+                                  height: 50,
+                                  child: CheckboxListTile(
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    title: const Text('JURÍDICO',
+                                        style: TextStyle(fontSize: 14.0)),
+                                    activeColor: Colors.black,
+                                    selected: _isChecked,
+                                    value: _isChecked,
+                                    onChanged: (bool value) {
+                                      setState(() {
+                                        _isChecked = value;
+                                        _depJurJustificativa =
+                                            !_depJurJustificativa;
+                                      });
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _depJurJustificativa = !_depJurJustificativa;
+                              });
+                            },
+                          ),
+                        ),
+                        Visibility(
+                          visible: _depJurJustificativa,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  width: width,
+                                  color: Colors.grey[50],
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Sinistro n.',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87),
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          'Justificativa',
-                                          style:
-                                              GoogleFonts.poppins(fontSize: 14),
-                                        ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Justificativa',
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 14),
                                       ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: TextFormField(
-                                              minLines: 5,
-                                              maxLines: 5,
-                                              decoration: InputDecoration(
-                                                  border: InputBorder.none,
-                                                  labelStyle:
-                                                      GoogleFonts.poppins(
-                                                          fontSize: 11))))
-                                    ],
-                                  ),
+                                    ),
+                                    Expanded(
+                                        flex: 4,
+                                        child: TextFormField(
+                                          minLines: 5,
+                                          maxLines: 5,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              labelStyle: GoogleFonts.poppins(
+                                                  fontSize: 11)),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _justDepJur = true;
+                                            });
+                                          },
+                                          onSaved: (value) {
+                                            setState(() {
+                                              _justDepJur = true;
+                                            });
+                                          },
+                                        ))
+                                  ],
                                 ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.grey[200],
+                          width: double.infinity,
+                          child: FlatButton(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: width,
+                                  height: 50,
+                                  child: CheckboxListTile(
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    title: const Text('SEGURO',
+                                        style: TextStyle(fontSize: 14.0)),
+                                    activeColor: Colors.black,
+                                    selected: _isCheckedSeguro,
+                                    value: _isCheckedSeguro,
+                                    onChanged: (bool value) {
+                                      setState(() {
+                                        _isCheckedSeguro = value;
+                                        _encaminharSeguro = !_encaminharSeguro;
+                                      });
+                                    },
+                                  ),
+                                )
                               ],
                             ),
+                            onPressed: () {
+                              setState(() {
+                                _encaminharSeguro = !_encaminharSeguro;
+                              });
+                            },
                           ),
-                          Visibility(
-                            visible: encaminharJustificativaOutro,
-                            child: Column(
-                              children: [
-                                Divider(
-                                  thickness: 0.7,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Container(
-                                    width: width,
-                                    color: Colors.grey[50],
-                                    child: TextFormField(
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        labelText: 'Sinistro n.',
-                                        labelStyle: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            color: Colors.black87),
-                                      ),
+                        ),
+                        Visibility(
+                          visible: _encaminharSeguro,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  width: width,
+                                  color: Colors.grey[50],
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Sinistro n.',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87),
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          'Justificativa',
-                                          style:
-                                              GoogleFonts.poppins(fontSize: 14),
-                                        ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Justificativa',
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 14),
                                       ),
-                                      Expanded(
-                                          flex: 4,
-                                          child: TextFormField(
-                                              minLines: 5,
-                                              maxLines: 5,
-                                              decoration: InputDecoration(
-                                                  border: InputBorder.none,
-                                                  labelStyle:
-                                                      GoogleFonts.poppins(
-                                                          fontSize: 11))))
-                                    ],
-                                  ),
+                                    ),
+                                    Expanded(
+                                        flex: 4,
+                                        child: TextFormField(
+                                            minLines: 5,
+                                            maxLines: 5,
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                labelStyle: GoogleFonts.poppins(
+                                                    fontSize: 11))))
+                                  ],
                                 ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.grey[200],
+                          width: double.infinity,
+                          child: FlatButton(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: width,
+                                  height: 50,
+                                  child: CheckboxListTile(
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    title: const Text('RECICLAGEM',
+                                        style: TextStyle(fontSize: 14.0)),
+                                    activeColor: Colors.black,
+                                    selected: _isCheckedReciclagem,
+                                    value: _isCheckedReciclagem,
+                                    onChanged: (bool value) {
+                                      setState(() {
+                                        _isCheckedReciclagem = value;
+                                        _encaminharReciclagem =
+                                            !_encaminharReciclagem;
+                                      });
+                                    },
+                                  ),
+                                )
                               ],
                             ),
+                            onPressed: () {
+                              setState(() {
+                                _encaminharReciclagem = !_encaminharReciclagem;
+                              });
+                            },
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        Visibility(
+                          visible: _encaminharReciclagem,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  width: width,
+                                  color: Colors.grey[50],
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Sinistro n.',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Justificativa',
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 14),
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex: 4,
+                                        child: TextFormField(
+                                            minLines: 5,
+                                            maxLines: 5,
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                labelStyle: GoogleFonts.poppins(
+                                                    fontSize: 11))))
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.grey[200],
+                          width: double.infinity,
+                          child: FlatButton(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: width,
+                                  height: 50,
+                                  child: CheckboxListTile(
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    title: const Text('OUTROS',
+                                        style: TextStyle(fontSize: 14.0)),
+                                    activeColor: Colors.black,
+                                    selected: _isCheckedOutros,
+                                    value: _isCheckedOutros,
+                                    onChanged: (bool value) {
+                                      setState(() {
+                                        _isCheckedOutros = value;
+                                        _encaminharOutros = !_encaminharOutros;
+                                      });
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _encaminharOutros = !_encaminharOutros;
+                              });
+                            },
+                          ),
+                        ),
+                        Visibility(
+                          visible: _encaminharOutros,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  width: width,
+                                  color: Colors.grey[50],
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      labelText: 'Sinistro n.',
+                                      labelStyle: GoogleFonts.poppins(
+                                          fontSize: 14, color: Colors.black87),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Justificativa',
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 14),
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex: 4,
+                                        child: TextFormField(
+                                            minLines: 5,
+                                            maxLines: 5,
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                labelStyle: GoogleFonts.poppins(
+                                                    fontSize: 11))))
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  // Row(
+                  //   children: <Widget>[
+                  //     Radio(
+                  //       value: 1,
+                  //       activeColor: Colors.black87,
+                  //       groupValue: selectedRadioEncaminhar,
+                  //       onChanged: (val) {
+                  //         setState(() {
+                  //           encaminharJustificativa = true;
+                  //           // encaminharJustificativaReciclagem = false;
+                  //           // encaminharJustificativaSeguro = false;
+                  //           encaminharJustificativaOutro = false;
+                  //           radioButtonItemEncaminhar = 'ONE';
+                  //           setSelectedRadioEncaminhar(val);
+                  //         });
+                  //       },
+                  //     ),
+                  //     Flexible(
+                  //         child: GestureDetector(
+                  //       onTap: () {
+                  //         setState(() {
+                  //           encaminharJustificativa = true;
+                  //           encaminharJustificativaOutro = false;
+                  //           radioButtonItemEncaminhar = 'ONE';
+                  //           setSelectedRadioEncaminhar(1);
+                  //         });
+                  //       },
+                  //       child: Text('JURÍDICO',
+                  //           style: TextStyle(
+                  //               color: Colors.grey[800], fontSize: 14.0)),
+                  //     )),
+                  //     Radio(
+                  //       activeColor: Colors.black87,
+                  //       value: 2,
+                  //       groupValue: selectedRadioEncaminhar,
+                  //       onChanged: (val) {
+                  //         setState(() {
+                  //           encaminharJustificativa = true;
+                  //           encaminharJustificativaOutro = false;
+                  //           radioButtonItemEncaminhar = 'TWO';
+                  //           setSelectedRadioEncaminhar(val);
+                  //         });
+                  //       },
+                  //     ),
+                  //     Flexible(
+                  //       child: GestureDetector(
+                  //         onTap: () {
+                  //           setState(() {
+                  //             encaminharJustificativa = true;
+                  //             encaminharJustificativaOutro = false;
+                  //             radioButtonItemEncaminhar = 'TWO';
+                  //             setSelectedRadioEncaminhar(2);
+                  //           });
+                  //         },
+                  //         child: Text('RECICLAGEM',
+                  //             style: TextStyle(
+                  //                 color: Colors.grey[800], fontSize: 14.0)),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Radio(
+                  //       activeColor: Colors.black87,
+                  //       value: 3,
+                  //       groupValue: selectedRadioEncaminhar,
+                  //       onChanged: (val) {
+                  //         setState(() {
+                  //           encaminharJustificativa = true;
+                  //           encaminharJustificativaOutro = false;
+                  //           radioButtonItemEncaminhar = 'THREE';
+                  //           setSelectedRadioEncaminhar(val);
+                  //         });
+                  //       },
+                  //     ),
+                  //     Flexible(
+                  //       child: GestureDetector(
+                  //         onTap: () {
+                  //           setState(() {
+                  //             encaminharJustificativa = true;
+                  //             encaminharJustificativaOutro = false;
+                  //             radioButtonItemEncaminhar = 'THREE';
+                  //             setSelectedRadioEncaminhar(3);
+                  //           });
+                  //         },
+                  //         child: Text('SEGURO',
+                  //             style: TextStyle(
+                  //                 color: Colors.grey[800], fontSize: 14.0)),
+                  //       ),
+                  //     ),
+                  //     Radio(
+                  //       activeColor: Colors.black87,
+                  //       value: 4,
+                  //       groupValue: selectedRadioEncaminhar,
+                  //       onChanged: (val) {
+                  //         setState(() {
+                  //           encaminharJustificativaOutro = true;
+                  //           encaminharJustificativa = false;
+                  //           radioButtonItemEncaminhar = 'FOUR';
+                  //           setSelectedRadioEncaminhar(val);
+                  //         });
+                  //       },
+                  //     ),
+                  //     Flexible(
+                  //       child: GestureDetector(
+                  //         onTap: () {
+                  //           setState(() {
+                  //             encaminharJustificativaOutro = true;
+                  //             encaminharJustificativa = false;
+                  //             radioButtonItemEncaminhar = 'FOUR';
+                  //             setSelectedRadioEncaminhar(4);
+                  //           });
+                  //         },
+                  //         child: Text('OUTROS',
+                  //             style: TextStyle(
+                  //                 color: Colors.grey[800], fontSize: 14.0)),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // Column(
+                  //   children: [
+                  //     Stack(
+                  //       children: [
+                  //         Visibility(
+                  //           visible: encaminharJustificativa,
+                  //           child: Column(
+                  //             children: [
+                  //               Divider(
+                  //                 thickness: 0.7,
+                  //               ),
+                  //               Padding(
+                  //                 padding: const EdgeInsets.only(top: 20),
+                  //                 child: Container(
+                  //                   width: width,
+                  //                   color: Colors.grey[50],
+                  //                   child: TextFormField(
+                  //                     decoration: InputDecoration(
+                  //                       border: InputBorder.none,
+                  //                       labelText: 'Sinistro n.',
+                  //                       labelStyle: GoogleFonts.poppins(
+                  //                           fontSize: 14,
+                  //                           color: Colors.black87),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               Padding(
+                  //                 padding: const EdgeInsets.only(left: 20),
+                  //                 child: Row(
+                  //                   children: [
+                  //                     Expanded(
+                  //                       flex: 2,
+                  //                       child: Text(
+                  //                         'Justificativa',
+                  //                         style:
+                  //                             GoogleFonts.poppins(fontSize: 14),
+                  //                       ),
+                  //                     ),
+                  //                     Expanded(
+                  //                         flex: 4,
+                  //                         child: TextFormField(
+                  //                             minLines: 5,
+                  //                             maxLines: 5,
+                  //                             decoration: InputDecoration(
+                  //                                 border: InputBorder.none,
+                  //                                 labelStyle:
+                  //                                     GoogleFonts.poppins(
+                  //                                         fontSize: 11))))
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         Visibility(
+                  //           visible: encaminharJustificativaOutro,
+                  //           child: Column(
+                  //             children: [
+                  //               Divider(
+                  //                 thickness: 0.7,
+                  //               ),
+                  //               Padding(
+                  //                 padding: const EdgeInsets.only(top: 20),
+                  //                 child: Container(
+                  //                   width: width,
+                  //                   color: Colors.grey[50],
+                  //                   child: TextFormField(
+                  //                     decoration: InputDecoration(
+                  //                       border: InputBorder.none,
+                  //                       labelText: 'Sinistro n.',
+                  //                       labelStyle: GoogleFonts.poppins(
+                  //                           fontSize: 14,
+                  //                           color: Colors.black87),
+                  //                     ),
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               Padding(
+                  //                 padding: const EdgeInsets.only(left: 20),
+                  //                 child: Row(
+                  //                   children: [
+                  //                     Expanded(
+                  //                       flex: 2,
+                  //                       child: Text(
+                  //                         'Justificativa',
+                  //                         style:
+                  //                             GoogleFonts.poppins(fontSize: 14),
+                  //                       ),
+                  //                     ),
+                  //                     Expanded(
+                  //                         flex: 4,
+                  //                         child: TextFormField(
+                  //                             minLines: 5,
+                  //                             maxLines: 5,
+                  //                             decoration: InputDecoration(
+                  //                                 border: InputBorder.none,
+                  //                                 labelStyle:
+                  //                                     GoogleFonts.poppins(
+                  //                                         fontSize: 11))))
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
