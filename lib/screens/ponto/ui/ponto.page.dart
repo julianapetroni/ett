@@ -358,16 +358,21 @@ class CartaoDePontoState extends State<CartaoDePonto> {
   }
 
   Future<void> _getCurrentLocation() async {
-    final position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print(position);
+    // se o usuário não aceitar partilhar a geolocalização ou se alguma exceção ocorrer
+    try {
+      final position = await Geolocator()
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      print(position);
 
-    setState(() {
-      _locationMessage = "${position.latitude}, ${position.longitude}";
-      position.latitude == -23.540299 && position.longitude == -46.833385
-          ? _naETT = "ETT Carapicuíba"
-          : _naETT = "Fora da empresa";
-    });
+      setState(() {
+        _locationMessage = "${position.latitude}, ${position.longitude}";
+        position.latitude == -23.540299 && position.longitude == -46.833385
+            ? _naETT = "ETT Carapicuíba"
+            : _naETT = "Fora da empresa";
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }
 

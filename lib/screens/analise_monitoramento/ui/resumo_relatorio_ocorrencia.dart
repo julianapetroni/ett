@@ -26,28 +26,28 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../../dashboard/ui/dasboard.page.dart';
 import 'package:flutter/widgets.dart';
 
-class ResumoRelatorioOcorrenciaTransito extends StatefulWidget {
+class ResumoAnaliseDeMonitoramento extends StatefulWidget {
   Solicitacao sol;
   Usuario user;
   Token token;
 
-  ResumoRelatorioOcorrenciaTransito({Key key, this.sol, this.user, this.token})
+  ResumoAnaliseDeMonitoramento({Key key, this.sol, this.user, this.token})
       : super(key: key);
 
   @override
-  ResumoRelatorioOcorrenciaTransitoState createState() {
-    return ResumoRelatorioOcorrenciaTransitoState(
+  ResumoAnaliseDeMonitoramentoState createState() {
+    return ResumoAnaliseDeMonitoramentoState(
         sol: sol, user: user, token: token);
   }
 }
 
-class ResumoRelatorioOcorrenciaTransitoState
-    extends State<ResumoRelatorioOcorrenciaTransito> {
+class ResumoAnaliseDeMonitoramentoState
+    extends State<ResumoAnaliseDeMonitoramento> {
   Solicitacao sol;
   Usuario user;
   Token token;
 
-  ResumoRelatorioOcorrenciaTransitoState({this.sol, this.user, this.token});
+  ResumoAnaliseDeMonitoramentoState({this.sol, this.user, this.token});
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 

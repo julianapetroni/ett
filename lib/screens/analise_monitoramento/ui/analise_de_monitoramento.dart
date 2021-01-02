@@ -30,27 +30,26 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../../dashboard/ui/dasboard.page.dart';
 import 'package:flutter/widgets.dart';
 
-class RelatorioOcorrenciaTransito extends StatefulWidget {
+class AnaliseDeMonitoramento extends StatefulWidget {
   Solicitacao sol;
   Usuario user;
   Token token;
 
-  RelatorioOcorrenciaTransito({Key key, this.sol, this.user, this.token})
+  AnaliseDeMonitoramento({Key key, this.sol, this.user, this.token})
       : super(key: key);
 
   @override
-  RelatorioOcorrenciaTransitoState createState() {
-    return RelatorioOcorrenciaTransitoState(sol: sol, user: user, token: token);
+  AnaliseDeMonitoramentoState createState() {
+    return AnaliseDeMonitoramentoState(sol: sol, user: user, token: token);
   }
 }
 
-class RelatorioOcorrenciaTransitoState
-    extends State<RelatorioOcorrenciaTransito> {
+class AnaliseDeMonitoramentoState extends State<AnaliseDeMonitoramento> {
   Solicitacao sol;
   Usuario user;
   Token token;
 
-  RelatorioOcorrenciaTransitoState({this.sol, this.user, this.token});
+  AnaliseDeMonitoramentoState({this.sol, this.user, this.token});
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -152,7 +151,6 @@ class RelatorioOcorrenciaTransitoState
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        //locale: Locale("pt"),
         initialDate: selectedDate,
         firstDate: DateTime(2000, 8),
         lastDate: DateTime(2101));
@@ -735,15 +733,26 @@ class RelatorioOcorrenciaTransitoState
               });
             }
             if (ocorrencia == true && _mensagem == true) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AnaliseMonitoramentoAcidente(
-                          user: user,
-                          token: token,
-                          sol: sol,
-                        )),
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialogForm(
+                    textAlert: 'Formulário registrado com sucesso!',
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  );
+                },
               );
+              Future.delayed(const Duration(milliseconds: 3000), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DashboardScreen(sol: sol, user: user, token: token),
+                  ),
+                );
+              });
             }
           } else {
             final semCadastro = new SnackBar(

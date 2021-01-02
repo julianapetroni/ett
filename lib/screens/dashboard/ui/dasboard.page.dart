@@ -1,5 +1,6 @@
 import 'package:ett_app/domains/solicitacao.dart';
 import 'package:ett_app/domains/usuario.dart';
+import 'package:ett_app/screens/analise_monitoramento/ui/analise_de_monitoramento_acidente.dart';
 import 'package:ett_app/screens/comunicado_interno/ui/comunicado_interno.page.dart';
 import 'package:ett_app/screens/todos_relatorios/ui/comunicado_interno_grupo.dart';
 import 'package:ett_app/screens/alterar_escala/ui/consultar/consultar_alteracao_escala.page.dart';
@@ -101,16 +102,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ComunicadoInternoGrupo(
                                   user: user, token: token, sol: sol)),
                           makeDashboardItem(
-                              "Frequência de Linha",
-                              Icons.directions_bus,
-                              //CupertinoExample()),
-
-                              ControleDeFrequenciaDeLinha(
-                                  user: user, sol: sol, token: token)),
-                          makeDashboardItem(
                               "Análise de Monitoramento",
                               Icons.assignment,
-                              RelatorioOcorrenciaTransito(
+                              AnaliseDeMonitoramento(
+                                  user: user, sol: sol, token: token)),
+                          makeDashboardItem(
+                              "Ocorrência de trânsito",
+                              Icons.campaign_sharp,
+                              OcorrenciaTransito(
                                   user: user, sol: sol, token: token)),
                           makeDashboardItem(
                               "Enviar Alteração de Escala",
@@ -124,7 +123,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 user: user,
                                 token: token,
                                 sol: sol,
-                              ))
+                              )),
+                          makeDashboardItem(
+                              "Frequência de Linha",
+                              Icons.directions_bus,
+                              ControleDeFrequenciaDeLinha(
+                                  user: user, sol: sol, token: token)),
                         ],
                       ),
                     ),
@@ -143,7 +147,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         elevation: 1.0,
         margin: new EdgeInsets.all(8.0),
         shape: RoundedRectangleBorder(
-          //side: BorderSide(color: Colors.white70, width: 1),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Container(
@@ -152,7 +155,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             color: LightColors.neonETT.withOpacity(0.1),
             borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
           ),
-          //BoxDecoration(color: LightColors.neonETT),
           child: new InkWell(
             onTap: () {
               Navigator.push(
@@ -179,12 +181,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       title,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(fontSize: 16),
-//                        style: new TextStyle(
-////                            fontSize: 13.0,
-////                            color: Colors.black87,
-////                            letterSpacing: 1
-//
-//                        )
                     ),
                   ),
                 )
